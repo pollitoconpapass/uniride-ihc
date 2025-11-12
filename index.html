@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniRide</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link rel="icon" href="./assets/imgs/uniride-wo-text.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="./assets/imgs/uniride-wo-text.png" alt="Logo UniRide">
+                <h1>UniRide</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i>Inicio</a>
+                <a href="./pages/quienes_somos.html" class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-1.44-1.44c-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-1.78-1.78-4.72-1.78-6.5 0s-1.78 4.72 0 6.5c1.78 1.78 4.72 1.78 6.5 0l1.06-1.06c.39-.39 1.02-.39 1.41 0l1.44 1.44c1.78 1.78 4.72 1.78 6.5 0s1.78-4.72 0-6.5z"/></svg> Quienes Somos?</a>
+                <a href="./pages/contactanos.html" class="nav-item"><svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-7 12c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-8c0 2-1.67 3.5-3 3.5S9 12 9 10c0-2 1.67-3.5 3-3.5S15 8 15 10z"/></svg> Contáctanos</a>
+                <button class="btn btn-primary" type="button" onclick="window.location.href='pages/gestion-usuario-perfiles/registrarse_1.html'"><svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> Registrarse</button>
+                <button class="btn btn-secondary" type="button" onclick="window.location.href='pages/gestion-usuario-perfiles/iniciar_sesion_1.html'"><svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> Iniciar Sesión</button>
+            </nav>
+        </div>
+    </header>
+
+<section class="hero">
+    <div class="hero-image animate-fade-in-up">
+        <img src="./assets/imgs/alumnos_en_carro.png" alt="Estudiantes en auto">
+    </div>
+    <div class="hero-content animate-fade-in-up">
+        <h2>Conduce y comparte con tu comunidad universitaria</h2>
+        <p>Descubre una forma más segura y sostenible de viajar. Conecta con otros estudiantes, comparte tus rutas diarias, reduce tus gastos y contribuye a una movilidad universitaria más eficiente.</p>
+        <button class="btn_unete btn-primary">Únete a la comunidad</button>
+    </div>
+</section>
+
+    <section class="how-it-works">
+        <h2 class="section-title">¿Cómo funciona UniRide?</h2>
+        <div class="steps">
+            <div class="step animate-fade-in-up">
+                <div class="step-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                    </svg>
+                </div>
+                <h3>Regístrate con tu correo universitario</h3>
+                <p>Verifica tu cuenta con tu correo institucional para garantizar seguridad y confianza en nuestra comunidad.</p>
+            </div>
+            <div class="step animate-fade-in-up">
+                <div class="step-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm16 2H2v2h20v-2zm-8 4c1.66 0 2.99-1.34 2.99-3S17.66 15 16 15c-1.66 0-3 1.34-3 3s1.34 3 3 3z"/>
+                    </svg>
+                </div>
+                <h3>Elige si quieres conducir o viajar</h3>
+                <p>Decide si deseas ofrecer un espacio en tu vehículo o buscar un conductor para tu trayecto diario.</p>
+            </div>
+            <div class="step animate-fade-in-up">
+                <div class="step-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                </div>
+                <h3>Conecta con compañeros y comparte tu ruta</h3>
+                <p>Encuentra estudiantes con rutas similares, coordina horarios y viaja juntos de forma segura y económica.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2 class="section-title">Testimonios</h2>
+        <div class="testimonial-cards">
+            <div class="testimonial-card animate-fade-in-up">
+                <div class="testimonial-avatar">
+                    <img src="./assets/imgs/juan_huaman.png" alt="Juan Huaman">
+                </div>
+                <h3 class="testimonial-name">Juan Huaman</h3>
+                <p class="testimonial-text">Antes gastaba mucho en transporte. Ahora comparto ruta con compañeros de mi facultad y llegamos juntos a clases. Es más económico y seguro.</p>
+            </div>
+            <div class="testimonial-card animate-fade-in-up">
+                <div class="testimonial-avatar">
+                    <img src="./assets/imgs/camila_torres.png" alt="Camila Torres">
+                </div>
+                <h3 class="testimonial-name">Camila Torres</h3>
+                <p class="testimonial-text">Me encanta la confianza que se genera. Siempre viajo con otros estudiantes y el sistema me sugiere las mejores rutas según mis horarios.</p>
+            </div>
+            <div class="testimonial-card animate-fade-in-up">
+                <div class="testimonial-avatar">
+                    <img src="./assets/imgs/diego_ramos.png" alt="Diego Ramos">
+                </div>
+                <h3 class="testimonial-name">Diego Ramos</h3>
+                <p class="testimonial-text">Ser conductor en UniRide me ha ayudado a cubrir mis gastos y conocer gente nueva. Todo está organizado y es fácil coordinar cada viaje.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <h2 class="section-title">Preguntas frecuentes</h2>
+        <div class="faq-items">
+            <div class="faq-item animate-fade-in-up">
+                <div class="faq-question">¿UniRide es gratuito?</div>
+                <div class="faq-answer">Sí, registrarte y usar la plataforma no tiene costo. Solo compartes los gastos del viaje con otros estudiantes.</div>
+            </div>
+            <div class="faq-item animate-fade-in-up">
+                <div class="faq-question">¿Quiénes pueden usar UniRide?</div>
+                <div class="faq-answer">Solo estudiantes verificados de universidades de Lima Metropolitana, para garantizar seguridad y confianza.</div>
+            </div>
+            <div class="faq-item animate-fade-in-up">
+                <div class="faq-question">¿Qué medidas de seguridad tiene UniRide?</div>
+                <div class="faq-answer">Todos los usuarios deben registrarse con su correo universitario y completar su perfil antes de viajar.</div>
+            </div>
+            <div class="faq-item animate-fade-in-up">
+                <div class="faq-question">¿Cómo encuentro una ruta compatible?</div>
+                <div class="faq-answer">El sistema te sugiere conductores o pasajeros con horarios y trayectos similares al tuyo.</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <img src="./assets/imgs/uniride-logo-wo-text-dark.png" alt="Logo UniRide">
+                    <h3>UniRide</h3>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">Políticas</h3>
+                <a href="#" class="footer-link">Términos y condiciones</a>
+                <a href="#" class="footer-link">Política de privacidad</a>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">Contáctanos</h3>
+                <p class="footer-link">Canales De Atención</p>
+                <p class="footer-link">+511 616 9080</p>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">Síguenos</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">
+                        <img src="./assets/imgs/facebook_logo.png" alt="facebook logo" style="width:24px; height:24px;">
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="./assets/imgs/instagram_logo.png" alt="instagram logo" style="width:24px; height:24px;">
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="./assets/imgs/twitter_logo.png" alt="twitter logo" style="width:24px; height:24px;">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            @Copyright 2025 UniRide - All Rights Reserved. Lima.Peru
+        </div>
+    </footer>
+
+    <script src="./js/main.js"> 
+    </script>
+</body>
+</html>
