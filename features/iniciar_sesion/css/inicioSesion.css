@@ -1,0 +1,155 @@
+@import url("../../../styles.css");
+
+*{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+body {
+    display:flex;
+    justify-content: center;
+    align-items: center; 
+    height:100%;
+    width: 100%;
+    background-color:#C8C9E6;
+}
+
+.group-logo-card{
+    width: 60%;
+    height: 70%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+}
+.logo{
+    display: flex;
+    border-radius: 20px 0 0 20px;
+    background-image: url("../../../assets/imgs/image-uniride-login.png");
+    background-position: center;
+    background-size: cover;
+}
+.card{
+    border-radius: 0 20px 20px 0;
+    background-color: var(--white);
+    height: 100%;
+}
+.card form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding:10px;
+    box-sizing: border-box;
+    gap: 30px;
+}
+
+.card label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    gap: 5px;
+}
+
+.card input{
+  display: flex;
+  padding-left: 12px;
+  box-sizing: border-box;
+}
+
+.card p{
+  color:var(--gray-600);
+}
+
+.card input{
+  border-radius: 10px;
+  border: 1px solid;
+  font-family: 'Montserrat';
+  font-weight: 200;
+  font-size: 16px;
+}
+
+.btn-iniciar-sesion{
+  background-color: var(--accent-color);
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  height: 100%;
+  border-radius: 10px;
+  border: none;
+  color: var(--white);
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 16px;
+}
+
+
+.group-logo-btn{
+    display: flex;
+    flex-direction: row;
+    height: 20%;
+    box-sizing: border-box;
+}
+.btn_back{
+  display: flex;
+  width: 10%;
+  object-fit: contain;
+  border:none;
+  background-color: transparent;
+}
+.btn-back-icon{
+  width: 100%;
+  height: 20%;
+}
+.logo-uniride-image{
+    width: 90%;
+    height:auto;
+    object-fit: contain;
+}
+.group-title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 5px;
+}
+.group-register{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+}
+.redireccion_register{
+  color: var(--black);
+  text-decoration: none;
+}
+
+@media  (max-width:430px) {
+  .body{
+    padding: 0px;
+  }
+  .group-logo-card{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .logo{
+    width: 0%;
+    height: 0%;
+    display: flex;
+  }
+  .card{
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}
