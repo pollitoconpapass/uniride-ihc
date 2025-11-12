@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniRide</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link rel="icon" href="../../../assets/imgs/uniride-wo-text.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/registro.css">
+</head>
+<body>
+    <div class="group-form-btn">
+        <button class="contenedor-icon">
+            <img class="retroceder_icon" src="../../../assets/icons/retroceder_icon.svg" alt="">
+        </button>
+        <form class="registrate-form-1" name="registrate-form-1">
+            <div class="group-title">
+                <h1>Registrarse</h1>
+                <p>Ingrese tus datos personales</p>
+            </div>
+         <div class="group-inputs">
+            <div class="group-input-1">
+                <label for="nombres">
+                    Nombres
+                    <input type="text" placeholder="Ingrese sus nombres" name="input-nombres" />
+                </label>
+                <label for="apellido-materno">
+                    Apellido Materno
+                    <input type="text" placeholder="Ingrese su apellido materno" name="input-apellido-materno" />
+                </label>
+                <label for="nro-celular">
+                    Nro de Celular
+                    <input type="text" placeholder="Ingrese su numero de celular" name="input-numero-celular" />
+                </label>
+                <label for="universidad">
+                    Universidad
+                    <select name="universidades" id="id_universidad" placeholder="Seleccione su universidad">
+                        <option value ="upc">Universidad Peruana de Ciencias Aplicadas</option>
+                        <option value ="ulima">Universidad de Lima</option>
+                        <option value ="pucp">Pontificia Universidad Catolica Peruana</option>
+                        <option value ="sanmarcos">Universidad San Narcos</option>
+                        <option value ="uni">Universidad Nacional de Ingenieria</option>
+                    </select>
+                </label>
+            </div>
+            <div class="group-input-2">
+                 <label for="apellido-paterno">
+                    Apellido Paterno
+                    <input type="text" placeholder="Ingrese su apellido paterno" name="input-apellido-paterno" />
+                </label>
+                <label for="fecha-nacimiento">
+                    Fecha de Nacimiento
+                    <input type="date" name="bday" />
+                </label>
+                <label for="direccion-domicilio">
+                    Direccion de Domicilio
+                    <input type="text" placeholder="Ingrese su direccion" name="input-direccion-domicilio" />
+                </label>
+                <label for="carrera">
+                    Carrera
+                    <select name="carreras" id="id_carrera" placeholder="Ingrese su carrera">
+                        <option value ="administracion">Administracion</option>
+                        <option value ="software">Ingenieria de Software</option>
+                        <option value ="sistemas">Ingenieria de Sistemas</option>
+                        <option value ="derecho">Derecho</option>
+                        <option value ="cs">Ciencias de la Computacion</option>
+                    </select>
+                </label>
+            </div>
+         </div> 
+            <button class="contenedor-next-icon" href="#">
+                <img class="next-icon" src="../../../assets/icons/continuar_icon.svg" alt="">
+            </button>
+        </form>
+    </div>
+  </body>
