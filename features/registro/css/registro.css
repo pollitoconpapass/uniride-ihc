@@ -316,6 +316,51 @@ body {
     transition: all 0.15s ease-out;
 }
 
+.group-btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    box-sizing: border-box;
+}
+
+.group-btns button{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: 2px var(--black);
+    background: none;
+}
+.contenedor-adjuntar-img{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    gap: 5px;
+    background: none;
+    border: 2px var(--black);
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.contenedor-adjuntar-img img{
+    display: flex;
+    height: 60%;
+    object-fit: contain;
+    justify-content: center;
+    align-items: center;
+}
+.contenedor-adjuntar-img p{
+    display: flex;
+    height: fit-content;
+    object-fit: contain;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (max-width: 430px) {
   .body{
     padding: 0px;
