@@ -5,9 +5,11 @@
     <meta charset="utf-8" />
     <title>UniRide - Conductor</title>
     <link rel="stylesheet" href="../../../styles.css" />
+    <link rel="stylesheet" href="../css/principal.css">
 </head>
 
 <body>
+    <!-- SIDEBAR-->
     <div class="sidebar">
         <div>
             <div class="sidebar-header">
@@ -21,46 +23,92 @@
             <div class="menu-title">MENU</div>
             
             <div class="sidebar-nav">
-                <div class="nav-item-sidebar active" onclick="window.location.href='../principal_page_conductor.html'">
+                <div class="nav-item-sidebar active" onclick="window.location.href='./principalConductor.html'">
                     <img src="../../../assets/icons/principal_icon_active_sidebar.svg" alt="Home">
                     Principal
                 </div>
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='../viaje_conductor.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/viajes.html'">
                     <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
                     <span>Viajes</span>
                 </div>
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='../rutas/rutas_general.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../rutas/pages/rutas.html'">
                     <img src="../../../assets/icons/gestion_de_rutas_desactivado_sidebar.svg" alt="Routes">
                     <span>Gestion de Rutas</span>
                 </div>
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../GestionViajesUsuario/comunicacion_chat.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../comunicacion/pages/comunicacion.html'">
                     <img src="../../../assets/icons/comunicacion_icon_deactive_sidebar.svg" alt="Chat">
                     <span>Comunicación</span>
                 </div>
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='./compensaciones_conductor.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../compensaciones/pages/compensaciones.html'">
                     <img src="../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
                     <span>Compensaciones y Pagos</span>
                 </div>
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../Dashboard.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../reportes/pages/reportes.html'">
                     <img src="../../../assets/icons/reportes_icon_deactive_sidebar.svg" alt="Report">
                     <span>Reportes</span>
                 </div>
                 
-                <div class="nav-item-sidebar">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracion.html'">
                     <img src="../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
                     <span>Configuración</span>
                 </div>
             </div>
         </div>
         
-        <div class="sidebar-footer">
+        <div class="sidebar-footer" onclick="window.location.href='../../iniciar_sesion/pages/inicioSesion.html'">
             <img src="../../../assets/icons/exit_icon_sidebar.svg" alt="Logout">
             Cerrar Sesión
         </div>
     </div>
+
+    <main class="main-content">
+        <h2>Buenos Días, Carlos 👋</h2>
+
+        <section class="general-info">
+            <h3>Información General</h3>
+
+            <div class="stats-section">
+                <div class="chart">
+                    <canvas id="tripChart"></canvas>
+                </div>
+
+                <div class="user-card">
+                    <h4>Sobre Ti</h4>
+                    <p><strong>Nombre:</strong> <span id="nombre">Carlos Mendoza Ying</span></p>
+                    <p><strong>Carrera:</strong> <span id="carrera">Marketing</span></p>
+                    <p><strong>Universidad:</strong> <span id="universidad">Universidad de Lima</span></p>
+                    <p><strong>Vehículo:</strong> <span id="vehiculo">Toyota Raize - Rojo</span></p>
+                    <p><strong>Placa:</strong> <span id="placa">A5H-316</span></p>
+                    <p><strong>Total de Viajes:</strong> <span id="totalViajes"></span></p>
+                    <p><strong>Calificación Promedio:</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="next-trips">
+        <h3>Próximos Viajes</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Fecha y Hora</th>
+                <th>Ruta</th>
+                <th>Pasajeros</th>
+                <th>Solicitudes</th>
+                <th>Detalles</th>
+            </tr>
+            </thead>
+            <tbody id="tripsTableBody">
+            </tbody>
+        </table>
+        <button id="addTripBtn">Agregar Viaje</button>
+        </section>
+  </main>
+
+  <script src="../js/principalConductor.js""></script>
+
 </body>
