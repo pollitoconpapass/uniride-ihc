@@ -3,20 +3,20 @@ const btnCardPasajero = document.getElementById("cardPasajero");
 
 btnCardConductor.addEventListener("click", function () {
     // Activar Conductor
-    btnCardConductor.classList.add("btn-seleccionar-rol-seleccionado");
-
+    btnCardConductor.classList.add("btn-masiva-seleccionado");
+    
     // Desactivar Pasajero
-    btnCardPasajero.classList.remove("btn-seleccionar-rol-seleccionado");
+    btnCardPasajero.classList.remove("btn-masiva-seleccionado");
 
     console.log("Botón Conductor presionado");
 });
 
 btnCardPasajero.addEventListener("click", function () {
     // Activar Pasajero
-    btnCardPasajero.classList.add("btn-seleccionar-rol-seleccionado");
+    btnCardPasajero.classList.add("btn-masiva-seleccionado");
 
     // Desactivar Conductor
-    btnCardConductor.classList.remove("btn-seleccionar-rol-seleccionado");
+    btnCardConductor.classList.remove("btn-masiva-seleccionado");
 
     console.log("Botón Pasajero presionado");
 });

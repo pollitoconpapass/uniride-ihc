@@ -297,7 +297,7 @@ body {
 }
 
 .card-pasajero{
-    background-color: #A0A1C8;   
+    background-color: #A0A1C8; 
     color:var(--black);
     border-radius: 10px;
     padding: 10px;
@@ -315,14 +315,19 @@ body {
     background-color: #d0d0d0;
     transition: all 0.15s ease-out;
 }
-
+.btn-masiva-seleccionado{
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2) inset;
+    transition: all 0.15s ease-out;
+    background-color: #A0A1C8;
+}
 .group-btns{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 5px;
-    box-sizing: border-box;
+    box-sizing: border-box;    
 }
 
 .group-btns button{
@@ -330,9 +335,9 @@ body {
     font-size: 16px;
     font-weight: 600;
     border-radius: 10px;
-    border: 2px var(--black);
-    background: none;
 }
+
+
 .contenedor-adjuntar-img{
     display: flex;
     flex-direction: column;
@@ -341,7 +346,6 @@ body {
     height: 50%;
     gap: 5px;
     background: none;
-    border: 2px var(--black);
     border-radius: 10px;
     box-sizing: border-box;
 }
