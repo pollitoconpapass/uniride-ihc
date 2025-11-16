@@ -28,10 +28,9 @@
   transition: background-color 0.2s ease;
 }
 .add-trip-btn:hover {
-  background-color: #4338ca; /* un tono más oscuro del acento */
+  background-color: #4338ca; 
 }
 
-/* Alinear título y botón en la misma línea */
 .header {
   display: flex;
   justify-content: space-between;
@@ -72,7 +71,7 @@ td {
   text-align: left;
   font-size: 0.95rem;
   vertical-align: middle;
-  word-break: break-word; /* Evita que texto largo se desborde */
+  word-break: break-word; 
 }
 
 th {
@@ -84,7 +83,6 @@ th {
   font-size: 0.85rem;
 }
 
-/* Alternar filas para mejor legibilidad */
 tbody tr {
   border-bottom: 1px solid var(--gray-200);
 }
@@ -93,7 +91,7 @@ tbody tr:last-child {
 }
 
 tbody tr:hover {
-  background-color: var(--gray-50); /* color muy claro al pasar el mouse */
+  background-color: var(--gray-50); 
 }
 
 .empty-table-message {
@@ -101,6 +99,90 @@ tbody tr:hover {
   padding: 24px;
   color: var(--gray-500);
   font-style: italic;
+}
+
+/*Form al agregar viaje*/
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  width: 60%;
+  max-width: 850px;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.25);
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.form-columns {
+  display: flex;
+  gap: 20px;
+}
+
+.left-column, .right-column {
+  width: 50%;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Botones */
+.btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-cancel {
+  background: #ccc;
+}
+
+.btn-add {
+  background: #2774f0;
+  color: white;
+}
+
+.btn-add:hover {
+  background: #1d5ec0;
 }
 
 

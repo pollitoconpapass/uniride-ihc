@@ -7,10 +7,12 @@
     <link rel="stylesheet" href="../../../styles.css" />
     <link rel="stylesheet" href="../css/viajes_conductor.css" />
 </head>
+
 <body>
-    <div class="viajes-conductor">
-        <!-- Menú lateral -->
-        <div class="sidebar">
+<div class="viajes-conductor">
+
+    <!-- Menú lateral -->
+    <div class="sidebar">
         <div>
             <div class="sidebar-header">
                 <img src="../../../assets/imgs/user_carlos.png" alt="User Avatar">
@@ -19,118 +21,174 @@
                     <p style="color: #aaa; font-size: 12px; margin: 0;">+51 98970564</p>
                 </div>
             </div>
-            
+
             <div class="menu-title">MENU</div>
-            
+
             <div class="sidebar-nav">
-                <div class="nav-item-sidebar active" onclick="window.location.href='./principalConductor.html'">
+
+                <div class="nav-item-sidebar" onclick="window.location.href='./principalConductor.html'">
                     <img src="../../../assets/icons/principal_icon_active_sidebar.svg" alt="Home">
                     Principal
                 </div>
-                
-                <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/viajes.html'">
+
+                <div class="nav-item-sidebar active" onclick="window.location.href='../../viajes/pages/viajes.html'">
                     <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
                     <span>Viajes</span>
                 </div>
-                
+
                 <div class="nav-item-sidebar" onclick="window.location.href='../../rutas/pages/rutas.html'">
                     <img src="../../../assets/icons/gestion_de_rutas_desactivado_sidebar.svg" alt="Routes">
-                    <span>Gestion de Rutas</span>
+                    <span>Gestión de Rutas</span>
                 </div>
-                
+
                 <div class="nav-item-sidebar" onclick="window.location.href='../../comunicacion/pages/comunicacion.html'">
                     <img src="../../../assets/icons/comunicacion_icon_deactive_sidebar.svg" alt="Chat">
                     <span>Comunicación</span>
                 </div>
-                
+
                 <div class="nav-item-sidebar" onclick="window.location.href='../../compensaciones/pages/compensaciones.html'">
                     <img src="../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
                     <span>Compensaciones y Pagos</span>
                 </div>
-                
+
                 <div class="nav-item-sidebar" onclick="window.location.href='../../reportes/pages/reportes.html'">
                     <img src="../../../assets/icons/reportes_icon_deactive_sidebar.svg" alt="Report">
                     <span>Reportes</span>
                 </div>
-                
+
                 <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracion.html'">
                     <img src="../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
                     <span>Configuración</span>
                 </div>
+
             </div>
         </div>
-        
+
         <div class="sidebar-footer" onclick="window.location.href='../../iniciar_sesion/pages/inicioSesion.html'">
             <img src="../../../assets/icons/exit_icon_sidebar.svg" alt="Logout">
             Cerrar Sesión
         </div>
     </div>
 
-        
-        <main class="main-content">
-            <header class="header">
-                <h1 class="page-title">Mis Viajes</h1>
-                <button class="add-trip-btn" id="addTripBtn">Agregar Viaje</button>
-            </header>
-            
-            <!-- Viajes Planeados -->
-            <section class="section">
-                 <h3>Viajes planeados</h3>
-                <table>
-                <thead>
-                <tr>
-                <th>Fecha de salida</th>
-                <th>Hora</th>
-                <th>Ruta seleccionada</th>
-                <th>Cantidad de pasajeros</th>
-                <th>Solicitudes</th>
-                <th>Ver más detalles</th>
-                <tr>
-  </td>
-</tr>
-            </tr>
-            </thead>
-            <tbody id="viajes_planeados_total">
-                <!-- Ejemplo en "Viajes planeados" si no hay datos -->
-<tbody id="viajes_planeados_total">
-  <tr>
-    <td colspan="6" class="empty-table-message">
-      No tienes viajes planeados por el momento.
-    </td>
-  </tr>
-</tbody>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content">
 
-            </tbody>
-        </table>
-        
+        <header class="header">
+            <h1 class="page-title">Mis Viajes</h1>
+            <button class="add-trip-btn" id="addTripBtn">Agregar Viaje</button>
+        </header>
+
+        <!-- VIAJES PLANEADOS -->
+        <section class="section">
+            <h3>Viajes Planeados</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha de salida</th>
+                        <th>Hora</th>
+                        <th>Ruta seleccionada</th>
+                        <th>Cantidad de pasajeros</th>
+                        <th>Solicitudes</th>
+                        <th>Ver más detalles</th>
+                    </tr>
+                </thead>
+
+                <tbody id="viajes_planeados_total">
+                    <tr>
+                        <td colspan="6" class="empty-table-message">
+                            No tienes viajes planeados por el momento.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
         </section>
 
-            </section>
-            
-            <!-- Viajes Pasados -->
-            <section class="section">
-                <h3>Viajes pasados</h3>
-                <table>
-                <thead>
-                <tr>
-                <th>Fecha de salida</th>
-                <th>Hora</th>
-                <th>Ruta seleccionada</th>
-                <th>Cantidad de pasajeros</th>
-            </tr>
-            </thead>
-            <tbody id="viajes_pasados_total">
-  <tr>
-    <td colspan="6" class="empty-table-message">
-      No tienes viajes pasados aún.
-    </td>
-  </tr>
-</tbody>
+        <!-- VIAJES PASADOS -->
+        <section class="section">
+            <h3>Viajes Pasados</h3>
 
-            </section>
-            
-        </main>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha de salida</th>
+                        <th>Hora</th>
+                        <th>Ruta seleccionada</th>
+                        <th>Cantidad de pasajeros</th>
+                    </tr>
+                </thead>
+
+                <tbody id="viajes_pasados_total">
+                    <tr>
+                        <td colspan="4" class="empty-table-message">
+                            No tienes viajes pasados aún.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <!-- MODAL: AGREGAR VIAJE -->
+    <div id="addTripModal" class="modal">
+        <div class="modal-content">
+            <h2>Agregar Viaje</h2>
+
+            <form id="addTripForm">
+                <div class="form-columns">
+
+                    <div class="left-column">
+                        <div class="form-group">
+                            <label for="fechaInicio">Fecha de Inicio</label>
+                            <input type="date" id="fechaInicio" name="fechaInicio" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="horaInicio">Hora de Inicio</label>
+                            <input type="time" id="horaInicio" name="horaInicio" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rutaTomar">Ruta a Tomar</label>
+                            <div class="dropdown">
+                                <select class="dropdown-select" id="rutaTomar" name="rutaTomar" required>
+                                    <option value="" disabled selected>Seleccione la ruta a tomar</option>
+                                    <option value="ruta1">Ruta 1</option>
+                                    <option value="ruta2">Ruta 2</option>
+                                    <option value="ruta3">Ruta 3</option>
+                                    <option value="ruta4">Ruta 4</option>
+                                </select>
+                                <a href="#" class="additional-link">¿No tienes rutas establecidas? Haz clic aquí</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="right-column">
+                        <div class="form-group">
+                            <label for="cantidadPasajeros">Cantidad Máxima de Pasajeros</label>
+                            <input type="number" id="cantidadPasajeros" name="cantidadPasajeros" min="1" max="6" value="4" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="detallesAdicionales">Detalles Adicionales</label>
+                            <textarea id="detallesAdicionales" name="detallesAdicionales" rows="6"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-cancel" type="button" id="cancelAddTrip">Cancelar</button>
+                    <button class="btn btn-add" type="submit" id="agregarForm">Agregar</button>
+                </div>
+
+            </form>
+        </div>
     </div>
-    <script src="../js/viajes_conductor.js"></script>
+
+</div>
+
+<script src="../js/viajes_conductor.js"></script>
 </body>
 </html>
