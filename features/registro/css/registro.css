@@ -442,6 +442,19 @@ body {
     cursor: pointer;
 }
 
+.group-input-vehiculos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.group-input-vehiculos input {
+    height: auto;
+}
 
 @media (max-width: 430px) {
   .body{

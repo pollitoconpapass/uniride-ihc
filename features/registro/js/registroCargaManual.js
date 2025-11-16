@@ -1,10 +1,4 @@
-const lunesBtn = document.getElementById('lunes');
-const martesBtn = document.getElementById('martes');
-const miercolesBtn = document.getElementById('miercoles');
-const juevesBtn = document.getElementById('jueves');
-const viernesBtn = document.getElementById('viernes');
-const sabadoBtn = document.getElementById('sabado');
-const domingoBtn = document.getElementById('domingo');
+
 const btnManual = document.getElementById("btn-manual-carga-manual");
 const btnMasiva = document.getElementById("btn-masiva-carga-manual");
 
