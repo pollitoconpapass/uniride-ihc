@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>UniRide - Viajes Conductor</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="../../../styles.css" />
+     <link rel="stylesheet" href="../css/informacion_viaje_conductor.css" />
+</head>
+<body>
+
+    <div class="viajes-conductor">
+
+    <!-- Menú lateral -->
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <img src="../../../assets/imgs/user_carlos.png" alt="User Avatar">
+                <div>
+                    <h3 style="color: white; font-size: 16px; margin: 0;">Carlos</h3>
+                    <p style="color: #aaa; font-size: 12px; margin: 0;">+51 98970564</p>
+                </div>
+            </div>
+
+            <div class="menu-title">MENU</div>
+
+            <div class="sidebar-nav">
+
+                <div class="nav-item-sidebar" onclick="window.location.href='./principalConductor.html'">
+                    <img src="../../../assets/icons/principal_icon_active_sidebar.svg" alt="Home">
+                    Principal
+                </div>
+
+                <div class="nav-item-sidebar active" onclick="window.location.href='../../viajes/pages/viajes.html'">
+                    <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
+                    <span>Viajes</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../rutas/pages/rutas.html'">
+                    <img src="../../../assets/icons/gestion_de_rutas_desactivado_sidebar.svg" alt="Routes">
+                    <span>Gestión de Rutas</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../comunicacion/pages/comunicacion.html'">
+                    <img src="../../../assets/icons/comunicacion_icon_deactive_sidebar.svg" alt="Chat">
+                    <span>Comunicación</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../compensaciones/pages/compensaciones.html'">
+                    <img src="../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
+                    <span>Compensaciones y Pagos</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../reportes/pages/reportes.html'">
+                    <img src="../../../assets/icons/reportes_icon_deactive_sidebar.svg" alt="Report">
+                    <span>Reportes</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracion.html'">
+                    <img src="../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
+                    <span>Configuración</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="sidebar-footer" onclick="window.location.href='../../iniciar_sesion/pages/inicioSesion.html'">
+            <img src="../../../assets/icons/exit_icon_sidebar.svg" alt="Logout">
+            Cerrar Sesión
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content">
+    <div class="page-header-informacion">
+            <div class="back-icon" onclick="window.location.href='viajes_conductor.html'">←</div>
+            <h1 class="page-title">Viajes / Información del viaje</h1>
+            <div class="action-buttons">
+        <button id="cancelarViaje" class="btn-cancel">Cancelar viaje</button>
+        <button id="comenzarViaje" class="btn-start">Comenzar viaje</button>
+        <button id="finalizarViaje" class="btn-end">Finalizar viaje</button>
+    </div>
+        </div>
+
+
+
+
+
+    <!-- INFORMACION GENERAL -->
+        <section class="section">
+            <h3>Información general</h3>
+        <p><strong>Fecha:</strong> </p>
+        <p><strong>Hora de inicio:</strong> </p>
+        <p><strong>Punto de inicio:</strong> </p>
+        <p><strong>Ruta:</strong> </p>
+    
+        </section>
+
+    <!-- PASAJEROS -->
+        <section class="section">
+            <h3>Pasajeros</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombres</th>
+                        <th>Lugar de recojo</th>
+                        <th>Metodo de compensación</th>
+                        <th>Calificaciones</th>
+                        <th>Estado</th>
+                        <th>Comunicación</th>
+                    </tr>
+                </thead>
+
+                <tbody id="pasajeros-confirmados">
+                    <tr>
+                        <td colspan="6" class="empty-table-message">
+                            No tienes pasajeros confirmados por el momento.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </section>
+
+    </main>
+    <!-- Primer modal: Bienvenida -->
+<div class="modal" id="modalBienvenida" style="display: none;">
+  <div class="modal-content">
+    <p class="modal-message">Gracias por su servicio</p>
+    <div class="modal-header">
+      <span class="material-symbols-outlined">check_circle</span>
+    </div>
+    <p>Recibirás tus recompensas</p>
+    <!-- Botón con ID ÚNICO -->
+    <button id="btnCalificar" class="btn btn-add">Calificar pasajeros</button>
+  </div>
+</div>
+
+<!-- Segundo modal: Calificación -->
+<div class="modal" id="modalCalificacion" style="display: none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Por favor califica a los pasajeros</h2>
+      <p class="modal-message">Tu opinión nos importa</p>
+    </div>
+
+    <div class="passenger-ratings">
+      <!-- Usa los nombres reales de tu tabla -->
+      <div class="passenger-rating">
+        <span>María Huamán</span>
+        <div class="stars">
+          <span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span>
+        </div>
+      </div>
+      <div class="passenger-rating">
+        <span>Ernesto Torres</span>
+        <div class="stars">
+          <span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span>
+        </div>
+      </div>
+      <div class="passenger-rating">
+        <span>José Pérez</span>
+        <div class="stars">
+          <span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="motivo">
+      <label for="additional-comments">Comentarios Adicionales</label>
+      <textarea id="additional-comments" rows="4" placeholder="¿Algo que agregar?"></textarea>
+    </div>
+
+    <div class="modal-actions">
+      <a href="viaje_conductor.html" class="btn-submit" id="btnEnviarCalif">Listo</a>
+    </div>
+  </div>
+</div>
+
+
+</div>
+<script src="../js/informacion_viaje_conductor.js"></script>
+</body>
+</html>
