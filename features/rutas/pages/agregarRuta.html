@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>UniRide - Conductor</title>
+    <link rel="stylesheet" href="../../../styles.css" />
+    <link rel="stylesheet" href="../css/rutas.css">
+</head>
+
+<body>
+    <!-- SIDEBAR-->
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <img src="../../../assets/imgs/user_carlos.png" alt="User Avatar">
+                <div>
+                    <h3 style="color: white; font-size: 16px; margin: 0;">Carlos</h3>
+                    <p style="color: #aaa; font-size: 12px; margin: 0;">+51 98970564</p>
+                </div>
+            </div>
+            
+            <div class="menu-title">MENU</div>
+            
+            <div class="sidebar-nav">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../principal/pages/principalConductor.html'">
+                    <img src="../../../assets/icons/principal_icon_deactive_sidebar.svg" alt="Home">
+                    Principal
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/viajes.html'">
+                    <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
+                    <span>Viajes</span>
+                </div>
+                
+                <div class="nav-item-sidebar active" onclick="window.location.href='../../rutas/pages/rutas.html'">
+                    <img src="../../../assets/icons/gestion_de_rutas_activado_sidebar.svg" alt="Routes">
+                    <span>Gestion de Rutas</span>
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='../../comunicacion/pages/comunicacion.html'">
+                    <img src="../../../assets/icons/comunicacion_icon_deactive_sidebar.svg" alt="Chat">
+                    <span>Comunicación</span>
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='../../compensaciones/pages/compensaciones.html'">
+                    <img src="../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
+                    <span>Compensaciones y Pagos</span>
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='../../reportes/pages/reportes.html'">
+                    <img src="../../../assets/icons/reportes_icon_deactive_sidebar.svg" alt="Report">
+                    <span>Reportes</span>
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracion.html'">
+                    <img src="../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
+                    <span>Configuración</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar-footer" onclick="window.location.href='../../iniciar_sesion/pages/inicioSesion.html'">
+            <img src="../../../assets/icons/exit_icon_sidebar.svg" alt="Logout">
+            Cerrar Sesión
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content">
+        <!-- Page Header -->
+        <div class="page-header-agregar">
+            <div class="back-icon" onclick="window.location.href='rutas.html'">←</div>
+            <h1 class="page-title-agregar">Gestión de Rutas / Agregar Ruta</h1>
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <!-- Map Preview -->
+            <div class="map-preview">
+                <h2 class="map-preview-title">Nombre de la Ruta</h2>
+                <img src="../../../assets/imgs/mapa-lima-default.png" alt="Mapa de Lima" class="map-image">
+            </div>
+
+            <!-- Form Fields -->
+            <div class="form-fields">
+                <form id="addRouteForm">
+                    <div class="form-group">
+                        <label for="routeName" class="form-label">Nombre de la Ruta</label>
+                        <input type="text" id="routeName" class="form-input" placeholder="Ej: Ruta Universidad - Centro" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="direction" class="form-label">Dirección</label>
+                        <input type="text" id="direction" class="form-input" placeholder="Agregar Dirección" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="referencePlaces" class="form-label">Lugares de referencia por los que pasas</label>
+                        <input type="text" id="referencePlaces" class="form-input" placeholder="Agregar Lugares de Referencia" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description" class="form-label">Descripción</label>
+                        <input type="text" id="description" class="form-input" placeholder="Agregar Descripción" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Agregar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../js/agregarRuta.js"></script>
+</body>
