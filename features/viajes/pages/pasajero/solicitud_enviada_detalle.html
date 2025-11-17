@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solicitud Enviada - Detalle</title>
+    <link rel="stylesheet" href="../../css/pasajero/usuario_base.css">
+    <link rel="stylesheet" href="../../css/pasajero/informacion_viaje.css">
+    <link rel="stylesheet" href="../../css/pasajero/estados_solicitud.css">
+</head>
+<body>
+    <div class="layout info-layout">
+        <aside class="sidebar">
+            <div class="user">
+                <img src="../../../../assets/imgs/uniride-logo.jpeg" alt="Avatar de Jose">
+                <div>
+                    <div class="name">Jose</div>
+                    <div class="phone">+51 920406868</div>
+                </div>
+            </div>
+            <nav>
+                <a href="../index.html" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Principal</span>
+                </a>
+                <a href="viajes_usuario.html" class="nav-item active">
+                    <span class="nav-dot"></span>
+                    <span>Viajes</span>
+                </a>
+                <a href="comunicacion_chat.html" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Comunicacion</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Compensaciones y Pagos</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Reportes</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <img src="../../../../assets/imgs/uniride-wo-text.png" alt="Salir">
+                <span>Cerrar Sesión</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="breadcrumbs">
+                <a class="action-link" href="viajes_usuario.html">Viajes</a>
+                <span>/</span>
+                <a class="action-link" href="encontrar_viajes.html">Encontrar Viajes</a>
+                <span>/</span>
+                <span>Solicitud enviada</span>
+            </div>
+
+            <section class="trip-card">
+                <div class="header">
+                    <h2>Información del viaje</h2>
+                    <span class="badge badge-blue">Pendiente</span>
+                </div>
+
+                <div class="driver-profile">
+                    <img src="../../../../assets/imgs/camila_torres.png" alt="Foto conductor">
+                    <div class="details">
+                        <h2>Carlos Mendoza</h2>
+                        <div class="meta">
+                            <span><strong>Cumpleaños:</strong> 14.05.2006</span>
+                            <span><strong>Edad:</strong> 19</span>
+                            <span><strong>Carrera:</strong> Marketing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-section">
+                    <div class="map-card">
+                        <div class="map-route"></div>
+                    </div>
+                    <div class="pickup-card">
+                        <h3>Lugares por los que pasa</h3>
+                        <span class="info-pill">La Rambla</span>
+                        <span class="info-pill">Estación La Cultura</span>
+                        <span class="info-pill">Instituto de Salud del Niño</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div class="modal-backdrop">
+                <div class="modal estado">
+                    <div class="modal-icon pending">⟳</div>
+                    <h2>Tu solicitud ha sido enviada al conductor</h2>
+                    <p>En breve obtendrás respuesta.</p>
+                    <a class="btn-primary" href="solicitud_aceptada.html">Continuar</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
