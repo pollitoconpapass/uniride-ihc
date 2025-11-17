@@ -24,7 +24,12 @@
               <button id="btn-manual-carga-manual" class="btn-manual" type="button">Manual</button>
               <button id="btn-masiva-carga-manual"ass="btn-masiva" type="button">Masiva</button>
             </div>
-          <div class="group-input-btn-masiva">
+          <div class="listaCursos" id="listaCursos"></div>
+          <button type="button" id="btnAddCurso"class="btnAddCurso">Agregar Curso</button>
+        </form>
+    </div>
+
+    <div id="modal-curso" class="modal" hidden>
                 <label for="nombre-curso">
                     Nombre del curso
                     <input type="text" placeholder="Escribe el nombre del curso" name="input-nombre-curso" />
@@ -49,13 +54,11 @@
                     <button id="domingo" type="button">D</button>
                   </div>
                 </label>
-                <button class="btn-agregar-curso" type="button">Agregar Curso</button>
-                <button class="btn-aceptar" type="button">
-                Aceptar
-                </button>
+                <div class="grupo-botones-formulario">
+                  <button id="btnCancelFormulario" class="btnCancel" type="button">Cancelar</button>
+                  <button id="btnGuardarFormulario" class="btnGuardar" type="button">Guardar</button>
+                </div>
           </div>
-        </form>
-    </div>
     <script src="../js/registroCargaManual.js"></script>
   </body>
 </html>
