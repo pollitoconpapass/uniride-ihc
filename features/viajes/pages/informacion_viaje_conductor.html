@@ -92,7 +92,7 @@
             <h3>Información general</h3>
         <p><strong>Fecha:</strong> </p>
         <p><strong>Hora de inicio:</strong> </p>
-        <p><strong>Punto de inicio:</strong> </p>
+        <p><strong>Puntos de recogida:</strong> </p>
         <p><strong>Ruta:</strong> </p>
     
         </section>
@@ -176,6 +176,31 @@
     <div class="modal-actions">
       <a href="viaje_conductor.html" class="btn-submit" id="btnEnviarCalif">Listo</a>
     </div>
+  </div>
+</div>
+
+<!-- Modal: Cancelar viaje -->
+<div class="modal" id="modalCancelarViaje" style="display: none;">
+  <div class="modal-content cancelar-modal">
+    <div class="modal-header">
+      <div class="modal-icon">😢</div>
+      <h2>Cancelar Viaje</h2>
+    </div>
+
+    <p class="modal-message">
+      Sentimos que desee cancelar el viaje. Si no indica una razón, se reducirá su calificación.
+    </p>
+
+    <form id="formCancelarViaje">
+      <div class="motivo">
+        <label for="motivoCancelacion">Motivo:</label>
+        <textarea id="motivoCancelacion" rows="4" placeholder="Explique brevemente el motivo..."></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" id="btnCerrarCancelarViaje">Cerrar</button>
+        <button type="submit" class="btn-submit">Enviar</button>
+      </div>
+    </form>
   </div>
 </div>
 
