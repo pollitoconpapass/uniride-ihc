@@ -38,13 +38,20 @@ cancelBtn.addEventListener("click", () => {
 guardarBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
+    // Obtener todas las rutas
+    const routes = JSON.parse(localStorage.getItem("userRoutes")) || [];
+    // Encontrar la ruta seleccionada
+    const selectedRoute = routes.find(route => route.name === rutaTomar.value);
+
     const viaje = {
         fecha: fechaInicio.value,
         hora: horaInicio.value,
-        ruta: rutaTomar.value,
+        ruta: rutaTomar.value, 
+        puntosRecogida: selectedRoute ? selectedRoute.referencePlaces : "No especificado",
         pasajeros: cantidadPasajeros.value,
         estado: "Pendiente"
     };
+
 
     let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
     viajes.push(viaje);
@@ -97,9 +104,9 @@ function loadPlannedTrips() {
                 <td>${viaje.hora}</td>
                 <td>${viaje.ruta}</td>
                 <td>0 / ${viaje.pasajeros}</td>
-                <td><button onclick="verSolicitud(${index})">Ver</button></td>
+                <td><button class="table-btn" onclick="verSolicitud(${index})">Ver</button></td>
                 <td>${viaje.estado}</td>
-                <td><button onclick="verDetalle(${index})">Detalles</button></td>
+                <td><button class="table-btn" onclick="verDetalle(${index})">Detalles</button></td>
             </tr>
         `;
     });
@@ -120,7 +127,7 @@ function loadPastTrips() {
     const tbody = document.getElementById("viajes_pasados_total");
     const viajesPasados = JSON.parse(localStorage.getItem("viajesPasados")) || [];
 
-    if (!tbody) return; // por si tu html no tiene esa tabla
+    if (!tbody) return; 
 
     if (viajesPasados.length === 0) {
         tbody.innerHTML = `

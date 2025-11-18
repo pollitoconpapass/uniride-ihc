@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (viaje) {
         document.querySelector(".section p:nth-child(2)").innerHTML = `<strong>Fecha:</strong> ${viaje.fecha}`;
         document.querySelector(".section p:nth-child(3)").innerHTML = `<strong>Hora de inicio:</strong> ${viaje.hora}`;
-        document.querySelector(".section p:nth-child(4)").innerHTML = `<strong>Puntos de recogida:</strong> Por definir`;
+        const puntosRecogida = viaje.puntosRecogida || "No especificado";
+        document.querySelector(".section p:nth-child(4)").innerHTML = `<strong>Puntos de recogida:</strong> ${puntosRecogida}`;
         document.querySelector(".section p:nth-child(5)").innerHTML = `<strong>Ruta:</strong> ${viaje.ruta}`;
     }
 
@@ -80,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let pasados = JSON.parse(localStorage.getItem("viajesPasados")) || [];
         pasados.push(viaje);
         localStorage.setItem("viajesPasados", JSON.stringify(pasados));
-        
+
         viajes.splice(index, 1);
         localStorage.setItem("viajesGuardados", JSON.stringify(viajes));
 

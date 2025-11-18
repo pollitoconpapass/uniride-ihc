@@ -101,6 +101,29 @@ tbody tr:hover {
   font-style: italic;
 }
 
+/* Botones dentro de tablas */
+.table-btn {
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.table-btn:hover {
+  background-color: #4338ca;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.table-btn:active {
+  transform: translateY(0);
+}
+
 /*Form al agregar viaje*/
 .modal {
   display: none; 
@@ -119,7 +142,7 @@ tbody tr:hover {
 .modal-content {
   background: #fff;
   width: 60%;
-  max-width: 850px;
+  max-width: 550px;
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 5px 25px rgba(0,0,0,0.25);
@@ -130,59 +153,93 @@ tbody tr:hover {
   from { transform: scale(0.95); opacity: 0; }
   to   { transform: scale(1); opacity: 1; }
 }
-
-.form-columns {
-  display: flex;
-  gap: 20px;
-}
-
-.left-column, .right-column {
-  width: 50%;
+.modal-content h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: var(--gray-900);
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
 .form-group label {
-  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: var(--gray-800);
+  font-size: 0.95rem;
 }
 
 .form-group input,
-.form-group select,
-.form-group textarea {
+.form-group select {
   width: 100%;
-  padding: 8px 10px;
-  border: 1px solid #ccc;
+  padding: 12px;
+  border: 1px solid var(--gray-300);
   border-radius: 8px;
+  font-size: 1rem;
+  background-color: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.action-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-  margin-top: 20px;
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(93, 76, 255, 0.15);
 }
 
-/* Botones */
+.dropdown {
+  position: relative;
+}
+
+.additional-link {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.additional-link:hover {
+  text-decoration: underline;
+}
+
+/* Botones del modal */
 .btn {
-  padding: 10px 18px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
   border-radius: 8px;
   cursor: pointer;
-  border: none;
+  transition: background-color 0.2s, transform 0.15s;
 }
 
 .btn-cancel {
-  background: #ccc;
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.btn-cancel:hover {
+  background-color: #d1d5db;
 }
 
 .btn-add {
-  background: #2774f0;
+  background-color: var(--accent-color);
   color: white;
 }
 
 .btn-add:hover {
-  background: #1d5ec0;
+  background-color: #4338ca;
 }
-
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
 

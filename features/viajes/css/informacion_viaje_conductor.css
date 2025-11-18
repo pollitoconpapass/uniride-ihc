@@ -42,6 +42,7 @@
 .action-buttons {
     display: flex;
     gap: 12px;
+    margin-left: auto; 
 }
 
 .action-buttons button {
@@ -67,10 +68,6 @@
     background: #6c63ff;
     color: white;
 }
-
-
-
-
 
 .section {
   background: white;
