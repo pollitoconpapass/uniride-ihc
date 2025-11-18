@@ -84,8 +84,53 @@
 
     </main>
 
+
+ <!-- solicitud aceptada-->
+    <div class="modal" id="modalAceptarSolicitud" style="display: none;">
+  <div class="modal-content aceptar-modal">
+    <div class="modal-header">
+      <div class="modal-icon">✔️</div>
+      <h2>Solicitud Aceptada</h2>
+    </div>
+
+    <p class="modal-message">La solicitud del pasajero ha sido aceptada exitosamente.</p>
+
+    <div class="modal-actions">
+      <button class="btn-submit" id="btnCerrarAceptar">Aceptar</button>
+    </div>
+  </div>
 </div>
 
-<script src="../../js/solicitudes_pasajeros.js"></script>
+<!-- Modal: Motivo de rechazo / Cancelar solicitud -->
+<div class="modal" id="modalCancelarViaje" style="display: none;">
+  <div class="modal-content cancelar-modal">
+    <div class="modal-header">
+      <div class="modal-icon">😢</div>
+      <h2>Rechazar solicitud</h2>
+    </div>
+
+    <p class="modal-message">
+      Indica el motivo por el cual rechazas esta solicitud. 
+    </p>
+
+    <form id="formCancelarViaje">
+      <div class="motivo">
+        <label for="motivoCancelacion">Motivo:</label>
+        <textarea id="motivoCancelacion" rows="4" placeholder="Explique brevemente el motivo..." required></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" id="btnCerrarCancelarViaje">Cerrar</button>
+        <button type="submit" class="btn-submit" id="btnEnviarMotivo">Enviar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+</div>
+
+<script src="../../js/conductor/solicitudes_pasajeros.js"></script>
 </body>
 </html>

@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-
 let fechaInicio = document.getElementById("fechaInicio");
 let horaInicio = document.getElementById("horaInicio");
 let rutaTomar = document.getElementById("rutaTomar");
@@ -50,15 +49,26 @@ guardarBtn.addEventListener("click", (e) => {
         ? `${conductor.datosPersonales.nombres} ${conductor.datosPersonales.apellidoPaterno}`
         : "Conductor desconocido";
 
-    const viaje = {
-        fecha: fechaInicio.value,
-        hora: horaInicio.value,
-        ruta: rutaTomar.value, 
-        puntosRecogida: selectedRoute ? selectedRoute.referencePlaces : "No especificado",
-        pasajeros: cantidadPasajeros.value,
-        estado: "Pendiente",
-        conductor: nombreConductor  
-    };
+    // Generar ID único (puedes usar timestamp o contador)
+const viajesExistentes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
+const nuevoId = viajesExistentes.length > 0 
+    ? Math.max(...viajesExistentes.map(v => v.id || 0)) + 1 
+    : 1;
+
+const viaje = {
+    id: nuevoId, // 👈 ¡Agrega esto!
+    idConductor: usuarioActivo.id_usuario,
+    fecha: fechaInicio.value,
+    hora: horaInicio.value,
+    ruta: rutaTomar.value,
+    puntosRecogida: selectedRoute ? selectedRoute.referencePlaces : [],
+    pasajeros: cantidadPasajeros.value,
+    pasajerosActuales: 0,
+    estado: "Pendiente",
+    conductor: nombreConductor
+};
+
+
 
     let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
     viajes.push(viaje);
@@ -110,7 +120,7 @@ function loadPlannedTrips() {
                 <td>${viaje.fecha}</td>
                 <td>${viaje.hora}</td>
                 <td>${viaje.ruta}</td>
-                <td>0 / ${viaje.pasajeros}</td>
+                <td>${viaje.pasajerosActuales || 0} / ${viaje.pasajeros}</td>
                 <td><button class="table-btn" onclick="verSolicitud(${index})">Ver</button></td>
                 <td>${viaje.estado}</td>
                 <td><button class="table-btn" onclick="verDetalle(${index})">Detalles</button></td>
