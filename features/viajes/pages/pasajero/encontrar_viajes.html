@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UniRide - Encontrar Viajes</title>
+    <link rel="stylesheet" href="../../css/pasajero/usuario_base.css">
+    <link rel="stylesheet" href="../../css/pasajero/encontrar_viajes.css">
+</head>
+<body>
+    <div class="layout viajes-layout">
+        <aside class="sidebar">
+            <div class="user">
+                <img src="../../../../assets/imgs/uniride-logo.jpeg" alt="Avatar de Jose">
+                <div>
+                    <div class="name">Jose</div>
+                    <div class="phone">+51 920406868</div>
+                </div>
+            </div>
+            <nav>
+                <a href="../index.html" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Principal</span>
+                </a>
+                <a href="viajes_usuario.html" class="nav-item active">
+                    <span class="nav-dot"></span>
+                    <span>Viajes</span>
+                </a>
+                <a href="comunicacion_chat.html" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Comunicacion</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Compensaciones y Pagos</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Reportes</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <img src="../../../../assets/imgs/uniride-wo-text.png" alt="Salir">
+                <span>Cerrar Sesión</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="breadcrumbs">
+                <a class="action-link" href="viajes_usuario.html">Viajes</a>
+                <span>/</span>
+                <span>Encontrar Viajes</span>
+            </div>
+            <header class="main-header">
+                <h1>Viajes / Encontrar Viajes</h1>
+                <a class="btn-primary" href="viajes_usuario.html">Regresar</a>
+            </header>
+
+            <section class="map-wrapper">
+                <div class="map-placeholder">
+                    <div class="map-badge bus">Bus Universitario</div>
+                    <div class="map-badge metro">Est. Metropolitano</div>
+                    <div class="map-badge uni">Campus UPC San Isidro</div>
+
+                    <div class="map-dot one"><span>8 min</span></div>
+                    <div class="map-dot two"><span>12 min</span></div>
+                    <div class="map-dot three"><span>5 min</span></div>
+                </div>
+
+                <div class="drivers-card">
+                    <header>
+                        <h2>Conductores Cercanos</h2>
+                        <div class="filters">
+                            <button class="active">Hoy</button>
+                            <button>Mañana</button>
+                            <button>Esta semana</button>
+                        </div>
+                    </header>
+                    <table class="table driver-table">
+                        <thead>
+                            <tr>
+                                <th>Conductor</th>
+                                <th>Distancia</th>
+                                <th>Hora</th>
+                                <th>Fecha de salida</th>
+                                <th>Tiempo estimado</th>
+                                <th>Disponibilidad</th>
+                                <th>Reservar</th>
+                                <th>Ver</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Conductor">Joaquín</td>
+                                <td data-label="Distancia">3 km</td>
+                                <td data-label="Hora">09:00 am</td>
+                                <td data-label="Fecha de salida">09/10/2025</td>
+                                <td data-label="Tiempo estimado"><span class="badge badge-blue">15 minutos</span></td>
+                                <td data-label="Disponibilidad"><span class="availability-pill good">3/4 asientos</span></td>
+                                <td data-label="Reservar"><a class="reserve-btn" href="solicitud_enviada_mapa.html">Reservar</a></td>
+                                <td data-label="Ver"><a class="action-icon" href="informacion_viaje.html">&#128065;</a></td>
+                            </tr>
+                            <tr>
+                                <td data-label="Conductor">Carlos</td>
+                                <td data-label="Distancia">2 km</td>
+                                <td data-label="Hora">10:00 am</td>
+                                <td data-label="Fecha de salida">10/10/2025</td>
+                                <td data-label="Tiempo estimado"><span class="badge badge-blue">15 minutos</span></td>
+                                <td data-label="Disponibilidad"><span class="availability-pill medium">2/4 asientos</span></td>
+                                <td data-label="Reservar"><a class="reserve-btn" href="informacion_viaje.html">Reservar</a></td>
+                                <td data-label="Ver"><a class="action-icon" href="informacion_viaje.html">&#128065;</a></td>
+                            </tr>
+                            <tr>
+                                <td data-label="Conductor">Jose</td>
+                                <td data-label="Distancia">3 km</td>
+                                <td data-label="Hora">11:00 am</td>
+                                <td data-label="Fecha de salida">10/10/2025</td>
+                                <td data-label="Tiempo estimado"><span class="badge badge-blue">15 minutos</span></td>
+                                <td data-label="Disponibilidad"><span class="availability-pill good">3/4 asientos</span></td>
+                                <td data-label="Reservar"><a class="reserve-btn" href="solicitud_enviada_mapa.html">Reservar</a></td>
+                                <td data-label="Ver"><a class="action-icon" href="informacion_viaje.html">&#128065;</a></td>
+                            </tr>
+                            <tr>
+                                <td data-label="Conductor">William</td>
+                                <td data-label="Distancia">4 km</td>
+                                <td data-label="Hora">11:30 am</td>
+                                <td data-label="Fecha de salida">10/10/2025</td>
+                                <td data-label="Tiempo estimado"><span class="badge badge-blue">15 minutos</span></td>
+                                <td data-label="Disponibilidad"><span class="availability-pill low">1/4 asientos</span></td>
+                                <td data-label="Reservar"><a class="reserve-btn" href="solicitud_enviada_mapa.html">Reservar</a></td>
+                                <td data-label="Ver"><a class="action-icon" href="informacion_viaje.html">&#128065;</a></td>
+                            </tr>
+                            <tr>
+                                <td data-label="Conductor">Majo</td>
+                                <td data-label="Distancia">3 km</td>
+                                <td data-label="Hora">12:00 pm</td>
+                                <td data-label="Fecha de salida">12/10/2025</td>
+                                <td data-label="Tiempo estimado"><span class="badge badge-blue">15 minutos</span></td>
+                                <td data-label="Disponibilidad"><span class="availability-pill medium">2/4 asientos</span></td>
+                                <td data-label="Reservar"><a class="reserve-btn" href="solicitud_enviada_mapa.html">Reservar</a></td>
+                                <td data-label="Ver"><a class="action-icon" href="informacion_viaje.html">&#128065;</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <span>1-20 de 45 conductores</span>
+                        <div class="pages">
+                            <button class="active">1</button>
+                            <button>2</button>
+                            <button>&raquo;</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../../js/pasajero/viajesData.js"></script>
+    <script src="../../js/pasajero/solicitudesData.js"></script>
+    <script src="../../js/pasajero/encontrar_viajes.js"></script>
+</body>
+</html>

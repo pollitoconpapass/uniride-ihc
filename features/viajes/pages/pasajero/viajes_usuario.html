@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UniRide - Viajes (Usuario)</title>
+    <link rel="stylesheet" href="../../css/pasajero/usuario_base.css">
+    <link rel="stylesheet" href="../../css/pasajero/viajes_usuario.css">
+</head>
+<body>
+    <div class="layout viajes-layout">
+        <aside class="sidebar">
+            <div class="user">
+                <img src="../../../../assets/imgs/uniride-logo.jpeg" alt="Avatar de Jose">
+                <div>
+                    <div class="name">Jose</div>
+                    <div class="phone">+51 920406868</div>
+                </div>
+            </div>
+            <nav>
+                <a href="../index.html" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Principal</span>
+                </a>
+                <a href="viajes_usuario.html" class="nav-item active">
+                    <span class="nav-dot"></span>
+                    <span>Viajes</span>
+                </a>
+                <a href="comunicacion_chat.html" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Comunicacion</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Compensaciones y Pagos</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Reportes</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <img src="../../../../assets/imgs/uniride-wo-text.png" alt="Salir">
+                <span>Cerrar Sesión</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Viajes</h1>
+                <a class="btn-primary" href="encontrar_viajes.html">Encontrar Viajes</a>
+            </header>
+
+            <section class="section-card">
+                <h2 class="section-title">Viajes Agendados</h2>
+                <table class="table scheduled-table">
+                    <thead>
+                        <tr>
+                            <th>Conductor</th>
+                            <th>Hora</th>
+                            <th>Fecha de salida</th>
+                            <th>Tiempo estimado</th>
+                            <th>Lugar de recojo</th>
+                            <th>Cancelar</th>
+                            <th>Ver</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Conductor">Joaquín</td>
+                            <td data-label="Hora">12:00 pm</td>
+                            <td data-label="Fecha de salida">08/10/2025</td>
+                            <td data-label="Tiempo estimado"><span class="badge badge-blue">15 minutos</span></td>
+                            <td data-label="Lugar de recojo">Teatro Nacional</td>
+                            <td data-label="Cancelar" class="small"><a class="cancel-btn" href="cancelar_viaje_confirmar.html">Cancelar</a></td>
+                            <td data-label="Ver" class="small"><a class="action-icon" href="informacion_viaje.html">&#128065;</a></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Conductor">Carlos</td>
+                            <td data-label="Hora">10:00 am</td>
+                            <td data-label="Fecha de salida">10/10/2025</td>
+                            <td data-label="Tiempo estimado"><span class="badge badge-blue">15 minutos</span></td>
+                            <td data-label="Lugar de recojo">La Rambla</td>
+                            <td data-label="Cancelar"><a class="cancel-btn" href="cancelar_viaje_confirmar.html">Cancelar</a></td>
+                            <td data-label="Ver"><a class="action-icon" href="informacion_viaje.html">&#128065;</a></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Conductor">Jose</td>
+                            <td data-label="Hora">11:50 am</td>
+                            <td data-label="Fecha de salida">11/10/2025</td>
+                            <td data-label="Tiempo estimado"><span class="badge badge-blue">15 minutos</span></td>
+                            <td data-label="Lugar de recojo">La Rambla</td>
+                            <td data-label="Cancelar"><a class="cancel-btn" href="cancelar_viaje_confirmar.html">Cancelar</a></td>
+                            <td data-label="Ver"><a class="action-icon" href="informacion_viaje.html">&#128065;</a></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Conductor">William</td>
+                            <td data-label="Hora">11:00 pm</td>
+                            <td data-label="Fecha de salida">11/10/2025</td>
+                            <td data-label="Tiempo estimado"><span class="badge badge-blue">32 minutos</span></td>
+                            <td data-label="Lugar de recojo">Est. La Cultura</td>
+                            <td data-label="Cancelar"><a class="cancel-btn" href="cancelar_viaje_confirmar.html">Cancelar</a></td>
+                            <td data-label="Ver"><a class="action-icon" href="informacion_viaje.html">&#128065;</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section-card">
+                <h2 class="section-title">Viajes Pasados</h2>
+                <table class="table past-table">
+                    <thead>
+                        <tr>
+                            <th>Conductor</th>
+                            <th>Hora</th>
+                            <th>Fecha de salida</th>
+                            <th>Tiempo de viaje</th>
+                            <th>Método de compensación</th>
+                            <th>Calificación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Conductor">Adrian</td>
+                            <td data-label="Hora">15:00 pm</td>
+                            <td data-label="Fecha de salida">14/09/2025</td>
+                            <td data-label="Tiempo de viaje"><span class="badge badge-gray">18 minutos</span></td>
+                            <td data-label="Método de compensación">Pago en Efectivo</td>
+                            <td data-label="Calificación"><span class="stars">★★★★★</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Conductor">Mariana</td>
+                            <td data-label="Hora">13:00 pm</td>
+                            <td data-label="Fecha de salida">10/09/2025</td>
+                            <td data-label="Tiempo de viaje"><span class="badge badge-gray">20 minutos</span></td>
+                            <td data-label="Método de compensación">Pago en Efectivo</td>
+                            <td data-label="Calificación"><span class="stars">★★★★☆</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Conductor">Luis</td>
+                            <td data-label="Hora">19:50 pm</td>
+                            <td data-label="Fecha de salida">30/08/2025</td>
+                            <td data-label="Tiempo de viaje"><span class="badge badge-gray">44 minutos</span></td>
+                            <td data-label="Método de compensación">Pago con Tarjeta</td>
+                            <td data-label="Calificación"><span class="stars">★★★☆☆</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <span>1-20 de 80 viajes</span>
+                    <div class="pages">
+                        <button class="active">1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>&raquo;</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../../js/pasajero/viajesData.js"></script>
+    <script src="../../js/pasajero/viajes_usuario.js"></script>
+</body>
+</html>
+
