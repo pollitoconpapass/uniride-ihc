@@ -6,6 +6,7 @@
     <title>UniRide - Conductor</title>
     <link rel="stylesheet" href="../../../styles.css" />
     <link rel="stylesheet" href="../css/principal.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 
 <body>
@@ -79,11 +80,11 @@
 
                 <div class="user-card">
                     <h4>Sobre Ti</h4>
-                    <p><strong>Nombre:</strong> <span id="nombre">Carlos Mendoza Ying</span></p>
-                    <p><strong>Carrera:</strong> <span id="carrera">Marketing</span></p>
-                    <p><strong>Universidad:</strong> <span id="universidad">Universidad de Lima</span></p>
-                    <p><strong>Vehículo:</strong> <span id="vehiculo">Toyota Raize - Rojo</span></p>
-                    <p><strong>Placa:</strong> <span id="placa">A5H-316</span></p>
+                    <p><strong>Nombre:</strong> <span id="nombre"></span></p>
+                    <p><strong>Carrera:</strong> <span id="carrera"></span></p>
+                    <p><strong>Universidad:</strong> <span id="universidad"></span></p>
+                    <p><strong>Vehículo:</strong> <span id="vehiculo"></span></p>
+                    <p><strong>Placa:</strong> <span id="placa"></span></p>
                     <p><strong>Total de Viajes:</strong> <span id="totalViajes"></span></p>
                     <p><strong>Calificación Promedio:</strong></p>
                 </div>
@@ -98,17 +99,15 @@
                 <th>Fecha y Hora</th>
                 <th>Ruta</th>
                 <th>Pasajeros</th>
-                <th>Solicitudes</th>
                 <th>Detalles</th>
             </tr>
             </thead>
             <tbody id="tripsTableBody">
             </tbody>
         </table>
-        <button id="addTripBtn">Agregar Viaje</button>
         </section>
   </main>
 
-  <script src="../js/principalConductor.js""></script>
+  <script src="../js/principalConductor.js"></script>
 
 </body>
