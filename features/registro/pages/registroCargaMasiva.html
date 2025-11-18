@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../css/registro.css">
 </head>
-  <body>
+<body>
     <div class="group-form-btn">
         <button class="contenedor-icon">
             <img class="retroceder_icon" src="../../../assets/icons/retroceder_icon.svg" alt="">
@@ -24,13 +24,25 @@
               <button type="button" id="btn-manual-carga-masiva" class="btn-manual">Manual</button>
               <button type="button" id="btn-masiva-carga-masiva" class="btn-masiva">Masiva</button>
             </div>
+
+            <!-- BOTÓN QUE YA TENÍAS -->
             <button type="button" class="contenedor-adjuntar-img">
-                <img class="adjuntar-image"src="../../../assets/icons/adjuntar_archivo_icon.svg" alt="adjuntar archivo">
+                <img class="adjuntar-image" src="../../../assets/icons/adjuntar_archivo_icon.svg" alt="adjuntar archivo">
                 <p>Adjuntar tu horario en un documento o pdf</p>
             </button>
+
             <button type="button" id="btnContinuar" class="btnContinuar">Continuar</button>
         </form>
     </div>
-  <script src="../js/registroCargaMasiva.js"></script>
-  </body>
+
+    <!-- pdf.js SOLO para dibujar el PDF en un canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+    <!-- Tesseract.js para hacer OCR al canvas -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+
+
+    <!-- tu JS -->
+    <script src="../js/registroCargaMasiva.js"></script>
+</body>
 </html>
