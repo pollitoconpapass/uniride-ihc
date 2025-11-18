@@ -20,6 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("nombre").textContent =
         `${dp.nombres || ""} ${dp.apellidoPaterno || ""} ${dp.apellidoMaterno || ""}`.trim();
 
+    document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
+    document.getElementById("tituloNombre").innerText = dp.nombres.split(" ")[0] || "";
+
     document.getElementById("carrera").textContent =
         dp.carrera || "No especificado";
 

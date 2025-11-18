@@ -14,10 +14,10 @@
     <div class="sidebar">
         <div>
             <div class="sidebar-header">
-                <img src="../../../assets/imgs/user_carlos.png" alt="User Avatar">
+                <img src="../../../assets/imgs/user_landing_icon.png" alt="">
                 <div>
-                    <h3 style="color: white; font-size: 16px; margin: 0;">Carlos</h3>
-                    <p style="color: #aaa; font-size: 12px; margin: 0;">+51 98970564</p>
+                    <h3 id="sidebarNombre" style="color: white; font-size: 16px; margin: 0;"> .</h3>
+                    <p style="color: #aaa; font-size: 12px; margin: 0;">Conductor</p>
                 </div>
             </div>
             
@@ -26,7 +26,7 @@
             <div class="sidebar-nav">
                 <div class="nav-item-sidebar active" onclick="window.location.href='./principalConductor.html'">
                     <img src="../../../assets/icons/principal_icon_active_sidebar.svg" alt="Home">
-                    Principal
+                    <span>Principal</span>
                 </div>
                 
                 <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/viajes.html'">
@@ -63,12 +63,12 @@
         
         <div class="sidebar-footer" onclick="window.location.href='../../iniciar_sesion/pages/inicioSesion.html'">
             <img src="../../../assets/icons/exit_icon_sidebar.svg" alt="Logout">
-            Cerrar Sesión
+            <span>Cerrar Sesión</span>
         </div>
     </div>
 
     <main class="main-content">
-        <h2>Buenos Días, Carlos 👋</h2>
+        <h2>Buenos Días, <span id="tituloNombre"></span> 👋</h2>
 
         <section class="general-info">
             <h3>Información General</h3>
