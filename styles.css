@@ -621,6 +621,7 @@ img {
         justify-content: center;
     }
 
+    /* --- SIDEBAR RESPONSIVE --- */
     .sidebar {
         width: 60px;
         padding: 20px 0;
@@ -629,6 +630,22 @@ img {
     .sidebar-header {
         padding: 20px 10px;
         justify-content: center;
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    .sidebar-header img {
+        margin-bottom: 10px; 
+    }
+
+    .sidebar-header h3,
+    .sidebar-header p {
+        display: none !important;
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        font-size: 0;
     }
     
     .menu-title {
@@ -636,7 +653,65 @@ img {
     }
     
     .nav-item-sidebar span {
-        display: none;
+        display: none !important;
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        font-size: 0;
+    }
+
+    .nav-item-sidebar.active {
+        position: relative; 
+    }
+
+    .nav-item-sidebar.active::after {
+        content: attr(data-title) / "" attr(aria-label) / "";
+        display: none !important;
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        font-size: 0;
+    }
+
+    .nav-item-sidebar {
+        padding: 12px 20px;
+        justify-content: center;
+        position: relative;
+    }
+
+    .nav-item-sidebar > :not(img) {
+        display: none !important;
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        font-size: 0;
+    }
+
+    .sidebar-footer {
+        padding: 20px 20px; 
+        justify-content: center; 
+    }
+
+    .sidebar-footer::after {
+        content: attr(data-title) / "" attr(aria-label) / "";
+        display: none !important;
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        font-size: 0;
+    }
+
+    .sidebar-footer > :not(img) {
+        display: none !important;
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        font-size: 0;
     }
 }
 
