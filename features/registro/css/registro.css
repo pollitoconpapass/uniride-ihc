@@ -521,6 +521,17 @@ body {
     font-weight: 600;
     cursor: pointer;
 }
+.btnContinuar{
+    background-color: var(--accent-color);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
 .card-curso{
     display: flex;
     flex-direction: column;
