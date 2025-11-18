@@ -81,13 +81,13 @@ body {
 .group-input-1{
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 15px;
     font-family: 'Montserrat', sans-serif;
 }
 .group-input-2{
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 15px;
 }
 .contenedor-icon{
     display: flex;
@@ -135,6 +135,442 @@ body {
   font-size: 16px;
 }
 
+.group-form-btn{
+    display: flex;
+    background-color: var(--white);
+    width: 60%;
+    height: 70%;
+    border-radius: 20px;
+}
+
+.contenedor-icon{
+    display: flex;
+    width: 8%;
+    height: 10%;
+    justify-content: top;
+    padding: 5px;
+    box-sizing: border-box;
+    object-fit: contain;
+}
+
+.group-logo-form{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.group-logo-form h1{
+    text-align: center;
+}
+.group-logo-form p{
+    text-align: center;
+}
+
+.group-logo-form form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 30px;
+    box-sizing: border-box;
+}
+.group-title{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    box-sizing: border-box;
+    gap: 5px;
+}
+
+.logo-uniride-azul{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    box-sizing: border-box;
+    width: 40%;
+    height: 40%;
+}
+
+.group-input{
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+.group-input label{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 5px;
+    box-sizing: border-box;
+}
+
+.group-input label input{
+    display: flex;
+    padding-left: 12px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid;
+}
+
+.btn_aceptar{
+    display: flex;
+    justify-content: center;
+    align-items:  center;
+    height: 8%;
+    background-color: var(--accent-color);
+    color: var(--white);
+    border-radius: 10px;
+    border: none;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+}
+
+
+.btn_volver{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    height: auto;
+    text-decoration: none;
+}
+.group-card-btn{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 20px;
+    gap: 10px;
+    box-sizing: border-box;
+}
+.group-tittle-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 20px;
+    gap: 10px;
+    box-sizing: border-box;
+}
+.group-title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+    gap: 5px;
+}
+.card{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height:auto;
+    max-height: 80%;
+    gap: 10px;
+    box-sizing: border-box;
+}
+.card label{
+    text-align: center;
+    color:var(--black);
+    height: auto;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.card-conductor{
+    background-color: #A0A1C8;   
+    color:var(--black);
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.card-pasajero{
+    background-color: #A0A1C8; 
+    color:var(--black);
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.card img{
+    display: flex;
+    height: 100%;
+    object-fit: contain;
+}
+
+.btn-seleccionar-rol-seleccionado {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2) inset;
+    background-color: #d0d0d0;
+    transition: all 0.15s ease-out;
+}
+.btn-masiva-seleccionado{
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2) inset;
+    transition: all 0.15s ease-out;
+    background-color: #A0A1C8;
+}
+.group-btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    box-sizing: border-box;    
+}
+
+.group-btns button{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+
+.contenedor-adjuntar-img{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    gap: 5px;
+    background: none;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.contenedor-adjuntar-img img{
+    display: flex;
+    height: 60%;
+    object-fit: contain;
+    justify-content: center;
+    align-items: center;
+}
+.contenedor-adjuntar-img p{
+    display: flex;
+    height: fit-content;
+    object-fit: contain;
+    justify-content: center;
+    align-items: center;
+}
+
+.group-input-btn-masiva{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.group-input-btn-masiva label{
+    font-size: 12px;
+}
+
+.group-input-btn-masiva input{
+    height: auto;
+    font-size: 10px;
+}
+
+.group-input-btn-masiva p{
+    width: auto;
+}
+
+.group-horario{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    gap: 10px;
+    box-sizing: border-box;
+}
+.btn-dia-seleccionado{
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2) inset;
+    transition: all 0.15s ease-out;
+}
+.group-frecuencia{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.group-frecuencia button{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    background: none;
+}
+
+.btn-agregar-curso{
+    background-color: var(--secondary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-aceptar{
+    background-color: var(--accent-color);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.group-input-vehiculos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.group-input-vehiculos input {
+    height: auto;
+}
+
+
+.modal {
+    position:fixed;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 20px;
+    gap:16px;
+    width: auto;
+    height: auto;
+    border-radius: 12px;
+    border: 2px solid black;
+}
+
+.modal[hidden] {
+    display: none !important;
+}
+
+.modal label{
+    height: auto;
+}
+.modal input{
+    height: auto;
+    padding-left: 12px;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 10px;
+    border: 1px solid;
+}
+.modal p{
+    width: auto;
+}
+
+.grupo-botones-formulario{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.grupo-botones-formulario button{
+    background-color: var(--accent-color);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btnAddCurso{
+    background-color: var(--accent-color);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btnContinuar{
+    background-color: var(--accent-color);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.card-curso{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 6px;
+    border: 2px solid black;
+    background: var(--gray-300);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.card-curso button{
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--accent-color);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.grupo-botones-card-curso{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.listaCursos {
+    width: 100%;
+    min-height: 40%;
+    max-height: 40%;
+    overflow-y: auto;         
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    gap: 12px; 
+}
+
 @media (max-width: 430px) {
   .body{
     padding: 0px;
@@ -160,4 +596,54 @@ body {
     justify-content: top;
     align-items: top;
   }
+  .logo-uniride-azul{
+    width: 0%;
+    height: 0%;
+  }
+  .group-tittle-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    padding: 20px;
+    gap: 10px;
+    box-sizing: border-box;
+}
+  .card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:80%;
+    max-height: 80%;
+    gap: 10px;
+    box-sizing: border-box;
+    }
+
+    .card-conductor{
+    background-color: #A0A1C8;   
+    color:var(--black);
+    border-radius: 10px;
+    height: 50%;
+    padding: 10px;
+    box-sizing: border-box;
+    }
+
+    .card-pasajero{
+        background-color: #A0A1C8;   
+        color:var(--black);
+        border-radius: 10px;
+        height: 50%;
+        padding: 10px;
+        box-sizing: border-box;
+    }  
+    
+    .btn-seleccionar-rol-seleccionado {
+        transform: translateY(2px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2) inset;
+        background-color: #d0d0d0;
+        transition: all 0.15s ease-out;
+    } 
+
 }

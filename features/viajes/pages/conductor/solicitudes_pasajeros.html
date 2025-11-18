@@ -4,8 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <title>UniRide - Viajes Conductor</title>
-    <link rel="stylesheet" href="../../../styles.css" />
-    <link rel="stylesheet" href="../css/solicitudes_pasajeros.css" />
+    <link rel="stylesheet" href="../../../../styles.css" />
+    <link rel="stylesheet" href="../../css/conductor/solicitudes_pasajeros.css" />
 </head>
 
 <body>
@@ -81,33 +81,11 @@
         <!-- Aquí JS insertará las tarjetas -->
     </div>
         
-    <!-- Modal de cancelar solicitud -->
-<div class="modal" id="modalCancelar" style="display: none;">
-  <div class="modal-content cancelar-modal">
-    <div class="modal-header">
-      <div class="modal-icon">😢</div>
-      <h2>Cancelar Solicitud de Viaje</h2>
-    </div>
-    <p class="modal-message">
-      Sentimos que quiera cancelar la solicitud. Recuerde que si no menciona la razón, se reducirá su calificación.
-    </p>
-    <form id="formCancelar">
-      <div class="motivo">
-        <label for="reason">Motivo:</label>
-        <textarea id="reason" rows="4" placeholder="Por favor, explique por qué está cancelando esta solicitud..."></textarea>
-      </div>
-      <div class="modal-actions">
-        <button type="button" class="btn-cancel" id="btnCancelarCerrar">Cancelar</button>
-        <button type="submit" class="btn-submit">Enviar</button>
-      </div>
-    </form>
-  </div>
-</div>
 
     </main>
 
 </div>
 
-<script src="../js/solicitudes_pasajeros.js"></script>
+<script src="../../js/solicitudes_pasajeros.js"></script>
 </body>
 </html>

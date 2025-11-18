@@ -16,7 +16,7 @@
       <div class="card">
         <form name="iniciar-sesion-form-1">
           <div class="group-logo-btn">
-            <button class="btn_back"  href="#">
+            <button type="button" class="btn_back" id="btn_back">
               <img  class= "btn-back-icon "src="../../../assets/icons/retroceder_icon.svg" alt="button-back">
             </button>
             <img class= "logo-uniride-image" src="../../../assets/imgs/logo-uniride-azul.png" alt="Logo Uniride">
@@ -33,13 +33,14 @@
             Contraseña
             <input type="password" placeholder="Ingrese su contraseña" name="input-contraseña" />
           </label>
-          <button class="btn-iniciar-sesion">Iniciar Sesión</button>
+          <button class="btn-iniciar-sesion" id="btn-iniciar-sesion">Iniciar Sesión</button>
           <div class="group-register">
             <p>No tienes una cuenta?</p>
-            <a class ="redireccion_register" href="#">Regístrate</a>
+            <a class ="redireccion_register" href="../../registro/pages/registroPrincipal.html">Regístrate</a>
           </div>
         </form>
       </div>
     </div>
+    <script src="../js/inicioSesion.js"></script>
   </body>
 </html>

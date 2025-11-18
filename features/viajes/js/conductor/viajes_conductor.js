@@ -40,8 +40,15 @@ guardarBtn.addEventListener("click", (e) => {
 
     // Obtener todas las rutas
     const routes = JSON.parse(localStorage.getItem("userRoutes")) || [];
-    // Encontrar la ruta seleccionada
     const selectedRoute = routes.find(route => route.name === rutaTomar.value);
+
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const conductor = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+
+    const nombreConductor = conductor 
+        ? `${conductor.datosPersonales.nombres} ${conductor.datosPersonales.apellidoPaterno}`
+        : "Conductor desconocido";
 
     const viaje = {
         fecha: fechaInicio.value,
@@ -49,9 +56,9 @@ guardarBtn.addEventListener("click", (e) => {
         ruta: rutaTomar.value, 
         puntosRecogida: selectedRoute ? selectedRoute.referencePlaces : "No especificado",
         pasajeros: cantidadPasajeros.value,
-        estado: "Pendiente"
+        estado: "Pendiente",
+        conductor: nombreConductor  
     };
-
 
     let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
     viajes.push(viaje);
