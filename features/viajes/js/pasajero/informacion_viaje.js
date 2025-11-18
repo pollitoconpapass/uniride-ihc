@@ -12,16 +12,7 @@
 
   function setText(el, text){ if (el) el.textContent = text; }
 
-  function setRouteImage(routeNumber){
-    var container = qs('.map-card .map-route');
-    if (!container) return;
-    var url = '../../../../assets/imgs/ruta-'+routeNumber+'-trazado.png';
-    container.style.backgroundImage = 'url("'+url+'")';
-    container.style.backgroundSize = 'cover';
-    container.style.backgroundPosition = 'center';
-    container.style.height = '220px';
-    container.style.borderRadius = '12px';
-  }
+  function setRouteImage(){ /* mapa omitido por requerimiento */ }
 
   function renderPickups(stops){
     var card = qs('.pickup-card');
@@ -39,31 +30,34 @@
   }
 
   document.addEventListener('DOMContentLoaded', function(){
-    var id = getParam('id') || 2; // por defecto mostrar uno conocido
-    var viaje = (window.PasajeroViajesData && window.PasajeroViajesData.findById(id)) || null;
+    var index = getParam('i'); // índice en viajes del conductor
+    var viajes = window.PasajeroViajesData.getConductorViajes();
+    var viaje = viajes && index!=null ? viajes[parseInt(index,10)] : null;
     if (!viaje) return;
 
     // Perfil de conductor
-    var profileImg = qs('.driver-profile img');
-    if (profileImg && viaje.conductor && viaje.conductor.foto) profileImg.src = viaje.conductor.foto;
-    setText(qs('.driver-profile .details h2'), viaje.conductor.nombre);
+    setText(qs('#driver-name'), 'Conductor'); // Name is not in the trip object from conductor
 
-    // CTA reservar
+    // Título de la tarjeta
+    setText(qs('#trip-route-name'), "Viaje a " + (viaje.ruta || ''));
+
+    // CTA reservar -> modal
     var reservar = document.querySelector('.cta-group .btn-primary');
-    if (reservar) reservar.setAttribute('href', 'reservar_viaje.html?id='+viaje.id);
+    if (reservar) reservar.addEventListener('click', function(e){ e.preventDefault(); if (window.PasajeroModals) window.PasajeroModals.openReservaModal({ index: parseInt(index,10) }); });
+    var chat = document.querySelector('.badge-whatsapp');
+    if (chat) chat.textContent = 'Coordinar por chat';
 
     // Meta
-    var meta = document.querySelectorAll('.trip-meta .light-card');
-    if (meta && meta.length >= 4){
-      setText(meta[0].querySelector('span'), viaje.hora);
-      setText(meta[1].querySelector('span'), viaje.fecha_salida);
-      setText(meta[2].querySelector('span'), viaje.tiempo_estimado);
-      setText(meta[3].querySelector('span'), viaje.lugar_recojo);
-    }
+    setText(qs('#trip-time'), viaje.hora || '');
+    setText(qs('#trip-date'), (viaje.fecha || viaje.fecha_salida) || '');
 
     // Ruta y paraderos
-    setRouteImage(viaje.routeNumber || 1);
-    renderPickups(viaje.paraderos || []);
+    setRouteImage();
+    var stops = window.PasajeroViajesData.findStopsByRouteName(viaje.ruta);
+    renderPickups(stops || []);
+
+    // Limpiar sección de meta del conductor (edad/carrera)
+    var metaProfile = document.querySelector('.driver-profile .meta');
+    if (metaProfile){ metaProfile.innerHTML = ''; }
   });
 })();
-

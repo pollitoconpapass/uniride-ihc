@@ -6,6 +6,7 @@
 }
 
 .map-placeholder {
+    display: none; /* ocultar simulación de mapa */
     background: radial-gradient(circle at 25% 30%, rgba(56, 189, 248, 0.28), transparent 55%), 
                 radial-gradient(circle at 70% 40%, rgba(129, 140, 248, 0.34), transparent 60%),
                 linear-gradient(160deg, #0f172a 0%, #050816 100%);

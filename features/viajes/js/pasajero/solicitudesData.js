@@ -30,6 +30,7 @@
       horario: payload.horario, // '10:00 am 10/10/2025'
       estado: payload.estado || 'pendiente',
       metodo_compensacion: payload.metodo_compensacion || 'Pago en efectivo',
+      monto_compensacion: payload.monto_compensacion || '0.00',
       punto_recogida: payload.punto_recogida || '',
       mensaje_opcional: payload.mensaje_opcional || '',
       creado_en: now.toISOString()
