@@ -23,7 +23,6 @@
       var tr = document.createElement('tr');
       tr.innerHTML = ''+
         '<td data-label="Conductor">Conductor</td>'+
-        '<td data-label="Distancia">—</td>'+
         '<td data-label="Hora">'+(v.hora||'')+'</td>'+
         '<td data-label="Fecha de salida">'+(v.fecha||'')+'</td>'+
         '<td data-label="Disponibilidad"><span class="availability-pill '+availabilityClass(total, ocupados)+'">'+libres+'/'+total+' asientos</span></td>'+

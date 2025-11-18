@@ -1,24 +1,17 @@
-// Página de Información del Viaje (Pasajero)
-// Requiere: viajesData.js
+// Lógica para la página de información de una oferta de viaje
 (function(){
-  function byId(id){ return document.getElementById(id); }
-
-  function qs(sel){ return document.querySelector(sel); }
-
   function getParam(name){
     var m = new RegExp('[?&]'+name+'=([^&]+)').exec(location.search);
     return m ? decodeURIComponent(m[1]) : null;
   }
 
-  function setText(el, text){ if (el) el.textContent = text; }
-
-  function setRouteImage(){ /* mapa omitido por requerimiento */ }
+  function setText(el, text){
+    if (el) el.textContent = text;
+  }
 
   function renderPickups(stops){
-    var card = qs('.pickup-card');
+    var card = document.querySelector('.pickup-card');
     if (!card) return;
-    // Mantener el título existente
-    // Eliminar pills previas
     var pills = card.querySelectorAll('.info-pill');
     for (var i=0;i<pills.length;i++) pills[i].remove();
     for (var j=0;j<stops.length;j++){
@@ -30,34 +23,40 @@
   }
 
   document.addEventListener('DOMContentLoaded', function(){
-    var index = getParam('i'); // índice en viajes del conductor
-    var viajes = window.PasajeroViajesData.getConductorViajes();
-    var viaje = viajes && index!=null ? viajes[parseInt(index,10)] : null;
-    if (!viaje) return;
+    var offerIndex = getParam('i');
+    if (offerIndex === null) {
+        document.querySelector('.info-wrapper').innerHTML = '<h2>No se encontró la oferta de viaje.</h2>';
+        return;
+    }
 
-    // Perfil de conductor
-    setText(qs('#driver-name'), 'Conductor'); // Name is not in the trip object from conductor
+    var viajesConductor = window.PasajeroViajesData.getConductorViajes();
+    var viaje = viajesConductor && viajesConductor[parseInt(offerIndex, 10)];
 
-    // Título de la tarjeta
-    setText(qs('#trip-route-name'), "Viaje a " + (viaje.ruta || ''));
+    if (!viaje) {
+        document.querySelector('.info-wrapper').innerHTML = '<h2>No se encontró la oferta de viaje.</h2>';
+        return;
+    }
 
-    // CTA reservar -> modal
-    var reservar = document.querySelector('.cta-group .btn-primary');
-    if (reservar) reservar.addEventListener('click', function(e){ e.preventDefault(); if (window.PasajeroModals) window.PasajeroModals.openReservaModal({ index: parseInt(index,10) }); });
-    var chat = document.querySelector('.badge-whatsapp');
-    if (chat) chat.textContent = 'Coordinar por chat';
+    // Poblar datos de la oferta
+    setText(document.querySelector('#trip-route-name'), 'Viaje a ' + viaje.ruta);
+    setText(document.querySelector('#driver-name'), 'Conductor'); // Nombre no disponible en el objeto de oferta
 
-    // Meta
-    setText(qs('#trip-time'), viaje.hora || '');
-    setText(qs('#trip-date'), (viaje.fecha || viaje.fecha_salida) || '');
+    setText(document.querySelector('#trip-time'), viaje.hora || '');
+    setText(document.querySelector('#trip-date'), viaje.fecha || '');
 
-    // Ruta y paraderos
-    setRouteImage();
+    // Lógica para paradas de la ruta
     var stops = window.PasajeroViajesData.findStopsByRouteName(viaje.ruta);
     renderPickups(stops || []);
 
-    // Limpiar sección de meta del conductor (edad/carrera)
-    var metaProfile = document.querySelector('.driver-profile .meta');
-    if (metaProfile){ metaProfile.innerHTML = ''; }
+    // Lógica del botón reservar
+    var btnReservar = document.querySelector('.btn-primary');
+    if (btnReservar) {
+      btnReservar.addEventListener('click', function(e){
+        e.preventDefault();
+        if (window.PasajeroModals) {
+          window.PasajeroModals.openReservaModal({ index: parseInt(offerIndex, 10) });
+        }
+      });
+    }
   });
 })();
