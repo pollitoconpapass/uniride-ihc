@@ -96,8 +96,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="referencePlaces" class="form-label">Lugares de referencia por los que pasas</label>
-                        <input type="text" id="referencePlaces" class="form-input" placeholder="Agregar Lugares de Referencia" required>
+                        <label class="form-label">Lugares de referencia por los que pasas</label>
+                        <div class="reference-input-container">
+                            <input type="text" id="newReferencePlace" class="form-input" placeholder="Agregar Lugar de Referencia">
+                            <button type="button" id="addReferenceBtn" class="add-btn">+</button>
+                        </div>
+               
+                        <div id="referencePlacesList" class="reference-places-list">
+                
+                        </div>
+                        <input type="hidden" id="referencePlaces" name="referencePlaces">
                     </div>
 
                     <div class="form-group">
