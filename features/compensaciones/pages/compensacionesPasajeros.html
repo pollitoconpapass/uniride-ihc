@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compensaciones de Viaje</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            background-color: #f5f7fa;
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Styles - Narrow Version */
+        .sidebar {
+            width: 200px;
+            background: linear-gradient(180deg, #2c3e50, #34495e);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 15px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 15px;
+        }
+        
+        .sidebar-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-bottom: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .sidebar-header h3 {
+            color: white;
+            font-size: 14px;
+            margin: 0;
+            text-align: center;
+        }
+        
+        .sidebar-header p {
+            color: #aaa;
+            font-size: 11px;
+            margin: 0;
+            text-align: center;
+        }
+        
+        .menu-title {
+            padding: 0 15px 8px;
+            font-size: 11px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .sidebar-nav {
+            padding: 0 8px;
+        }
+        
+        .nav-item-sidebar {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            margin: 4px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 13px;
+        }
+        
+        .nav-item-sidebar:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-item-sidebar.active {
+            background-color: #3498db;
+        }
+        
+        .nav-item-sidebar img {
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .nav-item-sidebar span {
+            flex: 1;
+        }
+        
+        .sidebar-footer {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+        }
+        
+        .sidebar-footer:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-footer img {
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            filter: brightness(0) invert(1);
+        }
+        
+        /* Dropdown styles */
+        .dropdown-arrow {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+            font-size: 10px;
+        }
+        
+        .dropdown-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 0 0 6px 6px;
+            margin-top: -4px;
+        }
+        
+        .dropdown-menu.open {
+            max-height: 160px;
+        }
+        
+        .dropdown-item {
+            padding: 8px 12px 8px 38px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Main Content Styles */
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 30px;
+            overflow-y: auto;
+        }
+        
+        header {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        header h1 {
+            font-size: 28px;
+            color: #2c3e50;
+        }
+        
+        .main-content {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .table-section {
+            flex: 3;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .filter-btn:hover {
+            background-color: #e9ecef;
+        }
+        
+        .filter-btn.active {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        .sort-indicator {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .date-filter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .date-filter span {
+            font-weight: 500;
+            color: #555;
+        }
+        
+        select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .sidebar-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .total-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .total-label {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        
+        .total-amount {
+            font-size: 32px;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        
+        @media (max-width: 1024px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .total-card {
+                flex: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            
+            .container {
+                order: 1;
+            }
+            
+            .filters {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .filter-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .filter-btn {
+                flex: 1;
+                justify-content: center;
+            }
+            
+            .date-filter {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+        
+        /* Animation for sorting buttons */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        @keyframes success-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.6); }
+            70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .success-pulse {
+            animation: success-pulse 0.5s ease;
+        }
+        
+        .empty-message {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar - Narrow Version -->
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <img src="https://i.pravatar.cc/150?img=32" alt="User Avatar">
+                <h3>Carlos</h3>
+                <p>+51 98970564</p>
+            </div>
+            
+            <div class="menu-title">MENU</div>
+            
+            <div class="sidebar-nav">
+                <div class="nav-item-sidebar" onclick="window.location.href='#'">
+                    <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Home">
+                    <span>Principal</span>
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='#'">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2907/2907243.png" alt="Travel">
+                    <span>Viajes</span>
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='#'">
+                    <img src="https://cdn-icons-png.flaticon.com/512/854/854878.png" alt="Routes">
+                    <span>Gestion de Rutas</span>
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='#'">
+                    <img src="https://cdn-icons-png.flaticon.com/512/134/134914.png" alt="Chat">
+                    <span>Comunicación</span>
+                </div>
+                
+                <div class="nav-item-sidebar active" onclick="window.location.href='#'">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135679.png" alt="Money">
+                    <span>Compensaciones y Pagos</span>
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='#'">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2092/2092655.png" alt="Report">
+                    <span>Reportes</span>
+                </div>
+                
+                <div class="nav-item-sidebar" id="configuracion-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/126/126472.png" alt="Settings">
+                    <span>Configuración</span>
+                    <span class="dropdown-arrow">▼</span>
+                </div>
+                
+                <!-- Dropdown menu for Configuración -->
+                <div class="dropdown-menu" id="configuracion-dropdown">
+                    <div class="dropdown-item" onclick="window.location.href='#'">Perfil</div>
+                    <div class="dropdown-item" onclick="window.location.href='#'">Preferencias</div>
+                    <div class="dropdown-item" onclick="window.location.href='#'">Privacidad</div>
+                    <div class="dropdown-item" onclick="window.location.href='#'">Notificaciones</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar-footer" onclick="window.location.href='#'">
+            <img src="https://cdn-icons-png.flaticon.com/512/126/126467.png" alt="Logout">
+            <span>Cerrar Sesión</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <header>
+            <h1>Compensaciones de Viaje</h1>
+        </header>
+
+        <div class="main-content">
+            <div class="table-section">
+                <div class="filters">
+                    <div class="filter-buttons">
+                        <button class="filter-btn" id="sort-asc">
+                            <i class="fas fa-sort-amount-up-alt"></i> Menor a Mayor
+                            <span class="sort-indicator">$</span>
+                        </button>
+                        <button class="filter-btn" id="sort-desc">
+                            <i class="fas fa-sort-amount-down"></i> Mayor a Menor
+                            <span class="sort-indicator">$</span>
+                        </button>
+                    </div>
+                    <div class="date-filter">
+                        <span>Filtrar por Mes:</span>
+                        <select id="month-filter">
+                            <!-- Months will be populated by JavaScript -->
+                        </select>
+                    </div>
+                </div>
+
+                <table id="benefits-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Conductor</th>
+                            <th>Tipo de Compensación</th>
+                            <th>Descuento / Compensación</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- JavaScript will populate this -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="sidebar-content">
+                <div class="total-card">
+                    <div class="total-label">Total Ahorrado / Beneficios Mensuales</div>
+                    <div class="total-amount" id="total-saved">S/. 0.00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for passenger travel compensations and discounts
+        const benefitsData = [
+            { date: '08/09/2025', driver: 'Nector Campos', benefitType: 'Retraso del conductor', amount: 3.50 },
+            { date: '10/10/2025', driver: 'Sello Yin', benefitType: 'Bono por 10 viajes', amount: 6.00 },
+            { date: '30/10/2025', driver: 'Nadir Fernandez', benefitType: 'Promoción especial', amount: 8.00 },
+            { date: '15/10/2025', driver: 'Nacional Maribrez', benefitType: 'Retraso del conductor', amount: 3.50 },
+            { date: '22/10/2025', driver: 'Jumi Nordic', benefitType: 'Bono por 15 viajes', amount: 7.50 },
+            { date: '05/10/2025', driver: 'Adriana Masa', benefitType: 'Promoción especial', amount: 6.00 },
+            { date: '12/10/2025', driver: 'Carlos Ruiz', benefitType: 'Retraso del conductor', amount: 4.00 },
+            { date: '18/10/2025', driver: 'Maria Lopez', benefitType: 'Bono por 5 viajes', amount: 4.50 },
+            { date: '25/10/2025', driver: 'Juan Perez', benefitType: 'Promoción especial', amount: 8.00 },
+            { date: '28/10/2025', driver: 'Ana Garcia', benefitType: 'Bono por 20 viajes', amount: 10.00 }
+        ];
+
+        // DOM elements
+        const tableBody = document.getElementById('table-body');
+        const totalSavedElement = document.getElementById('total-saved');
+        const sortAscBtn = document.getElementById('sort-asc');
+        const sortDescBtn = document.getElementById('sort-desc');
+        const monthFilter = document.getElementById('month-filter');
+
+        // Current state
+        let currentData = [...benefitsData];
+        let currentSort = null;
+
+        // Initialize the table when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            populateMonthFilter();
+            initializeTable();
+            
+            // Add event listeners
+            sortAscBtn.addEventListener('click', () => applySort('asc'));
+            sortDescBtn.addEventListener('click', () => applySort('desc'));
+            monthFilter.addEventListener('change', filterByMonth);
+            
+            // Add visual feedback for sorting buttons
+            addSortingVisualFeedback();
+            
+            // Initialize sidebar dropdown
+            initializeSidebarDropdown();
+        });
+
+        // Initialize sidebar dropdown functionality
+        function initializeSidebarDropdown() {
+            const configuracionItem = document.getElementById('configuracion-item');
+            const dropdownMenu = document.getElementById('configuracion-dropdown');
+            const dropdownArrow = configuracionItem.querySelector('.dropdown-arrow');
+            
+            configuracionItem.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('open');
+                dropdownArrow.style.transform = dropdownMenu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0)';
+            });
+            
+            // Close dropdown when clicking elsewhere
+            document.addEventListener('click', function() {
+                dropdownMenu.classList.remove('open');
+                dropdownArrow.style.transform = 'rotate(0)';
+            });
+            
+            // Prevent dropdown from closing when clicking inside it
+            dropdownMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
+
+        // Populate month filter with all months of the year
+        function populateMonthFilter() {
+            const months = [
+                { value: 'all', name: 'Todos los meses' },
+                { value: '01', name: 'Enero 2025' },
+                { value: '02', name: 'Febrero 2025' },
+                { value: '03', name: 'Marzo 2025' },
+                { value: '04', name: 'Abril 2025' },
+                { value: '05', name: 'Mayo 2025' },
+                { value: '06', name: 'Junio 2025' },
+                { value: '07', name: 'Julio 2025' },
+                { value: '08', name: 'Agosto 2025' },
+                { value: '09', name: 'Septiembre 2025' },
+                { value: '10', name: 'Octubre 2025' },
+                { value: '11', name: 'Noviembre 2025' },
+                { value: '12', name: 'Diciembre 2025' }
+            ];
+            
+            monthFilter.innerHTML = '';
+            
+            months.forEach(month => {
+                const option = document.createElement('option');
+                option.value = month.value;
+                option.textContent = month.name;
+                monthFilter.appendChild(option);
+            });
+            
+            // Set current month as default selection
+            const currentMonth = new Date().getMonth() + 1;
+            const currentMonthString = currentMonth.toString().padStart(2, '0');
+            monthFilter.value = currentMonthString;
+        }
+
+        // Add visual feedback to show sorting functionality
+        function addSortingVisualFeedback() {
+            const buttons = [sortAscBtn, sortDescBtn];
+            
+            buttons.forEach(button => {
+                // Add pulse animation on page load
+                button.classList.add('pulse');
+                
+                // Add hover effects
+                button.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateY(-2px) scale(1.02)';
+                    }
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateY(0) scale(1)';
+                    }
+                });
+            });
+        }
+
+        // Initialize the table
+        function initializeTable() {
+            renderTable(currentData);
+            updateStatistics(currentData);
+        }
+
+        // Render table with data
+        function renderTable(data) {
+            tableBody.innerHTML = '';
+            
+            if (data.length === 0) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = '<td colspan="4" class="empty-message">No se encontraron compensaciones</td>';
+                tableBody.appendChild(emptyRow);
+                return;
+            }
+            
+            data.forEach(benefit => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${benefit.date}</td>
+                    <td class="driver-name">${benefit.driver}</td>
+                    <td class="benefit-type">${benefit.benefitType}</td>
+                    <td class="amount">S/. ${benefit.amount.toFixed(2)}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Update statistics display
+        function updateStatistics(data) {
+            const total = data.reduce((sum, benefit) => sum + benefit.amount, 0);
+            totalSavedElement.textContent = `S/. ${total.toFixed(2)}`;
+        }
+
+        // Apply sorting based on selected filter
+        function applySort(sortType) {
+            // Remove active class from all buttons
+            [sortAscBtn, sortDescBtn].forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.remove('pulse');
+                btn.style.transform = 'translateY(0)';
+            });
+            
+            // Apply the selected sort
+            switch(sortType) {
+                case 'asc':
+                    currentData.sort((a, b) => a.amount - b.amount);
+                    sortAscBtn.classList.add('active');
+                    sortAscBtn.style.transform = 'translateY(-1px)';
+                    currentSort = 'asc';
+                    break;
+                case 'desc':
+                    currentData.sort((a, b) => b.amount - a.amount);
+                    sortDescBtn.classList.add('active');
+                    sortDescBtn.style.transform = 'translateY(-1px)';
+                    currentSort = 'desc';
+                    break;
+            }
+            
+            renderTable(currentData);
+            
+            // Add confirmation animation
+            const activeButton = document.querySelector('.filter-btn.active');
+            activeButton.classList.add('success-pulse');
+            setTimeout(() => {
+                activeButton.classList.remove('success-pulse');
+            }, 500);
+        }
+
+        // Filter data by month
+        function filterByMonth() {
+            const selectedMonth = monthFilter.value;
+            
+            if (selectedMonth === 'all') {
+                currentData = [...benefitsData];
+            } else {
+                currentData = benefitsData.filter(benefit => {
+                    // Extract month from date (format: DD/MM/YYYY)
+                    const month = benefit.date.split('/')[1];
+                    return month === selectedMonth;
+                });
+            }
+            
+            // Reapply current sort if exists
+            if (currentSort === 'asc') {
+                currentData.sort((a, b) => a.amount - b.amount);
+            } else if (currentSort === 'desc') {
+                currentData.sort((a, b) => b.amount - a.amount);
+            }
+            
+            renderTable(currentData);
+            updateStatistics(currentData);
+        }
+    </script>
+</body>
+</html>

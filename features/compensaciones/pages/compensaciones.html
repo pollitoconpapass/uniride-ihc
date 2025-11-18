@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compensaciones y Pagos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/compensaciones.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Compensaciones y Pagos</h1>
+        </header>
+
+        <div class="main-content">
+            <div class="table-section">
+                <div class="filters">
+                    <div class="filter-buttons">
+                        <button class="filter-btn" id="sort-asc">
+                            <i class="fas fa-sort-amount-up-alt"></i> Ascendente
+                            <span class="sort-indicator">$</span>
+                        </button>
+                        <button class="filter-btn" id="sort-desc">
+                            <i class="fas fa-sort-amount-down"></i> Descendente
+                            <span class="sort-indicator">$</span>
+                        </button>
+                    </div>
+                    <div class="date-filter">
+                        <span>Filtrar por Mes:</span>
+                        <select id="month-filter">
+                            <!-- Months will be populated by JavaScript -->
+                        </select>
+                    </div>
+                </div>
+
+                <table id="payments-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha del Viaje</th>
+                            <th>Pasajero</th>
+                            <th>Compensación</th>
+                            <th>Cantidad Monetaria</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- JavaScript will populate this -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="sidebar">
+                <div class="total-card">
+                    <div class="total-label">Total Ganado</div>
+                    <div class="total-amount" id="total-amount">S/. 0.00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/compensaciones.js"></script>
+</body>
+</html>
