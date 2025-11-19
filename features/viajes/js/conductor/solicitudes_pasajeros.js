@@ -76,15 +76,24 @@ document.addEventListener("DOMContentLoaded", () => {
 document.querySelectorAll(".btn-aceptar").forEach(btn => {
     btn.addEventListener("click", () => {
         const idx = btn.dataset.index;
+        const reservaAceptada = reservasFiltradas[idx];
 
-        reservasFiltradas[idx].estado = "Aceptado";
-        reservasFiltradas[idx].estadoViaje = "Por llegar";
-        actualizarReservas(reservas, reservasFiltradas[idx]);
+        // Encontrar la reserva original en el array completo
+        const idxOriginal = reservas.findIndex(r =>
+            r.idConductor === reservaAceptada.idConductor &&
+            r.idPasajero === reservaAceptada.idPasajero &&
+            r.fecha === reservaAceptada.fecha &&
+            r.hora === reservaAceptada.hora
+        );
+
+        if (idxOriginal !== -1) {
+            reservas[idxOriginal].estado = "Aceptado";
+            reservas[idxOriginal].estadoViaje = "Por llegar";
+            localStorage.setItem("reservas", JSON.stringify(reservas));
+        }
 
         actualizarPasajerosDelViaje(viaje);
-
         btn.closest(".solicitud-card").remove();
-
         modalAceptar.style.display = "flex";
     });
 });
@@ -130,14 +139,7 @@ document.querySelectorAll(".btn-rechazar").forEach(btn => {
 
 });
 
-// === ACTUALIZAR LOCAL STORAGE (clave) ===
-function actualizarReservas(reservasOriginal, reservaModificada) {
-    const nuevas = reservasOriginal.map(r =>
-        r.idReserva === reservaModificada.idReserva ? reservaModificada : r
-    );
 
-    localStorage.setItem("reservas", JSON.stringify(nuevas));
-}
 
 function actualizarPasajerosDelViaje(viajeSeleccionado) {
     let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
