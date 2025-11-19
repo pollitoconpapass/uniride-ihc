@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compensaciones y Pagos</title>
+    <title>Registro de Pagos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #8E8CC7;
+            --secondary-color: #1A202C;
+            --accent-color: #4F46E5;
+            --light-color: #F7FAFC;
+            --text-color: #2D3748;
+            --basic-700-color: #2E3A59;
+            --white: #FFFFFF;
+            --gray-100: #F7FAFC;
+            --gray-200: #EDF2F7;
+            --gray-300: #E2E8F0;
+            --gray-400: #CBD5E0;
+            --gray-500: #A0AEC0;
+            --gray-600: #718096;
+            --gray-700: #4A5568;
+            --gray-800: #2D3748;
+            --gray-900: #1A202C;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -96,8 +115,8 @@
         
         .nav-item-sidebar.active {
             background-color: rgba(255, 255, 255, 0.1);
-            border-left: 4px solid #4F46E5;
-            color: #4F46E5;
+            border-left: 4px solid var(--accent-color);
+            color: var(--accent-color);
         }
         
         .nav-item-sidebar img {
@@ -280,27 +299,6 @@
             color: #27ae60;
         }
         
-        /* Compensation type badges */
-        .compensation-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        
-        .compensation-fuel {
-            background-color: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeaa7;
-        }
-        
-        .compensation-cash {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
-        }
-        
         @media (max-width: 1024px) {
             .main-content {
                 flex-direction: column;
@@ -442,7 +440,7 @@
                 
                 <div class="nav-item-sidebar active" onclick="window.location.href='../../compensaciones/pages/compensaciones.html'">
                     <img src="../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
-                    <span>Compensaciones y Pagos</span>
+                    <span>Formas de Pago</span>
                 </div>
                 
                 <div class="nav-item-sidebar" onclick="window.location.href='../../reportes/pages/reportes.html'">
@@ -466,7 +464,7 @@
     <!-- Main Content -->
     <div class="container">
         <header>
-            <h1>Compensaciones y Pagos</h1>
+            <h1>Registro de Formas de Pago</h1>
         </header>
 
         <div class="main-content">
@@ -474,11 +472,11 @@
                 <div class="filters">
                     <div class="filter-buttons">
                         <button class="filter-btn" id="sort-asc">
-                            <i class="fas fa-sort-amount-up-alt"></i> Ascendente
+                            <i class="fas fa-sort-amount-up-alt"></i> Menor a Mayor
                             <span class="sort-indicator">$</span>
                         </button>
                         <button class="filter-btn" id="sort-desc">
-                            <i class="fas fa-sort-amount-down"></i> Descendente
+                            <i class="fas fa-sort-amount-down"></i> Mayor a Menor
                             <span class="sort-indicator">$</span>
                         </button>
                     </div>
@@ -490,13 +488,13 @@
                     </div>
                 </div>
 
-                <table id="payments-table">
+                <table id="benefits-table">
                     <thead>
                         <tr>
-                            <th>Fecha del Viaje</th>
-                            <th>Pasajero</th>
-                            <th>Compensación</th>
-                            <th>Cantidad Monetaria</th>
+                            <th>Fecha</th>
+                            <th>Conductor</th>
+                            <th>Forma de Pago</th>
+                            <th>Monto</th>
                         </tr>
                     </thead>
                     <tbody id="table-body">
@@ -505,97 +503,37 @@
                 </table>
             </div>
 
-            <div class="sidebar-content">
-                <div class="total-card">
-                    <div class="total-label">Total Ganado</div>
-                    <div class="total-amount" id="total-amount">S/. 0.00</div>
-                </div>
-            </div>
+            <!-- Sección de total eliminada según la solicitud -->
         </div>
     </div>
 
     <script>
-        // Initialize localStorage data if it doesn't exist
-        function initializeLocalStorage() {
-            // Check and initialize viajesGuardados
-            if (!localStorage.getItem("viajesGuardados")) {
-                localStorage.setItem("viajesGuardados", JSON.stringify([]));
-            }
-            
-            // Check and initialize viajesPasados
-            if (!localStorage.getItem("viajesPasados")) {
-                localStorage.setItem("viajesPasados", JSON.stringify([]));
-            }
-            
-            // Check and initialize userRoutes
-            if (!localStorage.getItem("userRoutes")) {
-                // Initialize with some sample routes
-                const sampleRoutes = [
-                    { name: "Ruta Norte - Centro" },
-                    { name: "Ruta Este - Sur" },
-                    { name: "Ruta Express A" },
-                    { name: "Ruta Costera" }
-                ];
-                localStorage.setItem("userRoutes", JSON.stringify(sampleRoutes));
-            }
-            
-            // Check and initialize actualizarTablaViajes
-            if (!localStorage.getItem("actualizarTablaViajes")) {
-                localStorage.setItem("actualizarTablaViajes", "false");
-            }
-            
-            // Check and initialize compensacionesData
-            if (!localStorage.getItem("compensacionesData")) {
-                // Updated data with requested changes
-                const compensacionesData = [
-                    { date: '08/09/2025', passenger: 'Necker Composi', compensation: 'Pago de combustible', amount: 8.00 },
-                    { date: '10/10/2025', passenger: 'Santa Yin', compensation: 'Pago de combustible', amount: 8.00 },
-                    { date: '30/10/2025', passenger: 'Nadia Fernandez', compensation: 'Pago en soles', amount: 8.00 },
-                    { date: '15/10/2025', passenger: 'Montino Montinos', compensation: 'Pago de combustible', amount: 8.00 }
-                ];
-                localStorage.setItem("compensacionesData", JSON.stringify(compensacionesData));
-            }
-        }
-
-        // Get data from localStorage
-        function getPaymentsData() {
-            try {
-                const data = JSON.parse(localStorage.getItem("compensacionesData"));
-                if (data && data.length > 0) {
-                    return data;
-                }
-            } catch (error) {
-                console.error("Error getting payments data from localStorage:", error);
-            }
-            
-            // Fallback to updated data if localStorage is empty
-            return [
-                { date: '08/09/2025', passenger: 'Necker Composi', compensation: 'Pago de combustible', amount: 8.00 },
-                { date: '10/10/2025', passenger: 'Santa Yin', compensation: 'Pago de combustible', amount: 8.00 },
-                { date: '30/10/2025', passenger: 'Nadia Fernandez', compensation: 'Pago en soles', amount: 8.00 },
-                { date: '15/10/2025', passenger: 'Montino Montinos', compensation: 'Pago de combustible', amount: 8.00 }
-            ];
-        }
+        // Sample data for passenger payment methods
+        const paymentData = [
+            { date: '08/09/2025', driver: 'Nector Campos', paymentType: 'Tarjeta de Crédito', amount: 15.50 },
+            { date: '10/10/2025', driver: 'Sello Yin', paymentType: 'Efectivo', amount: 12.00 },
+            { date: '30/10/2025', driver: 'Nadir Fernandez', paymentType: 'Tarjeta de Débito', amount: 18.00 },
+            { date: '15/10/2025', driver: 'Nacional Maribrez', paymentType: 'Billetera Digital', amount: 13.50 },
+            { date: '22/10/2025', driver: 'Jumi Nordic', paymentType: 'Tarjeta de Crédito', amount: 17.50 },
+            { date: '05/10/2025', driver: 'Adriana Masa', paymentType: 'Efectivo', amount: 16.00 },
+            { date: '12/10/2025', driver: 'Carlos Ruiz', paymentType: 'Billetera Digital', amount: 14.00 },
+            { date: '18/10/2025', driver: 'Maria Lopez', paymentType: 'Tarjeta de Débito', amount: 14.50 },
+            { date: '25/10/2025', driver: 'Juan Perez', paymentType: 'Tarjeta de Crédito', amount: 18.00 },
+            { date: '28/10/2025', driver: 'Ana Garcia', paymentType: 'Efectivo', amount: 20.00 }
+        ];
 
         // DOM elements
         const tableBody = document.getElementById('table-body');
-        const totalAmountElement = document.getElementById('total-amount');
         const sortAscBtn = document.getElementById('sort-asc');
         const sortDescBtn = document.getElementById('sort-desc');
         const monthFilter = document.getElementById('month-filter');
 
         // Current state
-        let currentData = [];
+        let currentData = [...paymentData];
         let currentSort = null;
 
         // Initialize the table when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize localStorage
-            initializeLocalStorage();
-            
-            // Load data from localStorage
-            currentData = getPaymentsData();
-            
             populateMonthFilter();
             initializeTable();
             
@@ -606,15 +544,6 @@
             
             // Add visual feedback for sorting buttons
             addSortingVisualFeedback();
-            
-            // Check if we need to update the table
-            if (localStorage.getItem("actualizarTablaViajes") === "true") {
-                // Refresh data if needed
-                currentData = getPaymentsData();
-                renderTable(currentData);
-                updateStatistics(currentData);
-                localStorage.removeItem("actualizarTablaViajes");
-            }
         });
 
         // Populate month filter with all months of the year
@@ -676,7 +605,6 @@
         // Initialize the table
         function initializeTable() {
             renderTable(currentData);
-            updateStatistics(currentData);
         }
 
         // Render table with data
@@ -685,7 +613,7 @@
             
             if (data.length === 0) {
                 const emptyRow = document.createElement('tr');
-                emptyRow.innerHTML = '<td colspan="4" class="empty-message">No se encontraron pagos</td>';
+                emptyRow.innerHTML = '<td colspan="4" class="empty-message">No se encontraron pagos registrados</td>';
                 tableBody.appendChild(emptyRow);
                 return;
             }
@@ -693,33 +621,14 @@
             data.forEach(payment => {
                 const row = document.createElement('tr');
                 
-                // Determine the badge class based on compensation type
-                let badgeClass = '';
-                if (payment.compensation === 'Pago de combustible') {
-                    badgeClass = 'compensation-badge compensation-fuel';
-                } else if (payment.compensation === 'Pago en soles') {
-                    badgeClass = 'compensation-badge compensation-cash';
-                }
-                
                 row.innerHTML = `
                     <td>${payment.date}</td>
-                    <td class="passenger-name">${payment.passenger}</td>
-                    <td class="compensation-type">
-                        <span class="${badgeClass}">${payment.compensation}</span>
-                    </td>
+                    <td class="driver-name">${payment.driver}</td>
+                    <td class="payment-type">${payment.paymentType}</td>
                     <td class="amount">S/. ${payment.amount.toFixed(2)}</td>
                 `;
                 tableBody.appendChild(row);
             });
-        }
-
-        // Update statistics display
-        function updateStatistics(data) {
-            const total = data.reduce((sum, payment) => sum + payment.amount, 0);
-            totalAmountElement.textContent = `S/. ${total.toFixed(2)}`;
-            
-            // Save total to localStorage if needed
-            localStorage.setItem("totalCompensaciones", total.toFixed(2));
         }
 
         // Apply sorting based on selected filter
@@ -762,10 +671,9 @@
             const selectedMonth = monthFilter.value;
             
             if (selectedMonth === 'all') {
-                currentData = getPaymentsData();
+                currentData = [...paymentData];
             } else {
-                const allData = getPaymentsData();
-                currentData = allData.filter(payment => {
+                currentData = paymentData.filter(payment => {
                     // Extract month from date (format: DD/MM/YYYY)
                     const month = payment.date.split('/')[1];
                     return month === selectedMonth;
@@ -780,41 +688,7 @@
             }
             
             renderTable(currentData);
-            updateStatistics(currentData);
         }
-
-        // Function to add a new payment/compensation (for future use)
-        function addNewPayment(payment) {
-            try {
-                const currentData = getPaymentsData();
-                currentData.push(payment);
-                localStorage.setItem("compensacionesData", JSON.stringify(currentData));
-                
-                // Update UI
-                renderTable(currentData);
-                updateStatistics(currentData);
-                
-                return true;
-            } catch (error) {
-                console.error("Error adding new payment:", error);
-                return false;
-            }
-        }
-
-        // Function to get compensation statistics
-        function getCompensationStats() {
-            const data = getPaymentsData();
-            const stats = {
-                totalPagos: data.length,
-                totalSoles: data.filter(p => p.compensation === 'Pago en soles').length,
-                totalCombustible: data.filter(p => p.compensation === 'Pago de combustible').length,
-                totalAmount: data.reduce((sum, p) => sum + p.amount, 0)
-            };
-            return stats;
-        }
-
-        // Example: Display compensation statistics in console
-        console.log("Estadísticas de compensaciones:", getCompensationStats());
     </script>
 </body>
 </html>
