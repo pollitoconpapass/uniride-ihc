@@ -1,62 +1,56 @@
-// Lógica para la página de información de una oferta de viaje
-(function(){
-  function getParam(name){
-    var m = new RegExp('[?&]'+name+'=([^&]+)').exec(location.search);
-    return m ? decodeURIComponent(m[1]) : null;
-  }
+document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const viajeIndex = params.get("viajeIndex");
 
-  function setText(el, text){
-    if (el) el.textContent = text;
-  }
-
-  function renderPickups(stops){
-    var card = document.querySelector('.pickup-card');
-    if (!card) return;
-    var pills = card.querySelectorAll('.info-pill');
-    for (var i=0;i<pills.length;i++) pills[i].remove();
-    for (var j=0;j<stops.length;j++){
-      var span = document.createElement('span');
-      span.className = 'info-pill';
-      span.textContent = stops[j];
-      card.appendChild(span);
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', function(){
-    var offerIndex = getParam('i');
-    if (offerIndex === null) {
-        document.querySelector('.info-wrapper').innerHTML = '<h2>No se encontró la oferta de viaje.</h2>';
+    if (viajeIndex === null) {
+        document.querySelector('.main-content').innerHTML = "<h1>Error: No se especificó un viaje.</h1>";
         return;
     }
 
-    var viajesConductor = window.PasajeroViajesData.getConductorViajes();
-    var viaje = viajesConductor && viajesConductor[parseInt(offerIndex, 10)];
+    const viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
+    const viaje = viajes[viajeIndex];
 
     if (!viaje) {
-        document.querySelector('.info-wrapper').innerHTML = '<h2>No se encontró la oferta de viaje.</h2>';
+        document.querySelector('.main-content').innerHTML = "<h1>Error: Viaje no encontrado.</h1>";
         return;
     }
 
-    // Poblar datos de la oferta
-    setText(document.querySelector('#trip-route-name'), 'Viaje a ' + viaje.ruta);
-    setText(document.querySelector('#driver-name'), 'Conductor'); // Nombre no disponible en el objeto de oferta
+    // Poblar los elementos de la página con la información del viaje
+    document.getElementById("trip-route-name").textContent = viaje.ruta || "Información del Viaje";
+    document.getElementById("driver-name").textContent = viaje.conductor || "Conductor no especificado";
+    document.getElementById("trip-time").textContent = viaje.hora || "No especificada";
+    document.getElementById("trip-date").textContent = viaje.fecha || "No especificada";
 
-    setText(document.querySelector('#trip-time'), viaje.hora || '');
-    setText(document.querySelector('#trip-date'), viaje.fecha || '');
-
-    // Lógica para paradas de la ruta
-    var stops = window.PasajeroViajesData.findStopsByRouteName(viaje.ruta);
-    renderPickups(stops || []);
-
-    // Lógica del botón reservar
-    var btnReservar = document.querySelector('.btn-primary');
-    if (btnReservar) {
-      btnReservar.addEventListener('click', function(e){
-        e.preventDefault();
-        if (window.PasajeroModals) {
-          window.PasajeroModals.openReservaModal({ index: parseInt(offerIndex, 10) });
-        }
-      });
+    // Poblar los puntos de recogida
+    const pickupCard = document.querySelector(".pickup-card");
+    if (viaje.puntosRecogida && Array.isArray(viaje.puntosRecogida)) {
+        const list = document.createElement("ul");
+        list.className = "pickup-list";
+        viaje.puntosRecogida.forEach(punto => {
+            const item = document.createElement("li");
+            item.textContent = punto;
+            list.appendChild(item);
+        });
+        pickupCard.appendChild(list);
+    } else {
+        pickupCard.innerHTML += "<p>No hay puntos de recogida especificados.</p>";
     }
-  });
-})();
+
+    // Lógica para los botones de acción (ej. reservar, conversar)
+    const reserveBtn = document.querySelector(".cta-group .btn-primary");
+    if (reserveBtn) {
+        // La reserva se maneja en la página anterior, este botón podría llevar a una confirmación
+        // o simplemente ser un placeholder. Por ahora, lo dejaremos como está.
+        // Opcional: Ocultarlo si la lógica de reserva no aplica aquí.
+        reserveBtn.style.display = 'none';
+    }
+    
+    const chatBtn = document.querySelector(".cta-group .btn-secondary");
+    if (chatBtn) {
+        // Aquí se podría añadir la lógica para iniciar un chat
+        chatBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            alert("Funcionalidad de chat no implementada.");
+        });
+    }
+});

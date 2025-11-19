@@ -4,134 +4,142 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>UniRide - Encontrar Viajes</title>
-    <link rel="stylesheet" href="../../css/pasajero/usuario_base.css">
+    <link rel="stylesheet" href="../../../../styles.css">
     <link rel="stylesheet" href="../../css/pasajero/encontrar_viajes.css">
-    <link rel="stylesheet" href="../../css/pasajero/modals_pasajero.css">
+
 </head>
 <body>
-    <div class="layout viajes-layout">
-        <aside class="sidebar">
-            <div class="user">
-                <img src="../../../../assets/imgs/uniride-logo.jpeg" alt="Avatar de Jose">
+    <!-- Menú lateral -->
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <img src="../../../../assets/imgs/user_carlos.png" alt="User Avatar">
                 <div>
-                    <div class="name">Jose</div>
-                    <div class="phone">+51 920406868</div>
+                    <h3 style="color: white; font-size: 16px; margin: 0;">Carlos</h3>
+                    <p style="color: #aaa; font-size: 12px; margin: 0;">+51 98970564</p>
                 </div>
             </div>
-            <nav>
-                <a href="../index.html" class="nav-item">
-                    <span>Principal</span>
-                </a>
-                <a href="viajes_usuario.html" class="nav-item active">
+
+            <div class="menu-title">MENU</div>
+
+            <div class="sidebar-nav">
+
+                <div class="nav-item-sidebar" onclick="window.location.href='./principalConductor.html'">
+                    <img src="../../../../assets/icons/principal_icon_active_sidebar.svg" alt="Home">
+                    Principal
+                </div>
+
+                <div class="nav-item-sidebar active" onclick="window.location.href='../../viajes/pages/viajes.html'">
+                    <img src="../../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
                     <span>Viajes</span>
-                </a>
-                <a href="comunicacion_chat.html" class="nav-item">
-                    <span>Comunicacion</span>
-                </a>
-                <a href="#" class="nav-item">
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../rutas/pages/rutas.html'">
+                    <img src="../../../../assets/icons/gestion_de_rutas_desactivado_sidebar.svg" alt="Routes">
+                    <span>Gestión de Rutas</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../comunicacion/pages/comunicacion.html'">
+                    <img src="../../../../assets/icons/comunicacion_icon_deactive_sidebar.svg" alt="Chat">
+                    <span>Comunicación</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../compensaciones/pages/compensaciones.html'">
+                    <img src="../../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
                     <span>Compensaciones y Pagos</span>
-                </a>
-                <a href="#" class="nav-item">
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../reportes/pages/reportes.html'">
+                    <img src="../../../../assets/icons/reportes_icon_deactive_sidebar.svg" alt="Report">
                     <span>Reportes</span>
-                </a>
-                <a href="#" class="nav-item">
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracion.html'">
+                    <img src="../../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
                     <span>Configuración</span>
-                </a>
-            </nav>
-            <div class="sidebar-footer">
-                <img src="../../../../assets/imgs/uniride-wo-text.png" alt="Salir">
-                <span>Cerrar Sesión</span>
-            </div>
-        </aside>
-
-        <main class="main-content">
-            <div class="breadcrumbs">
-                <a class="action-link" href="viajes_usuario.html">Viajes</a>
-                <span>/</span>
-                <span>Encontrar Viajes</span>
-            </div>
-            <header class="main-header">
-                <h1>Viajes / Encontrar Viajes</h1>
-                <a class="btn-primary" href="viajes_usuario.html">Regresar</a>
-            </header>
-
-            <section class="map-wrapper">
-                <div class="map-placeholder">
-                    <div class="map-badge bus">Bus Universitario</div>
-                    <div class="map-badge metro">Est. Metropolitano</div>
-                    <div class="map-badge uni">Campus UPC San Isidro</div>
-
-                    <div class="map-dot one"><span>8 min</span></div>
-                    <div class="map-dot two"><span>12 min</span></div>
-                    <div class="map-dot three"><span>5 min</span></div>
                 </div>
 
-                <div class="drivers-card">
-                    <header>
-                        <h2>Conductores Cercanos</h2>
+            </div>
+        </div>
 
-                    </header>
-                    <table class="table driver-table">
-                        <thead>
-                            <tr>
-                                <th>Conductor</th>
-                                <th>Hora</th>
-                                <th>Fecha de salida</th>                                <th>Disponibilidad</th>
-                                <th>Reservar</th>
-                                <th>Ver</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td data-label="Conductor">Joaquín</td>
-                                <td data-label="Hora">09:00 am</td>
-                                <td data-label="Fecha de salida">09/10/2025</td>
-                                <td data-label="Disponibilidad"><span class="availability-pill good">3/4 asientos</span></td>
-                                <td data-label="Reservar"><a class="reserve-btn" href="#">Reservar</a></td>
-                                <td data-label="Ver"><a class="action-icon" href="informacion_viaje.html">&#128065;</a></td>
-                            </tr>
-                            <tr>
-                                <td data-label="Conductor">Carlos</td>
-                                <td data-label="Hora">10:00 am</td>
-                                <td data-label="Fecha de salida">10/10/2025</td>
-                                <td data-label="Disponibilidad"><span class="availability-pill medium">2/4 asientos</span></td>
-                                <td data-label="Reservar"><a class="reserve-btn" href="#">Reservar</a></td>
-                                <td data-label="Ver"><a class="action-icon" href="informacion_viaje.html">&#128065;</a></td>
-                            </tr>
-                            <tr>
-                                <td data-label="Conductor">Jose</td>
-                                <td data-label="Hora">11:00 am</td>
-                                <td data-label="Fecha de salida">10/10/2025</td>
-                                <td data-label="Disponibilidad"><span class="availability-pill good">3/4 asientos</span></td>
-                                <td data-label="Reservar"><a class="reserve-btn" href="#">Reservar</a></td>
-                                <td data-label="Ver"><a class="action-icon" href="informacion_viaje.html">&#128065;</a></td>
-                            </tr>
-                            <tr>
-                                <td data-label="Conductor">William</td>
-                                <td data-label="Hora">11:30 am</td>
-                                <td data-label="Fecha de salida">10/10/2025</td>
-                                <td data-label="Disponibilidad"><span class="availability-pill low">1/4 asientos</span></td>
-                                <td data-label="Reservar"><a class="reserve-btn" href="#">Reservar</a></td>
-                                <td data-label="Ver"><a class="action-icon" href="informacion_viaje.html">&#128065;</a></td>
-                            </tr>
-                            <tr>
-                                <td data-label="Conductor">Majo</td>
-                                <td data-label="Hora">12:00 pm</td>
-                                <td data-label="Fecha de salida">12/10/2025</td>
-                                <td data-label="Disponibilidad"><span class="availability-pill medium">2/4 asientos</span></td>
-                                <td data-label="Reservar"><a class="reserve-btn" href="#">Reservar</a></td>
-                                <td data-label="Ver"><a class="action-icon" href="informacion_viaje.html">&#128065;</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-            </section>
-        </main>
+        <div class="sidebar-footer" onclick="window.location.href='../../iniciar_sesion/pages/inicioSesion.html'">
+            <img src="../../../../assets/icons/exit_icon_sidebar.svg" alt="Logout">
+            Cerrar Sesión
+        </div>
     </div>
-    <script src="../../js/pasajero/viajesData.js"></script>
-    <script src="../../js/pasajero/solicitudesData.js"></script>
-    <script src="../../js/pasajero/modals_pasajero.js"></script>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content">
+    <div class="page-header-informacion">
+            <div class="back-icon" onclick="window.location.href='viajes_usuario.html'">←</div>
+            <h1 class="page-title">Viajes / Encontrar viajes</h1>
+        </div>    
+    <!-- PASAJEROS -->
+        <section class="section drivers-card">
+            <h3>Viajes de los conductores</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombres</th>
+                        <th>Lugar de recojo</th>
+                        <th>Fecha de inicio</th>
+                        <th>Hora</th>
+                        <th>Reservar</th>
+                        <th>Ver detalles</th>
+                    </tr>
+                </thead>
+
+                <tbody id="pasajeros-confirmados">
+                    <tr>
+                        <td colspan="6" class="empty-table-message">
+                            No hay viajes publicados por el conductor
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </section>
+
+<!-- MODAL DE RESERVA -->
+<div id="reservarModal" class="modal-overlay">
+    <div class="modal-content">
+        <h2>Reservar Viaje</h2>
+
+        <p><strong>Conductor:</strong> <span id="modalConductor"></span></p>
+        <p><strong>Fecha:</strong> <span id="modalFecha"></span></p>
+        <p><strong>Hora:</strong> <span id="modalHora"></span></p>
+        <p><strong>Ruta:</strong> <span id="modalRuta"></span></p>
+
+        <label>Punto de recogida:</label>
+        <select id="modalPuntoRecogida"></select>
+
+        <label>Método de compensación:</label>
+        <select id="modalMetodo">
+            <option value="">Seleccione</option>
+            <option value="efectivo">Pago en efectivo</option>
+            <option value="yape">Yape</option>
+            <option value="gasolina">Gasolina</option>
+            <option value="almuerzo">Almuerzo</option>
+        </select>
+
+        <div id="campoMonto" style="display:none;">
+            <label>Monto (S/):</label>
+            <input type="number" id="modalMonto" placeholder="Ingrese el monto">
+        </div>
+
+        <div class="modal-buttons">
+            <button id="guardarReservaBtn">Guardar</button>
+            <button id="cancelarReservaBtn" class="cancelar">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </main>
     <script src="../../js/pasajero/encontrar_viajes.js"></script>
 </body>
 </html>
