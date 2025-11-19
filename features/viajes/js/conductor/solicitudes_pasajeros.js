@@ -69,7 +69,7 @@ document.querySelectorAll(".btn-aceptar").forEach(btn => {
 
         btn.closest(".solicitud-card").remove();
 
-        modalAceptar.style.display = "block";
+        modalAceptar.style.display = "flex";
     });
 });
 
@@ -95,7 +95,7 @@ document.querySelectorAll(".btn-rechazar").forEach(btn => {
         btn.closest(".solicitud-card").remove();
 
         // Mostrar modal rechazar
-        modalCancelar.style.display = "block";
+        modalCancelar.style.display = "flex";
     });
 });
 

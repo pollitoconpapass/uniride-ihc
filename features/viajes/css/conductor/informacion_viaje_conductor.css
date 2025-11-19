@@ -12,64 +12,88 @@
   font-weight: 700;
   margin: 0 0 20px;
   color: var(--gray-900);
-  
 }
 
-
 .page-header-informacion {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
 }
 
 .back-icon {
-    width: 24px;
-    height: 24px;
-    background-color: #6c63ff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
+  width: 24px;
+  height: 24px;
+  background-color: #6c63ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
 
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 450px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
 
 /* Botones de acciones */
 .action-buttons {
-    display: flex;
-    gap: 12px;
-    margin-left: auto; 
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
 }
 
 .action-buttons button {
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.action-buttons button:hover {
+  opacity: 0.9;
 }
 
 .btn-cancel {
-    background: #ff4d4d;
-    color: white;
+  background: #ff4d4d;
+  color: white;
 }
 
 .btn-start {
-    background: #4caf50;
-    color: white;
+  background: #4caf50;
+  color: white;
 }
 
 .btn-end {
-    background: #6c63ff;
-    color: white;
+  background: #6c63ff;
+  color: white;
 }
 
+/* Sección de contenido */
 .section {
   background: white;
   border-radius: 16px;
@@ -98,7 +122,7 @@ td {
   text-align: left;
   font-size: 0.95rem;
   vertical-align: middle;
-  word-break: break-word; 
+  word-break: break-word;
 }
 
 th {
@@ -113,12 +137,13 @@ th {
 tbody tr {
   border-bottom: 1px solid var(--gray-200);
 }
+
 tbody tr:last-child {
   border-bottom: none;
 }
 
 tbody tr:hover {
-  background-color: var(--gray-50); 
+  background-color: var(--gray-50);
 }
 
 .empty-table-message {
@@ -128,27 +153,199 @@ tbody tr:hover {
   font-style: italic;
 }
 
-
-/* Fondo oscuro del modal */
-.modal {
-    display: none; /* oculto por defecto */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+/*  BOTÓN "INFORMACIÓN"  */
+.table-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #e0e0e0;
+  border: 1px solid #ccc;
+  color: #333;
+  cursor: pointer;
 }
 
-/* Contenido del modal */
-.modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    max-width: 400px;
-    width: 90%;
+.table-btn:hover {
+  background: #d5d5d5;
 }
 
+/*SELECT DE ESTADO  */
+.estado-viaje-select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: white;
+  color: #333;
+  min-width: 120px;
+  cursor: pointer;
+}
+
+/* === Modal: Información de contacto === */
+#modalInfoPasajero .modal-content {
+  text-align: center;
+  padding: 28px;
+}
+
+#modalInfoPasajero .modal-header h2 {
+  margin: 0 0 16px;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+#modalInfoPasajero #mensajeContacto {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+  margin: 20px 0;
+}
+
+#modalInfoPasajero .modal-actions {
+  margin-top: 20px;
+}
+
+#modalInfoPasajero .btn-cancel {
+  padding: 8px 20px;
+  background: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* === Botón de cerrar en la esquina superior derecha === */
+.info-contacto {
+  position: relative;
+  padding-top: 40px; /* espacio para el botón de cierre */
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background: #f1f1f1;
+  color: #666;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+
+/* MODAL: AGRADECIMIENTO */
+#modalBienvenida .modal-content {
+  max-width: 400px;
+  padding: 30px;
+  text-align: center;
+  border-radius: 16px;
+  background: white;
+}
+
+#modalBienvenida .modal-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+#modalBienvenida .material-symbols-outlined {
+  font-size: 48px;
+  color: #4caf50;
+}
+
+#modalBienvenida .modal-message {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+#modalBienvenida p:nth-of-type(2) {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 12px 0 24px;
+}
+
+#modalBienvenida #btnCalificar {
+  padding: 10px 24px;
+  background: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#modalBienvenida #btnCalificar:hover {
+  background: #5a52d5;
+}
+
+/*MODAL: CANCELAR VIAJE  */
+#modalCancelarViaje .cancelar-modal {
+  max-width: 450px;
+  padding: 24px;
+}
+
+#modalCancelarViaje .modal-header h2 {
+  margin: 0;
+  color: #333;
+}
+
+#modalCancelarViaje .modal-message {
+  color: #666;
+  margin: 12px 0 20px;
+}
+
+#modalCancelarViaje .motivo label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #444;
+}
+
+#modalCancelarViaje #motivoCancelacion {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+  min-height: 80px;
+}
+
+#modalCancelarViaje .modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+#modalCancelarViaje .btn-cancel,
+#modalCancelarViaje .btn-submit {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+#modalCancelarViaje .btn-cancel {
+  background: #ccc;
+  color: #333;
+}
+
+#modalCancelarViaje .btn-submit {
+  background: #6c63ff;
+  color: white;
+}

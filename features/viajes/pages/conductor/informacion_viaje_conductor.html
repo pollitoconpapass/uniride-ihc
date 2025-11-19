@@ -124,7 +124,9 @@
         </section>
 
     </main>
-    <!-- modal al finalizar el viaje -->
+</div>
+
+<!-- modal al finalizar el viaje -->
 <div class="modal" id="modalBienvenida" style="display: none;">
   <div class="modal-content">
     <p class="modal-message">Gracias por su servicio</p>
@@ -138,9 +140,8 @@
 
 <!-- Modal: Cancelar viaje -->
 <div class="modal" id="modalCancelarViaje" style="display: none;">
-  <div class="modal-content cancelar-modal">
+  <div class="modal-content">
     <div class="modal-header">
-      <div class="modal-icon">😢</div>
       <h2>Cancelar Viaje</h2>
     </div>
 
@@ -161,22 +162,17 @@
   </div>
 </div>
 
-<!-- modal al buscar informacion del pasajero-->
+<!-- Modal: Información de contacto -->
 <div class="modal" id="modalInfoPasajero" style="display: none;">
-    <div class="modal-content">
-        <div class="modal-actions">
-            <button class="btn-cancel" id="btnCerrarInfo">Cerrar</button>
-        </div>
+    <div class="modal-content info-contacto">
+        <button class="close-button" id="btnCerrarInfo">X</button>
         <div class="modal-header">
             <h2>Información de contacto</h2>
         </div>
         <p id="mensajeContacto">Cargando...</p>
-        
     </div>
 </div>
 
-
-</div>
 <script src="../../js/conductor/informacion_viaje_conductor.js"></script>
 </body>
 </html>

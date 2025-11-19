@@ -30,6 +30,12 @@
   cursor: pointer;
   transition: 0.2s;
 }
+.page-header-informacion {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
 
 .back-icon:hover {
   background-color: #584ef7;
@@ -124,107 +130,122 @@
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.45);
-  z-index: 99999;
+  background: rgba(0, 0, 0, 0.5);
   display: none;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
   backdrop-filter: blur(3px);
 }
 
-/* Contenido del modal */
+
 .modal-content {
-  background: #fff;
+  background: white;
   width: 420px;
   max-width: 92%;
-  padding: 26px;
-  border-radius: 18px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-  animation: fadeIn 0.25s ease-out;
-  /* Centrado adicional para mayor precisión */
-  margin: auto;
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  text-align: center;
+  position: relative;
+  animation: modalFadeIn 0.3s ease-out;
 }
 
-/* Animación mejorada */
-@keyframes fadeIn {
-  from { 
-    opacity: 0; 
-    transform: scale(0.95) translateY(0); /* Usamos scale en lugar de solo translateY */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(10px);
   }
-  to { 
-    opacity: 1; 
-    transform: scale(1) translateY(0); 
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }
 
-/* El resto de tus estilos permanece igual */
+/* Estilos comunes */
 .modal-header {
-  display:flex;
-  gap:14px;
-  align-items:center;
-  margin-bottom:12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
 }
 
 .modal-icon {
-  font-size: 32px;
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #333;
+  font-weight: 700;
 }
 
 .modal-message {
-  font-size: 15px;
-  color:#444;
-  margin-bottom:14px;
+  font-size: 1.05rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Formulario en modal de rechazo */
+.motivo {
+  margin: 20px 0;
+  text-align: left;
 }
 
 .motivo label {
-  font-weight:600;
-  margin-bottom:5px;
-  display:block;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #444;
 }
 
 .motivo textarea {
-  width:100%;
-  min-height:90px;
-  padding:10px;
-  border-radius:10px;
-  border:1px solid #ddd;
-  font-size: 14px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
   resize: vertical;
+  min-height: 80px;
 }
 
+/* Botones */
 .modal-actions {
-  display:flex;
-  justify-content:flex-end;
-  gap:10px;
-  margin-top:16px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.btn-cancel,
+.btn-submit {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: opacity 0.2s;
 }
 
 .btn-cancel {
-  background:#e0e0e0;
-  padding:8px 14px;
-  border-radius:10px;
-  border:none;
-  cursor:pointer;
-  font-weight:600;
-  transition:0.2s;
+  background: #e0e0e0;
+  color: #333;
 }
 
 .btn-cancel:hover {
-  background:#cacaca;
-  transform: scale(1.03);
+  background: #d0d0d0;
 }
 
 .btn-submit {
-  background:#6c63ff;
-  color:white;
-  padding:8px 16px;
-  border-radius:10px;
-  border:none;
-  font-weight:600;
-  cursor:pointer;
-  transition:0.2s;
+  background: #6c63ff;
+  color: white;
 }
 
 .btn-submit:hover {
-  background:#5b55e0;
-  transform: scale(1.05);
+  background: #5a52d5;
+  transform: none; /* evita conflicto con scale */
 }
