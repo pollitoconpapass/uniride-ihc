@@ -6,6 +6,34 @@ const inputModelo = document.getElementById("modelo-carro");
 const inputMarca  = document.getElementById("marca-carro");
 const inputColor  = document.getElementById("color-carro");
 const inputPlaca  = document.getElementById("placa-carro");
+// INFO GENERAL
+document.addEventListener("DOMContentLoaded", () => {
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+    if (!usuarioActivo) {
+        console.warn("No hay usuario activo...");
+        return;
+    }
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const usuario = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+
+    if (!usuario) {
+        console.warn("No se encontró al usuario activo en la base de usuarios");
+        return;
+    }
+
+    const dp = usuario.datosPersonales;
+
+    document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
+    document.getElementById("tituloNombre").innerText = dp.nombres.split(" ")[0] || "";
+
+    document.getElementById("carrera").textContent =
+        dp.carrera || "No especificado";
+
+    document.getElementById("universidad").textContent =
+        dp.universidad || "No especificada";
+
+});
 
 // Variables globales
 let usuarios = [];
