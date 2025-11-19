@@ -4,8 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <title>UniRide - Conductor</title>
-    <link rel="stylesheet" href="../../../styles.css" />
-    <link rel="stylesheet" href="../css/rutas.css">
+    <link rel="stylesheet" href="../css/configuracion.css">
 </head>
 
 <body>
@@ -23,18 +22,18 @@
             <div class="menu-title">MENU</div>
             
             <div class="sidebar-nav">
-                <div class="nav-item-sidebar" onclick="window.location.href='../../principal/pages/principalConductor.html'">
-                    <img src="../../../assets/icons/principal_icon_deactive_sidebar.svg" alt="Home">
+                <div class="nav-item-sidebar active" onclick="window.location.href='./principalConductor.html'">
+                    <img src="../../../assets/icons/principal_icon_active_sidebar.svg" alt="Home">
                     Principal
                 </div>
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/conductor/viajes_conductor.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/viajes.html'">
                     <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
                     <span>Viajes</span>
                 </div>
                 
-                <div class="nav-item-sidebar active" onclick="window.location.href='../../rutas/pages/rutas.html'">
-                    <img src="../../../assets/icons/gestion_de_rutas_activado_sidebar.svg" alt="Routes">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../rutas/pages/rutas.html'">
+                    <img src="../../../assets/icons/gestion_de_rutas_desactivado_sidebar.svg" alt="Routes">
                     <span>Gestion de Rutas</span>
                 </div>
                 
@@ -66,18 +65,13 @@
         </div>
     </div>
 
-    <!-- MAIN CONTENT AREA -->
-    <div class="main-content">
-        <div class="page-header">
-            <h1 class="page-title">Gestión de Rutas</h1>
-            <button class="add-route-btn" onclick="window.location.href='agregarRuta.html'">Agregar Ruta</button>
+    <main class="main-content">
+        <h1>Configuración de Perfil</h1>
+        <div class="config-opciones">
+            <button id="btn-datos-personales">Datos Personales</button>
+            <button id="btn-horarios">Horarios</button>
+            <button id="btn-datos-vehiculares">Datos Vehiculares</button>
         </div>
-
-        <div id="routesContainer" class="routes-container">
-
-        </div>
-    </div>
-
-    <script src="../js/rutas.js"></script>
-
+  </main>
+  <script src="../js/configuracionConductorOpciones.js"></script>
 </body>

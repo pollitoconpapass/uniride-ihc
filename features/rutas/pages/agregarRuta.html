@@ -28,7 +28,7 @@
                     Principal
                 </div>
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/conductor/viajes_conductor.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/viajes.html'">
                     <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
                     <span>Viajes</span>
                 </div>
@@ -68,16 +68,57 @@
 
     <!-- MAIN CONTENT AREA -->
     <div class="main-content">
-        <div class="page-header">
-            <h1 class="page-title">Gestión de Rutas</h1>
-            <button class="add-route-btn" onclick="window.location.href='agregarRuta.html'">Agregar Ruta</button>
+        <!-- Page Header -->
+        <div class="page-header-agregar">
+            <div class="back-icon" onclick="window.location.href='rutas.html'">←</div>
+            <h1 class="page-title-agregar">Gestión de Rutas / Agregar Ruta</h1>
         </div>
 
-        <div id="routesContainer" class="routes-container">
+        <!-- Form Container -->
+        <div class="form-container">
+            <!-- Map Preview -->
+            <div class="map-preview">
+                <h2 class="map-preview-title">Nombre de la Ruta</h2>
+                <img src="../../../assets/imgs/mapa-lima-default.png" alt="Mapa de Lima" class="map-image">
+            </div>
 
+            <!-- Form Fields -->
+            <div class="form-fields">
+                <form id="addRouteForm">
+                    <div class="form-group">
+                        <label for="routeName" class="form-label">Nombre de la Ruta</label>
+                        <input type="text" id="routeName" class="form-input" placeholder="Ej: Ruta Universidad - Centro" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="direction" class="form-label">Dirección</label>
+                        <input type="text" id="direction" class="form-input" placeholder="Agregar Dirección" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Lugares de referencia por los que pasas</label>
+                        <div class="reference-input-container">
+                            <input type="text" id="newReferencePlace" class="form-input" placeholder="Agregar Lugar de Referencia">
+                            <button type="button" id="addReferenceBtn" class="add-btn">+</button>
+                        </div>
+               
+                        <div id="referencePlacesList" class="reference-places-list">
+                
+                        </div>
+                        <input type="hidden" id="referencePlaces" name="referencePlaces">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description" class="form-label">Descripción</label>
+                        <input type="text" id="description" class="form-input" placeholder="Agregar Descripción" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Agregar</button>
+                </form>
+            </div>
         </div>
     </div>
 
-    <script src="../js/rutas.js"></script>
 
+    <script src="../js/agregarRuta.js"></script>
 </body>
