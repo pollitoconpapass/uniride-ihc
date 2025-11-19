@@ -120,32 +120,32 @@ document.addEventListener("DOMContentLoaded", () => {
         // Inicializar estadoViaje de pasajeros si es necesario
         const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
         reservas.forEach(r => {
-            if (
-                r.idConductor === viaje.idConductor &&
-                r.fecha === viaje.fecha &&
-                r.hora === viaje.hora &&
-                r.ruta === viaje.ruta &&
-                r.estado === "Aceptado" &&
-                !r.estadoViaje
-            ) {
-                r.estadoViaje = "Recogido";
+         if (
+        String(r.idConductor) === String(viaje.idConductor) &&
+        r.fecha === viaje.fecha &&
+        r.hora === viaje.hora &&
+        r.ruta === viaje.ruta &&
+        r.estado === "Aceptado"
+         ) {
+        r.estadoViaje = "Recogido";
             }
         });
+
         localStorage.setItem("reservas", JSON.stringify(reservas));
 
         actualizarBotones();
         cargarPasajerosConfirmados();
-        alert("El viaje ha comenzado. Ahora puedes marcar el estado de cada pasajero.");
+        alert("El viaje comenzo, puede modificar el estado de cada pasajero.");
     });
 
     btnFinalizar?.addEventListener("click", () => {
         const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
         const pasajerosAceptados = reservas.filter(r =>
-            r.idConductor === viaje.idConductor &&
-            r.fecha === viaje.fecha &&
-            r.hora === viaje.hora &&
-            r.ruta === viaje.ruta &&
-            r.estado === "Aceptado"
+        String(r.idConductor) === String(viaje.idConductor) &&
+        r.fecha === viaje.fecha &&
+        r.hora === viaje.hora &&
+        r.ruta === viaje.ruta &&
+        r.estado === "Aceptado"
         );
 
         if (pasajerosAceptados.length > 0) {
@@ -180,9 +180,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // ==========================
-    //    CARGAR PASAJEROS
-    // ==========================
     function cargarPasajerosConfirmados() {
         const tbody = document.getElementById("pasajeros-confirmados");
         const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
