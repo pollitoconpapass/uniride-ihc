@@ -65,13 +65,10 @@ document.querySelectorAll(".btn-aceptar").forEach(btn => {
         reservasFiltradas[idx].estadoViaje = "Por llegar";
         actualizarReservas(reservas, reservasFiltradas[idx]);
 
-        // 🔥 ACTUALIZAR PASAJEROS DEL VIAJE
         actualizarPasajerosDelViaje(viaje);
 
-        // Ocultar card
         btn.closest(".solicitud-card").remove();
 
-        // Mostrar modal aceptar
         modalAceptar.style.display = "block";
     });
 });
