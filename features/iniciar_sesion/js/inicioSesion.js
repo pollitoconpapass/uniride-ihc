@@ -50,9 +50,9 @@ btnIniciarSesion.addEventListener("click", function (event) {
 
   // 5) Redirigir según rol
   if (usuarioEncontrado.rol === "conductor") {
-    globalThis.location.href = "../../principal/pages/principalConductor.html";
+    window.location.href = "../../principal/pages/principalConductor.html";
   } else if (usuarioEncontrado.rol === "pasajero") {
-    globalThis.location.href = "../../principal/pages/principalPasajero.html";
+    window.location.href = "../../principal/pages/principalPasajero.html";
   } else {
     alert("Tu rol no es válido. Contacta con soporte o vuelve a registrarte.");
   }
