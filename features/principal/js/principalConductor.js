@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // VIAJES
 const tripsKey = "uniride_trips";
 const tripsTableBody = document.getElementById("tripsTableBody")
-const storageViajes = 'viajesStorageConductor'
+const storageViajes = 'viajesGuardados'
 
 function getDayOfWeek(dateString){
   const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']

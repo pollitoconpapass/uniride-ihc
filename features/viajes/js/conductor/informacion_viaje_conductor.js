@@ -1,6 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("JS de información del viaje cargado");
 
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+    if (!usuarioActivo) {
+        console.warn("No hay usuario activo...");
+        return;
+    }
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const usuario = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+
+    if (!usuario) {
+        console.warn("No se encontró al usuario activo en la base de usuarios");
+        return;
+    }
+
+    const dp = usuario.datosPersonales;
+    document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
+
     let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
     const index = parseInt(localStorage.getItem("viajeIndex"));
     let viaje = viajes[index];

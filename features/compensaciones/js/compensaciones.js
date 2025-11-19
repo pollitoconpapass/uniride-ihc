@@ -53,6 +53,25 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add visual feedback for sorting buttons
     addSortingVisualFeedback();
+
+
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+    if (!usuarioActivo) {
+        console.warn("No hay usuario activo...");
+        return;
+    }
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const usuario = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+
+    if (!usuario) {
+        console.warn("No se encontró al usuario activo en la base de usuarios");
+        return;
+    }
+
+    const dp = usuario.datosPersonales;
+
+    document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
 });
 
 // Populate month filter with all months of the year

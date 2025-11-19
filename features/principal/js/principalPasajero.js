@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // VIAJES
 const tripsKey = "uniride_trips";
 const tripsTableBody = document.getElementById("tripsTableBody")
-const storageViajes = 'viajesStoragePasajero'
+const storageViajes = 'viajesGuardados'
 
 if (!localStorage.getItem(storageViajes)) {
   localStorage.setItem(storageViajes, JSON.stringify([]))

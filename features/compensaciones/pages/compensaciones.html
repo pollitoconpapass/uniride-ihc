@@ -410,10 +410,10 @@
     <div class="sidebar">
         <div>
             <div class="sidebar-header">
-                <img src="../../../assets/imgs/user_carlos.png" alt="User Avatar">
-                <div class="user-info">
-                    <h3>Carlos</h3>
-                    <p>+51 98970564</p>
+                <img src="../../../assets/imgs/user_landing_icon.png" alt="">
+                <div>
+                    <h3 id="sidebarNombre" style="color: white; font-size: 16px; margin: 0;"> .</h3>
+                    <p style="color: #aaa; font-size: 12px; margin: 0;">Conductor</p>
                 </div>
             </div>
             
@@ -425,32 +425,22 @@
                     <span>Principal</span>
                 </div>
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/viajes.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/conductor/viajes_conductor.html'">
                     <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
                     <span>Viajes</span>
                 </div>
                 
                 <div class="nav-item-sidebar" onclick="window.location.href='../../rutas/pages/rutas.html'">
-                    <img src="../../../assets/icons/gestion_de_rutas_activado_sidebar.svg" alt="Routes">
+                    <img src="../../../assets/icons/gestion_de_rutas_desactivado_sidebar.svg" alt="Routes">
                     <span>Gestion de Rutas</span>
                 </div>
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../comunicacion/pages/comunicacion.html'">
-                    <img src="../../../assets/icons/comunicacion_icon_deactive_sidebar.svg" alt="Chat">
-                    <span>Comunicación</span>
-                </div>
-                
-                <div class="nav-item-sidebar active" onclick="window.location.href='../../compensaciones/pages/compensaciones.html'">
-                    <img src="../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
+                <div class="nav-item-sidebar active" onclick="window.location.href='./compensaciones.html'">
+                    <img src="../../../assets/icons/compensaciones_icon_active_sidebar.svg" alt="Money">
                     <span>Compensaciones y Pagos</span>
                 </div>
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../reportes/pages/reportes.html'">
-                    <img src="../../../assets/icons/reportes_icon_deactive_sidebar.svg" alt="Report">
-                    <span>Reportes</span>
-                </div>
-                
-                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracion.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionConductorOpciones.html'">
                     <img src="../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
                     <span>Configuración</span>
                 </div>
@@ -527,17 +517,6 @@
                 localStorage.setItem("viajesPasados", JSON.stringify([]));
             }
             
-            // Check and initialize userRoutes
-            if (!localStorage.getItem("userRoutes")) {
-                // Initialize with some sample routes
-                const sampleRoutes = [
-                    { name: "Ruta Norte - Centro" },
-                    { name: "Ruta Este - Sur" },
-                    { name: "Ruta Express A" },
-                    { name: "Ruta Costera" }
-                ];
-                localStorage.setItem("userRoutes", JSON.stringify(sampleRoutes));
-            }
             
             // Check and initialize actualizarTablaViajes
             if (!localStorage.getItem("actualizarTablaViajes")) {

@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+    
+
     // Botón para encontrar nuevos viajes
     const addTripBtn = document.getElementById('addTripBtn');
     if (addTripBtn) {
@@ -16,6 +18,17 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("No hay un usuario activo.");
         return;
     }
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const usuario = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+
+    if (!usuario) {
+        console.warn("No se encontró al usuario activo en la base de usuarios");
+        return;
+    }
+
+    const dp = usuario.datosPersonales;
+    document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
 
     // --- VIAJES AGENDADOS (pendientes, aceptados o aprobados) ---
     const misReservasAgendadas = todasLasReservas.filter(reserva => 
