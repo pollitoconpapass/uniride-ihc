@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UniRide - Encontrar Viajes</title>
+    <link rel="stylesheet" href="../../../../styles.css">
+    <link rel="stylesheet" href="../../css/pasajero/encontrar_viajes.css">
+
+</head>
+<body>
+    <!-- Menú lateral -->
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <img src="../../../../assets/imgs/user_landing_icon.png" alt="">
+                <div>
+                    <h3 id="sidebarNombre" style="color: white; font-size: 16px; margin: 0;"> .</h3>
+                    <p style="color: #aaa; font-size: 12px; margin: 0;">Pasajero</p>
+                </div>
+            </div>
+
+            <div class="menu-title">MENU</div>
+
+            <div class="sidebar-nav">
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../../principal/pages/principalPasajero.html'">
+                    <img src="../../../../assets/icons/principal_icon_deactive_sidebar.svg" alt="Home">
+                    <span>Principal</span>
+                </div>
+
+                <div class="nav-item-sidebar active" onclick="window.location.href='./viajes_usuario.html'">
+                    <img src="../../../../assets/icons/viajes_icon_active_sidebar.svg" alt="Travel">
+                    <span>Viajes</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../../compensaciones/pages/compensacionesPasajeros.html'">
+                    <img src="../../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
+                    <span>Compensaciones y Pagos</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroOpciones.html'">
+                    <img src="../../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
+                    <span>Configuración</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="sidebar-footer" onclick="window.location.href='../../../iniciar_sesion/pages/inicioSesion.html'">
+            <img src="../../../../assets/icons/exit_icon_sidebar.svg" alt="Logout">
+            Cerrar Sesión
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content">
+    <div class="page-header-informacion">
+            <div class="back-icon" onclick="window.location.href='viajes_usuario.html'">←</div>
+            <h1 class="page-title">Viajes / Encontrar viajes</h1>
+        </div>    
+    <!-- PASAJEROS -->
+        <section class="section drivers-card">
+            <h3>Viajes de los conductores</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombres</th>
+                        <th>Lugar de recojo</th>
+                        <th>Fecha de inicio</th>
+                        <th>Hora</th>
+                        <th>Reservar</th>
+                        <th>Ver detalles</th>
+                    </tr>
+                </thead>
+
+                <tbody id="pasajeros-confirmados">
+                    <tr>
+                        <td colspan="6" class="empty-table-message">
+                            No hay viajes publicados por el conductor
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </section>
+
+<!-- MODAL DE RESERVA -->
+<div id="reservarModal" class="modal-overlay">
+    <div class="modal-content">
+        <h2>Reservar Viaje</h2>
+
+        <p><strong>Conductor:</strong> <span id="modalConductor"></span></p>
+        <p><strong>Fecha:</strong> <span id="modalFecha"></span></p>
+        <p><strong>Hora:</strong> <span id="modalHora"></span></p>
+        <p><strong>Ruta:</strong> <span id="modalRuta"></span></p>
+
+        <label>Punto de recogida:</label>
+        <select id="modalPuntoRecogida"></select>
+
+        <label>Método de compensación:</label>
+        <select id="modalMetodo">
+            <option value="">Seleccione</option>
+            <option value="efectivo">Pago en efectivo</option>
+            <option value="yape">Yape</option>
+            <option value="gasolina">Gasolina</option>
+            <option value="almuerzo">Almuerzo</option>
+        </select>
+
+        <div id="campoMonto" style="display:none;">
+            <label>Monto (S/):</label>
+            <input type="number" id="modalMonto" placeholder="Ingrese el monto">
+        </div>
+
+        <div class="modal-buttons">
+            <button id="guardarReservaBtn">Guardar</button>
+            <button id="cancelarReservaBtn" class="cancelar">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </main>
+    <script src="../../js/pasajero/encontrar_viajes.js"></script>
+</body>
+</html>
+

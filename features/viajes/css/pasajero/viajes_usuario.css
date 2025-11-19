@@ -1,0 +1,137 @@
+/* Contenedor principal al lado del sidebar */
+.main-content {
+  margin-left: 270px;
+  padding: 30px 40px;
+  background-color: var(--gray-100);
+  min-height: 100vh;
+  color: var(--text-color);
+}
+
+/* Título de la página */
+.page-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 20px;
+  color: var(--gray-900);
+}
+
+/* Botón "Agregar Viaje" */
+.add-trip-btn {
+  padding: 10px 20px;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.add-trip-btn:hover {
+  background-color: #4338ca; 
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  margin: 0;
+  flex: 1;
+}
+
+.section {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.section h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--gray-900);
+}
+
+/* Tablas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+th,
+td {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 0.95rem;
+  vertical-align: middle;
+  word-break: break-word; 
+}
+
+th {
+  background-color: var(--gray-200);
+  color: var(--gray-700);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--gray-200);
+}
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background-color: var(--gray-50); 
+}
+ 
+.empty-table-message {
+  text-align: center;
+  padding: 24px;
+  color: var(--gray-500);
+  font-style: italic;
+}
+
+/* Estilos para la fila de detalles in-page */
+.trip-details-row td {
+    padding: 0;
+    background-color: #f8f9ff;
+}
+
+.trip-details-card {
+    padding: 24px;
+    margin: 10px 20px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.07);
+    border: 1px solid #eef1f8;
+}
+
+.trip-details-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    color: #6c63ff;
+}
+
+.trip-details-card p {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.trip-details-card .close-details-btn {
+    margin-top: 16px;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
