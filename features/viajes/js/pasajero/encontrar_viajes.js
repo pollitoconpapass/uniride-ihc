@@ -26,13 +26,13 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>${viaje.hora}</td>
 
             <td>
-                <button class="reservar-btn" data-index="${index}">
+                <button class="reserve-btn" data-index="${index}">
                     Reservar
                 </button>
             </td>
 
             <td>
-                <button class="detalles-btn" data-index="${index}">
+                <button class="details-btn" data-index="${index}">
                     Ver detalles
                 </button>
             </td>
@@ -55,101 +55,211 @@ document.addEventListener("DOMContentLoaded", () => {
     const guardarReservaBtn = document.getElementById("guardarReservaBtn");
     const cancelarReservaBtn = document.getElementById("cancelarReservaBtn");
 
-    let viajeSeleccionado = null;
+                        let seleccion = null;
 
-    document.querySelectorAll(".reservar-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
+                    
 
-        const index = btn.dataset.index;
-        viajeSeleccionado = viajes[index];
+                        document.querySelectorAll(".reserve-btn").forEach(btn => {
 
-        console.log("🔥 CLICK EN RESERVAR");
-        console.log("➡️ Viaje seleccionado:", viajeSeleccionado);
+                            btn.addEventListener("click", () => {
 
-        // --- Rellenar modal ---
-        modalConductor.textContent = viajeSeleccionado.conductor;
-        modalFecha.textContent = viajeSeleccionado.fecha;
-        modalHora.textContent = viajeSeleccionado.hora;
-        modalRuta.textContent = viajeSeleccionado.ruta;
+                                const index = btn.dataset.index;
 
-        modalPuntoRecogida.innerHTML = "";
-        const puntos = viajeSeleccionado.puntosRecogida; // ya es un array
+                                const viaje = viajes[index];
 
-        viajeSeleccionado.puntosRecogida.forEach(p => {
-    const opt = document.createElement("option");
-    opt.value = p;
-    opt.textContent = p;
-    modalPuntoRecogida.appendChild(opt);
-});
+                                seleccion = { viaje, index }; // Guardar el viaje y su índice
 
-        modal.style.display = "block";
+                    
 
-    });
-});
+                                console.log("🔥 CLICK EN RESERVAR");
 
+                                console.log("➡️ Selección:", seleccion);
 
-    // Mostrar u ocultar campo monto
-    modalMetodo.addEventListener("change", (e) => {
-        if (e.target.value === "efectivo" || e.target.value === "yape") {
-            campoMonto.style.display = "block";
-        } else {
-            campoMonto.style.display = "none";
-            modalMonto.value = "";
-        }
-    });
+                    
 
-    // Cancelar modal
-    cancelarReservaBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
+                                // --- Rellenar modal ---
 
-    // Cerrar modal clickeando fondo
-    window.addEventListener("click", (e) => {
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
-    });
+                                modalConductor.textContent = viaje.conductor;
 
-    guardarReservaBtn.addEventListener("click", () => {
-    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+                                modalFecha.textContent = viaje.fecha;
 
-    // Buscar datos del pasajero
-    const pasajero = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+                                modalHora.textContent = viaje.hora;
 
-    const nombrePasajero = pasajero 
-        ? `${pasajero.datosPersonales.nombres} ${pasajero.datosPersonales.apellidoPaterno}`
-        : "Pasajero desconocido";
+                                modalRuta.textContent = viaje.ruta;
 
-    const reservasExistentes = JSON.parse(localStorage.getItem("reservas")) || [];
-const nuevoIdReserva = reservasExistentes.length > 0 
-    ? Math.max(...reservasExistentes.map(r => r.idReserva || 0)) + 1 
-    : 1;
-    
+                    
 
-    const nuevaReserva = {
-        idReserva: nuevoIdReserva,
-        idViaje: viajeSeleccionado.idViaje || null,
-        idConductor: viajeSeleccionado.idConductor,
-        idPasajero: usuarioActivo.id_usuario,
-        nombrePasajero: nombrePasajero,
-        ruta: viajeSeleccionado.ruta,
-        fecha: viajeSeleccionado.fecha,
-        hora: viajeSeleccionado.hora,
-        puntoRecogida: modalPuntoRecogida.value,
-        metodo: modalMetodo.value,
-        monto: modalMonto.value || null,
-        estado: "pendiente",
-        fechaReserva: new Date().toISOString()
-    };
+                                modalPuntoRecogida.innerHTML = "";
 
-    const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
-    reservas.push(nuevaReserva);
-    localStorage.setItem("reservas", JSON.stringify(reservas));
+                                if (Array.isArray(viaje.puntosRecogida)) {
 
-    modal.style.display = "none";
-    alert("Reserva realizada exitosamente.");
-});
+                                    viaje.puntosRecogida.forEach(p => {
+
+                                        const opt = document.createElement("option");
+
+                                        opt.value = p;
+
+                                        opt.textContent = p;
+
+                                        modalPuntoRecogida.appendChild(opt);
+
+                                    });
+
+                                }
+
+                    
+
+                                modal.style.display = "flex";
+
+                            });
+
+                        });
+
+                    
+
+                        document.querySelectorAll(".details-btn").forEach(btn => {
+
+                            btn.addEventListener("click", () => {
+
+                                const index = btn.dataset.index;
+
+                                window.location.href = `informacion_viaje.html?viajeIndex=${index}`;
+
+                            });
+
+                        });
+
+                    
+
+                    
+
+                    
+
+                        // Mostrar u ocultar campo monto
+
+                        modalMetodo.addEventListener("change", (e) => {
+
+                            if (e.target.value === "efectivo" || e.target.value === "yape") {
+
+                                campoMonto.style.display = "block";
+
+                            } else {
+
+                                campoMonto.style.display = "none";
+
+                                modalMonto.value = "";
+
+                            }
+
+                        });
+
+                    
+
+                        // Cancelar modal
+
+                        cancelarReservaBtn.addEventListener("click", () => {
+
+                            modal.style.display = "none";
+
+                        });
+
+                    
+
+                        // Cerrar modal clickeando fondo
+
+                        window.addEventListener("click", (e) => {
+
+                            if (e.target === modal) {
+
+                                modal.style.display = "none";
+
+                            }
+
+                        });
+
+                    
+
+                        guardarReservaBtn.addEventListener("click", () => {
+
+                            if (!seleccion) return; // No hay nada seleccionado
+
+                    
+
+                            const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+
+                            const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+                    
+
+                            // Buscar datos del pasajero
+
+                            const pasajero = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+
+                    
+
+                            const nombrePasajero = pasajero 
+
+                                ? `${pasajero.datosPersonales.nombres} ${pasajero.datosPersonales.apellidoPaterno}`
+
+                                : "Pasajero desconocido";
+
+                    
+
+                            const reservasExistentes = JSON.parse(localStorage.getItem("reservas")) || [];
+
+                            const nuevoIdReserva = reservasExistentes.length > 0 
+
+                                ? Math.max(...reservasExistentes.map(r => r.idReserva || 0)) + 1 
+
+                                : 1;
+
+                            
+
+                            const nuevaReserva = {
+
+                                idReserva: nuevoIdReserva,
+
+                                viajeIndex: seleccion.index, // Usar el índice del viaje
+
+                                idConductor: seleccion.viaje.idConductor,
+
+                                idPasajero: usuarioActivo.id_usuario,
+
+                                nombrePasajero: nombrePasajero,
+
+                                ruta: seleccion.viaje.ruta,
+
+                                fecha: seleccion.viaje.fecha,
+
+                                hora: seleccion.viaje.hora,
+
+                                puntoRecogida: modalPuntoRecogida.value,
+
+                                metodo: modalMetodo.value,
+
+                                monto: modalMonto.value || null,
+
+                                estado: "pendiente",
+
+                                fechaReserva: new Date().toISOString()
+
+                            };
+
+                    
+
+                            const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+
+                            reservas.push(nuevaReserva);
+
+                            localStorage.setItem("reservas", JSON.stringify(reservas));
+
+                    
+
+                            modal.style.display = "none";
+
+                            alert("Reserva realizada exitosamente.");
+
+                        });
 
 
 
