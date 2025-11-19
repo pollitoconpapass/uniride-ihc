@@ -67,29 +67,50 @@
 
     <main class="main-content">
         <h1>Configuración de Perfil</h1>
-        <form class="registrate-form-1" name="registrate-form-1">
+        <form class="registrate-form-1" name="registrate-form-carga-manual">
             <div class="group-title">
-                <h3>Mis Cursos</h3>
+                <h3>Mis cursos</h3>
             </div>
             <div class="group-btns">
-              <button type="button" id="btn-manual-carga-masiva" class="btn-manual">Manual</button>
-              <button type="button" id="btn-masiva-carga-masiva" class="btn-masiva">Masiva</button>
+              <button id="btn-manual-carga-manual" class="btn-manual" type="button">Manual</button>
+              <button id="btn-masiva-carga-manual"ass="btn-masiva" type="button">Masiva</button>
             </div>
-            <button type="button" class="contenedor-adjuntar-img">
-                <img class="adjuntar-image"src="../../../assets/icons/adjuntar_archivo_icon.svg" alt="adjuntar archivo">
-                <p>Adjuntar tu horario en un documento o pdf</p>
-            </button>
-            <div class="group-input-botones">
-                <button type="button" id="btn-regresar" class = "btn_regresar">Regresar</button>
-            </div>
+          <div class="listaCursos" id="listaCursos"></div>
+          <div class="grupo-botones-config">
+            <button type="button" class="btnRegresar">Regresar</button>
+            <button type="button" id="btnAddCurso"class="btnAddCurso">Agregar Curso</button>
+          </div>
         </form>
   </main>
-
-    <!-- pdf.js SOLO para dibujar el PDF en un canvas -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-
-  <!-- Tesseract.js para hacer OCR al canvas -->
-  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
-  
-  <script src="../js/configuracionConductorHorarioMasiva.js"></script>
+    <div id="modal-curso" class="modal">
+        <label for="nombre-curso">
+            Nombre del curso
+            <input type="text" placeholder="Escribe el nombre del curso" name="input-nombre-curso" />
+        </label>
+        <label for="horario">
+            Horario
+            <div class="group-horario">
+                <input type="time" name="input-horario-inicio" />
+                <p>-</p>
+                <input type="time" name="input-horario-fin" />
+            </div>
+        </label>
+            <label for="horario">
+                Frecuencia
+                <div class="group-frecuencia">
+                    <button id = "lunes" type="button">L</button>
+                    <button id = "martes" type="button">M</button>
+                    <button id = "miercoles" type="button">Mi</button>
+                    <button id = "jueves" type="button">J</button>
+                    <button id = "viernes" type="button">V</button>
+                    <button id = "sabado" type="button">S</button>
+                    <button id="domingo" type="button">D</button>
+                </div>
+            </label>
+        <div class="grupo-botones-formulario">
+            <button id="btnCancelFormulario" class="btnCancel" type="button">Cancelar</button>
+            <button id="btnGuardarFormulario" class="btnGuardar" type="button">Guardar</button>
+        </div>
+    </div>
+    <script src="../js/configuracionHorarioManual.js"></script>
 </body>
