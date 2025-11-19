@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>UniRide - Conductor</title>
+    <title>UniRide - Horarios</title>
     <link rel="stylesheet" href="../css/configuracion.css">
 </head>
 
@@ -12,10 +12,10 @@
     <div class="sidebar">
         <div>
             <div class="sidebar-header">
-                <img src="../../../assets/imgs/user_carlos.png" alt="User Avatar">
+                <img src="../../../assets/imgs/usuario_jose.png" alt="User Avatar">
                 <div>
-                    <h3 style="color: white; font-size: 16px; margin: 0;">Carlos</h3>
-                    <p style="color: #aaa; font-size: 12px; margin: 0;">+51 98970564</p>
+                    <h3 style="color: white; font-size: 16px; margin: 0;">Jose</h3>
+                    <p style="color: #aaa; font-size: 12px; margin: 0;">+51 920410686</p>
                 </div>
             </div>
             
@@ -30,11 +30,6 @@
                 <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/viajes.html'">
                     <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
                     <span>Viajes</span>
-                </div>
-                
-                <div class="nav-item-sidebar" onclick="window.location.href='../../rutas/pages/rutas.html'">
-                    <img src="../../../assets/icons/gestion_de_rutas_desactivado_sidebar.svg" alt="Routes">
-                    <span>Gestion de Rutas</span>
                 </div>
                 
                 <div class="nav-item-sidebar" onclick="window.location.href='../../comunicacion/pages/comunicacion.html'">
@@ -67,11 +62,28 @@
 
     <main class="main-content">
         <h1>Configuración de Perfil</h1>
-        <div class="config-opciones">
-            <button id="btn-datos-personales">Datos Personales</button>
-            <button id="btn-horarios">Horarios</button>
-            <button id="btn-datos-vehiculares">Datos Vehiculares</button>
-        </div>
+        <form class="registrate-form-1" name="registrate-form-1">
+            <div class="group-title">
+                <h3>Mis Cursos</h3>
+            </div>
+            <div class="group-btns">
+              <button type="button" id="btn-manual-carga-masiva" class="btn-manual">Manual</button>
+              <button type="button" id="btn-masiva-carga-masiva" class="btn-masiva">Masiva</button>
+            </div>
+            <button type="button" class="contenedor-adjuntar-img">
+                <img class="adjuntar-image"src="../../../assets/icons/adjuntar_archivo_icon.svg" alt="adjuntar archivo">
+                <p>Adjuntar tu horario en un documento o pdf</p>
+            </button>
+            <div class="group-input-botones">
+                <button type="button" id="btn-regresar" class = "btn_regresar">Regresar</button>
+            </div>
+        </form>
   </main>
-  <script src="../js/configuracionConductorOpciones.js"></script>
+  <!-- pdf.js SOLO para dibujar el PDF en un canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+  <!-- Tesseract.js para hacer OCR al canvas -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+  
+  <script src="../js/configuracionPasajeroHorarioMasiva.js"></script>
 </body>
