@@ -1,0 +1,251 @@
+/* === CONTENIDO GENERAL === */
+.main-content {
+  margin-left: 270px;
+  padding: 30px 40px;
+  background-color: var(--gray-100);
+  min-height: 100vh;
+  color: var(--text-color);
+}
+
+/* Título */
+.page-title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--gray-900);
+}
+
+/* Icono volver */
+.back-icon {
+  width: 36px;
+  height: 36px;
+  background-color: #6c63ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.page-header-informacion {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.back-icon:hover {
+  background-color: #584ef7;
+  transform: scale(1.08);
+}
+
+/* === CONTENEDOR DE SOLICITUDES === */
+/* Contenedor de cards centrado y con ancho limitado */
+.solicitudes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;   /* 👉 Cards a la derecha */
+  padding-left: 40px;     /* 👉 Separación del borde derecho */
+  margin-top: 20px;
+}
+
+
+/* Card más pequeña y con ancho controlado */
+.solicitud-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 18px 22px;
+  width: 420px;                /* 📌 Tamaño ideal de card */
+  max-width: 92%;              /* Para que no desborde en móviles */
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.06);
+  border: 1px solid #eaeaea;
+  transition: 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.solicitud-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.10);
+}
+
+
+.solicitud-card h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #242424;
+  font-weight: 600;
+}
+
+.solicitud-card p {
+  margin: 2px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Acciones */
+.solicitud-acciones {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.btn-aceptar,
+.btn-rechazar {
+  padding: 8px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s ease;
+}
+
+/* Botón aceptar */
+.btn-aceptar {
+  background: #28a745;
+  color: #fff;
+}
+.btn-aceptar:hover {
+  background: #218838;
+  transform: scale(1.05);
+}
+
+/* Botón rechazar */
+.btn-rechazar {
+  background: #dc3545;
+  color: #fff;
+}
+.btn-rechazar:hover {
+  background: #c82333;
+  transform: scale(1.05);
+}
+
+/* === MODALES === */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(3px);
+}
+
+
+.modal-content {
+  background: white;
+  width: 420px;
+  max-width: 92%;
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  text-align: center;
+  position: relative;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Estilos comunes */
+.modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.modal-icon {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #333;
+  font-weight: 700;
+}
+
+.modal-message {
+  font-size: 1.05rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Formulario en modal de rechazo */
+.motivo {
+  margin: 20px 0;
+  text-align: left;
+}
+
+.motivo label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #444;
+}
+
+.motivo textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Botones */
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.btn-cancel,
+.btn-submit {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: opacity 0.2s;
+}
+
+.btn-cancel {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.btn-cancel:hover {
+  background: #d0d0d0;
+}
+
+.btn-submit {
+  background: #6c63ff;
+  color: white;
+}
+
+.btn-submit:hover {
+  background: #5a52d5;
+  transform: none; /* evita conflicto con scale */
+}

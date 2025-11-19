@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>UniRide - Viajes Conductor</title>
+    <link rel="stylesheet" href="../../../../styles.css" />
+    <link rel="stylesheet" href="../../css/conductor/solicitudes_pasajeros.css" />
+</head>
+
+<body>
+<div class="viajes-conductor">
+
+    <!-- Menú lateral -->
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <img src="../../../../assets/imgs/user_carlos.png" alt="User Avatar">
+                <div>
+                    <h3 style="color: white; font-size: 16px; margin: 0;">Carlos</h3>
+                    <p style="color: #aaa; font-size: 12px; margin: 0;">+51 98970564</p>
+                </div>
+            </div>
+
+            <div class="menu-title">MENU</div>
+
+            <div class="sidebar-nav">
+
+                <div class="nav-item-sidebar" onclick="window.location.href='./principalConductor.html'">
+                    <img src="../../../../assets/icons/principal_icon_active_sidebar.svg" alt="Home">
+                    Principal
+                </div>
+
+                <div class="nav-item-sidebar active" onclick="window.location.href='../../viajes/pages/viajes.html'">
+                    <img src="../../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
+                    <span>Viajes</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../rutas/pages/rutas.html'">
+                    <img src="../../../../assets/icons/gestion_de_rutas_desactivado_sidebar.svg" alt="Routes">
+                    <span>Gestión de Rutas</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../comunicacion/pages/comunicacion.html'">
+                    <img src="../../../../assets/icons/comunicacion_icon_deactive_sidebar.svg" alt="Chat">
+                    <span>Comunicación</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../compensaciones/pages/compensaciones.html'">
+                    <img src="../../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
+                    <span>Compensaciones y Pagos</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../reportes/pages/reportes.html'">
+                    <img src="../../../../assets/icons/reportes_icon_deactive_sidebar.svg" alt="Report">
+                    <span>Reportes</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracion.html'">
+                    <img src="../../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
+                    <span>Configuración</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="sidebar-footer" onclick="window.location.href='../../iniciar_sesion/pages/inicioSesion.html'">
+            <img src="../../../../assets/icons/exit_icon_sidebar.svg" alt="Logout">
+            Cerrar Sesión
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content">
+        <div class="page-header-informacion">
+        <div class="back-icon" onclick="window.location.href='viajes_conductor.html'">←</div>
+        <h1 class="page-title" id="tituloSolicitud">Solicitudes del viaje</h1>
+    </div>
+
+    <div id="contenedorSolicitudes" class="solicitudes-list">
+        <!-- Aquí JS insertará las tarjetas -->
+    </div>
+        
+
+    </main>
+
+</div>
+
+<!-- solicitud aceptada-->
+    <div class="modal" id="modalAceptarSolicitud" style="display: none;">
+  <div class="modal-content aceptar-modal">
+    <div class="modal-header">
+      <div class="modal-icon">✔️</div>
+      <h2>Solicitud Aceptada</h2>
+    </div>
+
+    <p class="modal-message">La solicitud del pasajero ha sido aceptada exitosamente.</p>
+
+    <div class="modal-actions">
+      <button class="btn-submit" id="btnCerrarAceptar">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Motivo de rechazo / Cancelar solicitud -->
+<div class="modal" id="modalCancelarViaje" style="display: none;">
+  <div class="modal-content cancelar-modal">
+    <div class="modal-header">
+      <div class="modal-icon">😢</div>
+      <h2>Rechazar solicitud</h2>
+    </div>
+
+    <p class="modal-message">
+      Indica el motivo por el cual rechazas esta solicitud. 
+    </p>
+
+    <form id="formCancelarViaje">
+      <div class="motivo">
+        <label for="motivoCancelacion">Motivo:</label>
+        <textarea id="motivoCancelacion" rows="4" placeholder="Explique brevemente el motivo..." required></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" id="btnCerrarCancelarViaje">Cerrar</button>
+        <button type="submit" class="btn-submit" id="btnEnviarMotivo">Enviar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script src="../../js/conductor/solicitudes_pasajeros.js"></script>
+</body>
+</html>

@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-
 let fechaInicio = document.getElementById("fechaInicio");
 let horaInicio = document.getElementById("horaInicio");
 let rutaTomar = document.getElementById("rutaTomar");
@@ -38,13 +37,37 @@ cancelBtn.addEventListener("click", () => {
 guardarBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
-    const viaje = {
-        fecha: fechaInicio.value,
-        hora: horaInicio.value,
-        ruta: rutaTomar.value,
-        pasajeros: cantidadPasajeros.value,
-        estado: "Pendiente"
-    };
+    // Obtener todas las rutas
+    const routes = JSON.parse(localStorage.getItem("userRoutes")) || [];
+    const selectedRoute = routes.find(route => route.name === rutaTomar.value);
+
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const conductor = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+
+    const nombreConductor = conductor 
+        ? `${conductor.datosPersonales.nombres} ${conductor.datosPersonales.apellidoPaterno}`
+        : "Conductor desconocido";
+
+const viajesExistentes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
+const nuevoId = viajesExistentes.length > 0 
+    ? Math.max(...viajesExistentes.map(v => v.id || 0)) + 1 
+    : 1;
+
+const viaje = {
+    id: nuevoId, 
+    idConductor: usuarioActivo.id_usuario,
+    fecha: fechaInicio.value,
+    hora: horaInicio.value,
+    ruta: rutaTomar.value,
+    puntosRecogida: selectedRoute ? selectedRoute.referencePlaces : [],
+    pasajeros: cantidadPasajeros.value,
+    pasajerosActuales: 0,
+    estado: "Pendiente",
+    conductor: nombreConductor
+};
+
+
 
     let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
     viajes.push(viaje);
@@ -96,10 +119,10 @@ function loadPlannedTrips() {
                 <td>${viaje.fecha}</td>
                 <td>${viaje.hora}</td>
                 <td>${viaje.ruta}</td>
-                <td>0 / ${viaje.pasajeros}</td>
-                <td><button onclick="verSolicitud(${index})">Ver</button></td>
+                <td>${viaje.pasajerosActuales || 0} / ${viaje.pasajeros}</td>
+                <td><button class="table-btn" onclick="verSolicitud(${index})">Ver</button></td>
                 <td>${viaje.estado}</td>
-                <td><button onclick="verDetalle(${index})">Detalles</button></td>
+                <td><button class="table-btn" onclick="verDetalle(${index})">Detalles</button></td>
             </tr>
         `;
     });
@@ -120,7 +143,7 @@ function loadPastTrips() {
     const tbody = document.getElementById("viajes_pasados_total");
     const viajesPasados = JSON.parse(localStorage.getItem("viajesPasados")) || [];
 
-    if (!tbody) return; // por si tu html no tiene esa tabla
+    if (!tbody) return; 
 
     if (viajesPasados.length === 0) {
         tbody.innerHTML = `
