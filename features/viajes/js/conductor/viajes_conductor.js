@@ -49,14 +49,13 @@ guardarBtn.addEventListener("click", (e) => {
         ? `${conductor.datosPersonales.nombres} ${conductor.datosPersonales.apellidoPaterno}`
         : "Conductor desconocido";
 
-    // Generar ID único (puedes usar timestamp o contador)
 const viajesExistentes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
 const nuevoId = viajesExistentes.length > 0 
     ? Math.max(...viajesExistentes.map(v => v.id || 0)) + 1 
     : 1;
 
 const viaje = {
-    id: nuevoId, // 👈 ¡Agrega esto!
+    id: nuevoId, 
     idConductor: usuarioActivo.id_usuario,
     fecha: fechaInicio.value,
     hora: horaInicio.value,
