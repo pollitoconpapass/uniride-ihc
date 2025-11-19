@@ -23,14 +23,17 @@ document.getElementById('addRouteForm').addEventListener('submit', function(even
         return;
     }
 
-    const newRoute = {
-        name: routeName,
-        direction: direction,
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
 
-        referencePlaces: referencePlacesArray,
-        description: description,
-        createdAt: new Date().toISOString()
-    };
+const newRoute = {
+    idConductor: usuarioActivo.id_usuario,   
+    name: routeName,
+    direction: direction,
+    referencePlaces: referencePlacesArray,
+    description: description,
+    createdAt: new Date().toISOString()
+};
+
 
     let existingRoutes = JSON.parse(localStorage.getItem('userRoutes')) || [];
     existingRoutes.push(newRoute);
