@@ -180,8 +180,7 @@ function loadTrips() {
         <td>${trip.conductor}</td>
         <td>${trip.infoCarro}</td>
         <td>${trip.puntoEncuentro}</td>
-        <td>${trip.estado}</td>
-        <td><img src="../../../assets/icons/ver_mas_icon.svg"></td>`
+        <td>${trip.estado}</td>`
       tripsTableBody.appendChild(row)
     }
   }
