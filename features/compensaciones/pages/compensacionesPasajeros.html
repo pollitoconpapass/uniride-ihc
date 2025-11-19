@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compensaciones de Viaje</title>
+    <title>Registro de Pagos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #8E8CC7;
+            --secondary-color: #1A202C;
+            --accent-color: #4F46E5;
+            --light-color: #F7FAFC;
+            --text-color: #2D3748;
+            --basic-700-color: #2E3A59;
+            --white: #FFFFFF;
+            --gray-100: #F7FAFC;
+            --gray-200: #EDF2F7;
+            --gray-300: #E2E8F0;
+            --gray-400: #CBD5E0;
+            --gray-500: #A0AEC0;
+            --gray-600: #718096;
+            --gray-700: #4A5568;
+            --gray-800: #2D3748;
+            --gray-900: #1A202C;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -20,111 +39,121 @@
             min-height: 100vh;
         }
         
-        /* Sidebar Styles - Narrow Version */
+        /* Sidebar Styles - Updated to match the image */
         .sidebar {
-            width: 200px;
-            background: linear-gradient(180deg, #2c3e50, #34495e);
+            width: 270px;
+            background-color: #121212;
             color: white;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 15px 0;
+            padding: 20px 0;
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
             z-index: 100;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
         }
         
         .sidebar-header {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            padding: 0 15px 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0 30px 20px;
+            border-bottom: 1px solid #333;
             margin-bottom: 15px;
+            gap: 10px;
         }
         
         .sidebar-header img {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            margin-bottom: 8px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            object-fit: cover;
         }
         
-        .sidebar-header h3 {
-            color: white;
-            font-size: 14px;
-            margin: 0;
-            text-align: center;
+        .user-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
         }
         
-        .sidebar-header p {
+        .user-info p {
+            font-size: 12px;
             color: #aaa;
-            font-size: 11px;
-            margin: 0;
-            text-align: center;
         }
         
         .menu-title {
-            padding: 0 15px 8px;
-            font-size: 11px;
+            font-size: 14px;
             color: #aaa;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-weight: 600;
+            padding: 20px 0 10px;
+            text-align: center;
+            width: 100%;
         }
         
         .sidebar-nav {
-            padding: 0 8px;
+            padding: 10px 0;
         }
         
         .nav-item-sidebar {
             display: flex;
             align-items: center;
-            padding: 10px 12px;
+            padding: 12px 30px;
             margin: 4px 0;
-            border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
-            font-size: 13px;
+            font-size: 16px;
+            border-left: 4px solid transparent;
         }
         
         .nav-item-sidebar:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.05);
         }
         
         .nav-item-sidebar.active {
-            background-color: #3498db;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--accent-color);
+            color: var(--accent-color);
         }
         
         .nav-item-sidebar img {
-            width: 16px;
-            height: 16px;
-            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
             filter: brightness(0) invert(1);
+        }
+        
+        .nav-item-sidebar.active img {
+            filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(230deg);
         }
         
         .nav-item-sidebar span {
             flex: 1;
+            font-weight: 600;
         }
         
         .sidebar-footer {
             display: flex;
             align-items: center;
-            padding: 12px 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 30px;
+            border-top: 1px solid #333;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 13px;
+            font-size: 16px;
+            margin: 0 20px;
         }
         
         .sidebar-footer:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.05);
         }
         
         .sidebar-footer img {
-            width: 16px;
-            height: 16px;
-            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
             filter: brightness(0) invert(1);
         }
         
@@ -140,7 +169,6 @@
             overflow: hidden;
             transition: max-height 0.3s ease;
             background-color: rgba(0, 0, 0, 0.2);
-            border-radius: 0 0 6px 6px;
             margin-top: -4px;
         }
         
@@ -149,10 +177,10 @@
         }
         
         .dropdown-item {
-            padding: 8px 12px 8px 38px;
+            padding: 8px 12px 8px 65px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 12px;
+            font-size: 14px;
         }
         
         .dropdown-item:hover {
@@ -166,6 +194,7 @@
             flex-direction: column;
             padding: 20px 30px;
             overflow-y: auto;
+            margin-left: 270px;
         }
         
         header {
@@ -318,35 +347,98 @@
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
+                position: relative;
+                min-height: 100vh;
+                overflow-x: hidden;
+                padding-bottom: 60px;
+                padding-left: 0;
+                transition: padding-left 0.3s ease;
             }
-            
+        
+            body.menu-open {
+                padding-left: 270px;
+            }
+        
             .sidebar {
-                width: 100%;
-                order: 2;
+                width: 270px;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                z-index: 1000;
             }
-            
+        
+            .sidebar.menu-open {
+                transform: translateX(0);
+            }
+        
             .container {
-                order: 1;
+                margin-left: 0;
+                width: 100%;
+                padding: 20px 15px;
             }
-            
+        
             .filters {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
+        
             .filter-buttons {
                 width: 100%;
                 justify-content: space-between;
             }
-            
+        
             .filter-btn {
                 flex: 1;
                 justify-content: center;
             }
-            
+        
             .date-filter {
                 width: 100%;
                 justify-content: space-between;
+            }
+        
+            .mobile-menu-toggle {
+                display: block;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                background-color: #121212;
+                color: white;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 999;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+                cursor: pointer;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 100%;
+            }
+            
+            body.menu-open {
+                padding-left: 100%;
+            }
+            
+            .container {
+                padding: 15px 10px;
+            }
+            
+            .table-section {
+                padding: 15px;
+            }
+            
+            th, td {
+                padding: 10px;
+                font-size: 14px;
             }
         }
         
@@ -377,16 +469,22 @@
             color: #7f8c8d;
             font-style: italic;
         }
+        
+        .mobile-menu-toggle {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <!-- Sidebar - Narrow Version -->
-    <div class="sidebar">
+    <!-- Sidebar - Updated to match the image -->
+    <div class="sidebar" id="sidebar">
         <div>
             <div class="sidebar-header">
                 <img src="https://i.pravatar.cc/150?img=32" alt="User Avatar">
-                <h3>Carlos</h3>
-                <p>+51 98970564</p>
+                <div class="user-info">
+                    <h3>Carlos</h3>
+                    <p>+51 98970564</p>
+                </div>
             </div>
             
             <div class="menu-title">MENU</div>
@@ -414,7 +512,7 @@
                 
                 <div class="nav-item-sidebar active" onclick="window.location.href='#'">
                     <img src="https://cdn-icons-png.flaticon.com/512/3135/3135679.png" alt="Money">
-                    <span>Compensaciones y Pagos</span>
+                    <span>Formas de Pago</span>
                 </div>
                 
                 <div class="nav-item-sidebar" onclick="window.location.href='#'">
@@ -444,10 +542,15 @@
         </div>
     </div>
 
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="fas fa-bars"></i>
+    </div>
+
     <!-- Main Content -->
     <div class="container">
         <header>
-            <h1>Compensaciones de Viaje</h1>
+            <h1>Registro de Formas de Pago</h1>
         </header>
 
         <div class="main-content">
@@ -476,8 +579,8 @@
                         <tr>
                             <th>Fecha</th>
                             <th>Conductor</th>
-                            <th>Tipo de Compensación</th>
-                            <th>Descuento / Compensación</th>
+                            <th>Forma de Pago</th>
+                            <th>Monto</th>
                         </tr>
                     </thead>
                     <tbody id="table-body">
@@ -486,39 +589,36 @@
                 </table>
             </div>
 
-            <div class="sidebar-content">
-                <div class="total-card">
-                    <div class="total-label">Total Ahorrado / Beneficios Mensuales</div>
-                    <div class="total-amount" id="total-saved">S/. 0.00</div>
-                </div>
-            </div>
+            <!-- Sección de total eliminada según la solicitud -->
         </div>
     </div>
 
     <script>
-        // Sample data for passenger travel compensations and discounts
-        const benefitsData = [
-            { date: '08/09/2025', driver: 'Nector Campos', benefitType: 'Retraso del conductor', amount: 3.50 },
-            { date: '10/10/2025', driver: 'Sello Yin', benefitType: 'Bono por 10 viajes', amount: 6.00 },
-            { date: '30/10/2025', driver: 'Nadir Fernandez', benefitType: 'Promoción especial', amount: 8.00 },
-            { date: '15/10/2025', driver: 'Nacional Maribrez', benefitType: 'Retraso del conductor', amount: 3.50 },
-            { date: '22/10/2025', driver: 'Jumi Nordic', benefitType: 'Bono por 15 viajes', amount: 7.50 },
-            { date: '05/10/2025', driver: 'Adriana Masa', benefitType: 'Promoción especial', amount: 6.00 },
-            { date: '12/10/2025', driver: 'Carlos Ruiz', benefitType: 'Retraso del conductor', amount: 4.00 },
-            { date: '18/10/2025', driver: 'Maria Lopez', benefitType: 'Bono por 5 viajes', amount: 4.50 },
-            { date: '25/10/2025', driver: 'Juan Perez', benefitType: 'Promoción especial', amount: 8.00 },
-            { date: '28/10/2025', driver: 'Ana Garcia', benefitType: 'Bono por 20 viajes', amount: 10.00 }
+        // Sample data for passenger payment methods
+        const paymentData = [
+            { date: '08/09/2025', driver: 'Nector Campos', paymentType: 'Tarjeta de Crédito', amount: 15.50 },
+            { date: '10/10/2025', driver: 'Sello Yin', paymentType: 'Efectivo', amount: 12.00 },
+            { date: '30/10/2025', driver: 'Nadir Fernandez', paymentType: 'Tarjeta de Débito', amount: 18.00 },
+            { date: '15/10/2025', driver: 'Nacional Maribrez', paymentType: 'Billetera Digital', amount: 13.50 },
+            { date: '22/10/2025', driver: 'Jumi Nordic', paymentType: 'Tarjeta de Crédito', amount: 17.50 },
+            { date: '05/10/2025', driver: 'Adriana Masa', paymentType: 'Efectivo', amount: 16.00 },
+            { date: '12/10/2025', driver: 'Carlos Ruiz', paymentType: 'Billetera Digital', amount: 14.00 },
+            { date: '18/10/2025', driver: 'Maria Lopez', paymentType: 'Tarjeta de Débito', amount: 14.50 },
+            { date: '25/10/2025', driver: 'Juan Perez', paymentType: 'Tarjeta de Crédito', amount: 18.00 },
+            { date: '28/10/2025', driver: 'Ana Garcia', paymentType: 'Efectivo', amount: 20.00 }
         ];
 
         // DOM elements
         const tableBody = document.getElementById('table-body');
-        const totalSavedElement = document.getElementById('total-saved');
         const sortAscBtn = document.getElementById('sort-asc');
         const sortDescBtn = document.getElementById('sort-desc');
         const monthFilter = document.getElementById('month-filter');
+        const sidebar = document.getElementById('sidebar');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const body = document.body;
 
         // Current state
-        let currentData = [...benefitsData];
+        let currentData = [...paymentData];
         let currentSort = null;
 
         // Initialize the table when DOM is loaded
@@ -536,6 +636,9 @@
             
             // Initialize sidebar dropdown
             initializeSidebarDropdown();
+            
+            // Initialize mobile menu toggle
+            initializeMobileMenu();
         });
 
         // Initialize sidebar dropdown functionality
@@ -559,6 +662,38 @@
             // Prevent dropdown from closing when clicking inside it
             dropdownMenu.addEventListener('click', function(e) {
                 e.stopPropagation();
+            });
+        }
+
+        // Initialize mobile menu functionality
+        function initializeMobileMenu() {
+            mobileMenuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('menu-open');
+                body.classList.toggle('menu-open');
+                
+                // Change icon based on menu state
+                const icon = this.querySelector('i');
+                if (sidebar.classList.contains('menu-open')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+            
+            // Close menu when clicking outside on mobile
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768 && 
+                    !sidebar.contains(e.target) && 
+                    !mobileMenuToggle.contains(e.target) &&
+                    sidebar.classList.contains('menu-open')) {
+                    sidebar.classList.remove('menu-open');
+                    body.classList.remove('menu-open');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
             });
         }
 
@@ -621,7 +756,6 @@
         // Initialize the table
         function initializeTable() {
             renderTable(currentData);
-            updateStatistics(currentData);
         }
 
         // Render table with data
@@ -630,28 +764,22 @@
             
             if (data.length === 0) {
                 const emptyRow = document.createElement('tr');
-                emptyRow.innerHTML = '<td colspan="4" class="empty-message">No se encontraron compensaciones</td>';
+                emptyRow.innerHTML = '<td colspan="4" class="empty-message">No se encontraron pagos registrados</td>';
                 tableBody.appendChild(emptyRow);
                 return;
             }
             
-            data.forEach(benefit => {
+            data.forEach(payment => {
                 const row = document.createElement('tr');
                 
                 row.innerHTML = `
-                    <td>${benefit.date}</td>
-                    <td class="driver-name">${benefit.driver}</td>
-                    <td class="benefit-type">${benefit.benefitType}</td>
-                    <td class="amount">S/. ${benefit.amount.toFixed(2)}</td>
+                    <td>${payment.date}</td>
+                    <td class="driver-name">${payment.driver}</td>
+                    <td class="payment-type">${payment.paymentType}</td>
+                    <td class="amount">S/. ${payment.amount.toFixed(2)}</td>
                 `;
                 tableBody.appendChild(row);
             });
-        }
-
-        // Update statistics display
-        function updateStatistics(data) {
-            const total = data.reduce((sum, benefit) => sum + benefit.amount, 0);
-            totalSavedElement.textContent = `S/. ${total.toFixed(2)}`;
         }
 
         // Apply sorting based on selected filter
@@ -694,11 +822,11 @@
             const selectedMonth = monthFilter.value;
             
             if (selectedMonth === 'all') {
-                currentData = [...benefitsData];
+                currentData = [...paymentData];
             } else {
-                currentData = benefitsData.filter(benefit => {
+                currentData = paymentData.filter(payment => {
                     // Extract month from date (format: DD/MM/YYYY)
-                    const month = benefit.date.split('/')[1];
+                    const month = payment.date.split('/')[1];
                     return month === selectedMonth;
                 });
             }
@@ -711,7 +839,6 @@
             }
             
             renderTable(currentData);
-            updateStatistics(currentData);
         }
     </script>
 </body>
