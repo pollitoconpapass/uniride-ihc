@@ -177,7 +177,7 @@ function loadTrips() {
       <td colspan="5" style="text-align: center; padding: 40px; color: #666;">
         <img src="../../../assets/imgs/vacio.png" alt="Empty Image" style="width: 100px; margin-bottom: 20px;">
         <p style="font-size: 16px; margin: 0;">Aún no tienes viajes planeados.</p>
-        <p style="font-size: 14px; margin-top: 10px;">Ve a la sección de <a href="../../viajes/pages/viajes.html" style="color: #4F46E5; text-decoration: underline;">viajes</a> para agendar uno.</p>
+        <p style="font-size: 14px; margin-top: 10px;">Ve a la sección de <a href="../../viajes/pages/conductor/viajes_conductor.html" style="color: #4F46E5; text-decoration: underline;">viajes</a> para agendar uno.</p>
       </td>`
     tripsTableBody.appendChild(emptyRow)
   } else {
