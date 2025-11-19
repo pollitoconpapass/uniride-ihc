@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UniRide - Comunicación</title>
+    <link rel="stylesheet" href="../../css/pasajero/usuario_base.css">
+    <link rel="stylesheet" href="../../css/pasajero/comunicacion_chat.css">
+</head>
+<body>
+    <div class="layout chat-layout">
+        <aside class="sidebar">
+            <div class="user">
+                <img src="../../../../assets/imgs/uniride-logo.jpeg" alt="Avatar de Jose">
+                <div>
+                    <div class="name">Jose</div>
+                    <div class="phone">+51 920406868</div>
+                </div>
+            </div>
+            <nav>
+                <a href="../index.html" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Principal</span>
+                </a>
+                <a href="viajes_usuario.html" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Viajes</span>
+                </a>
+                <a href="comunicacion_chat.html" class="nav-item active">
+                    <span class="nav-dot"></span>
+                    <span>Comunicación</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Compensaciones y Pagos</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Reportes</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <img src="../../../../assets/imgs/uniride-wo-text.png" alt="Salir">
+                <span>Cerrar Sesión</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Comunicación</h1>
+            </header>
+
+            <div class="chat-wrapper">
+                <section class="chat-panel">
+                    <div class="chat-header">Conversación con Carlos</div>
+                    <div class="chat-body" id="chatBody">
+                        <div class="message outgoing">
+                            <img class="avatar" src="../../../../assets/imgs/uniride-logo.jpeg" alt="Usuario">
+                            <div>
+                                <div class="message-bubble">
+                                    Hola, mañana tengo clase a las 2pm. Vivo cerca de la Rambla de San Borja.
+                                </div>
+                                <div class="message-meta">
+                                    <span>28/09/2025 · 15:22</span>
+                                    <button type="button">Editar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message incoming">
+                            <img class="avatar" src="../../../../assets/imgs/camila_torres.png" alt="Carlos Mendoza">
+                            <div>
+                                <div class="message-bubble">
+                                    Vale, puedo pasar a recogerte a eso de la 1:30pm, en la misma Rambla. ¿Te parece bien?
+                                </div>
+                                <div class="message-meta">
+                                    <span>28/09/2025 · 15:34</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-footer">
+                        <form class="chat-form" id="chatForm">
+                            <textarea id="messageInput" placeholder="Escribe un mensaje"></textarea>
+                            <div class="chat-actions">
+                                <button type="button" title="Adjuntar archivo">📎</button>
+                                <button type="button" title="Insertar emoji">😊</button>
+                                <button type="submit" class="btn-primary send-button">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <aside class="contacts-panel">
+                    <div class="search-box">
+                        <span>🔍</span>
+                        <input type="text" id="searchInput" placeholder="Buscar chat">
+                    </div>
+                    <div class="tab-switcher">
+                        <strong>Conversaciones</strong>
+                        <button type="button">Llamadas</button>
+                    </div>
+                    <div class="contact-list" id="contactList">
+                        <div class="contact-item active">
+                            <img src="../../../../assets/imgs/camila_torres.png" alt="Carlos Mendoza">
+                            <div class="contact-info">
+                                <h4>Carlos Mendoza</h4>
+                                <p>Vale, puedo pasar a recogerte...</p>
+                            </div>
+                            <div class="contact-time">15:41</div>
+                        </div>
+                        <div class="contact-item">
+                            <img src="../../../../assets/imgs/camila_torres.png" alt="Jane Cooper">
+                            <div class="contact-info">
+                                <h4>Jane Cooper</h4>
+                                <p>¡Espero que salga bien!</p>
+                            </div>
+                            <div class="contact-time">16:41</div>
+                        </div>
+                        <div class="contact-item">
+                            <img src="../../../../assets/imgs/camila_torres.png" alt="Annette Black">
+                            <div class="contact-info">
+                                <h4>Annette Black</h4>
+                                <p>¿Cuál es el progreso?</p>
+                            </div>
+                            <div class="contact-time">08:39</div>
+                        </div>
+                        <div class="contact-item">
+                            <img src="../../../../assets/imgs/camila_torres.png" alt="Robert Fox">
+                            <div class="contact-info">
+                                <h4>Robert Fox</h4>
+                                <p>No sé qué más hacer</p>
+                            </div>
+                            <div class="contact-time">Ayer</div>
+                        </div>
+                        <div class="contact-item">
+                            <img src="../../../../assets/imgs/camila_torres.png" alt="Wade Warren">
+                            <div class="contact-info">
+                                <h4>Wade Warren</h4>
+                                <p>¡Vamos a hacerlo!</p>
+                            </div>
+                            <div class="contact-time">Viernes</div>
+                        </div>
+                        <div class="contact-item">
+                            <img src="../../../../assets/imgs/camila_torres.png" alt="Savannah Nguyen">
+                            <div class="contact-info">
+                                <h4>Savannah Nguyen</h4>
+                                <p>Yeah! You’re right.</p>
+                            </div>
+                            <div class="contact-time">09/07</div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const chatForm = document.getElementById('chatForm');
+        const messageInput = document.getElementById('messageInput');
+        const chatBody = document.getElementById('chatBody');
+
+        chatForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const text = messageInput.value.trim();
+            if (!text) return;
+
+            const message = document.createElement('div');
+            message.className = 'message outgoing';
+            message.innerHTML = `
+                <img class="avatar" src="../../../../assets/imgs/uniride-logo.jpeg" alt="Usuario">
+                <div>
+                    <div class="message-bubble">${text}</div>
+                    <div class="message-meta">
+                        <span>${new Date().toLocaleString()}</span>
+                    </div>
+                </div>
+            `;
+
+            chatBody.appendChild(message);
+            messageInput.value = '';
+            chatBody.scrollTop = chatBody.scrollHeight;
+        });
+
+        const searchInput = document.getElementById('searchInput');
+        const contactList = document.getElementById('contactList');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            contactList.querySelectorAll('.contact-item').forEach(item => {
+                const name = item.querySelector('h4').textContent.toLowerCase();
+                const preview = item.querySelector('p').textContent.toLowerCase();
+                const matches = name.includes(query) || preview.includes(query);
+                item.style.display = matches ? 'flex' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,158 +1,90 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const tbody = document.getElementById("pasajeros-confirmados");
+// Render dinámico para Encontrar Viajes (Pasajero)
+// Requiere: viajesData.js cargado previamente
+(function(){
+  function availabilityClass(total, ocupados){
+    var libres = Math.max((total||0) - (ocupados||0), 0);
+    var ratio = total ? libres/total : 0;
+    if (ratio >= 0.5) return 'good';
+    if (ratio >= 0.25) return 'medium';
+    return 'low';
+  }
 
-    const viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
+  function render(list){
+    var tbody = document.querySelector('.driver-table tbody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    for (var i=0;i<list.length;i++){
+      var v = list[i];
+      // v: {fecha, hora, ruta, pasajeros, estado}
+      var total = parseInt(v.pasajeros||4,10);
+      var ocupados = 0; // no tenemos dato de ocupación; se puede calcular con solicitudes si se requiere
+      var libres = Math.max(total - ocupados, 0);
 
-    // Renderizar filas
-    if (viajes.length === 0) {
-        tbody.innerHTML = `
-            <tr><td colspan="6">No hay viajes publicados por el conductor</td></tr>
-        `;
-        return;
+      var tr = document.createElement('tr');
+      tr.innerHTML = ''+
+        '<td data-label="Conductor">Conductor</td>'+
+        '<td data-label="Distancia">—</td>'+
+        '<td data-label="Hora">'+(v.hora||'')+'</td>'+
+        '<td data-label="Fecha de salida">'+(v.fecha||'')+'</td>'+
+        '<td data-label="Disponibilidad"><span class="availability-pill '+availabilityClass(total, ocupados)+'">'+libres+'/'+total+' asientos</span></td>'+
+        '<td data-label="Reservar"><button class="reserve-btn" data-index="'+i+'">Reservar</button></td>'+
+        '<td data-label="Ver"><a class="action-icon" href="informacion_viaje.html?i='+i+'">&#128065;</a></td>';
+      tbody.appendChild(tr);
+    }
+  }
+
+  function filterToday(v){
+    // Filtrar por hoy en base a fecha_salida DD/MM/YYYY
+    var parts = v.fecha_salida.split('/');
+    var d = new Date(parts[2], parseInt(parts[1],10)-1, parts[0]);
+    var now = new Date();
+    return d.toDateString() === new Date(now.getFullYear(), now.getMonth(), now.getDate()).toDateString();
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var viajes = (window.PasajeroViajesData && window.PasajeroViajesData.getConductorViajes()) || [];
+    render(viajes);
+
+    // Ocultar mapa simulado
+    var map = document.querySelector('.map-placeholder');
+    if (map) map.style.display = 'none';
+    var wrapper = document.querySelector('.map-wrapper');
+    if (wrapper) wrapper.style.gridTemplateColumns = '1fr';
+
+    // Filtros simples
+    var buttons = document.querySelectorAll('.filters button');
+    if (buttons && buttons.length){
+      buttons[0].addEventListener('click', function(){
+        buttons[0].classList.add('active');
+        if (buttons[1]) buttons[1].classList.remove('active');
+        if (buttons[2]) buttons[2].classList.remove('active');
+        render(viajes.filter(filterToday));
+      });
+      if (buttons[1]) buttons[1].addEventListener('click', function(){
+        buttons[1].classList.add('active');
+        buttons[0].classList.remove('active');
+        if (buttons[2]) buttons[2].classList.remove('active');
+        render(viajes); // placeholder simple
+      });
+      if (buttons[2]) buttons[2].addEventListener('click', function(){
+        buttons[2].classList.add('active');
+        buttons[0].classList.remove('active');
+        if (buttons[1]) buttons[1].classList.remove('active');
+        render(viajes); // placeholder simple
+      });
     }
 
-    tbody.innerHTML = "";
-
-    console.log("Viajes guardados:", viajes);
-
-
-    viajes.forEach((viaje, index) => {
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
-            <td>${viaje.conductor}</td>
-            <td>${viaje.puntosRecogida}</td>
-            <td>${viaje.fecha}</td>
-            <td>${viaje.hora}</td>
-
-            <td>
-                <button class="reservar-btn" data-index="${index}">
-                    Reservar
-                </button>
-            </td>
-
-            <td>
-                <button class="detalles-btn" data-index="${index}">
-                    Ver detalles
-                </button>
-            </td>
-        `;
-
-        tbody.appendChild(row);
-    });
-
-    // ---------- MODAL LOGIC ----------
-    const modal = document.getElementById("reservarModal");
-    const modalConductor = document.getElementById("modalConductor");
-    const modalFecha = document.getElementById("modalFecha");
-    const modalHora = document.getElementById("modalHora");
-    const modalRuta = document.getElementById("modalRuta");
-    const modalPuntoRecogida = document.getElementById("modalPuntoRecogida");
-    const modalMetodo = document.getElementById("modalMetodo");
-    const campoMonto = document.getElementById("campoMonto");
-    const modalMonto = document.getElementById("modalMonto");
-
-    const guardarReservaBtn = document.getElementById("guardarReservaBtn");
-    const cancelarReservaBtn = document.getElementById("cancelarReservaBtn");
-
-    let viajeSeleccionado = null;
-
-    document.querySelectorAll(".reservar-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-
-        const index = btn.dataset.index;
-        viajeSeleccionado = viajes[index];
-
-        console.log("🔥 CLICK EN RESERVAR");
-        console.log("➡️ Viaje seleccionado:", viajeSeleccionado);
-
-        // --- Rellenar modal ---
-        modalConductor.textContent = viajeSeleccionado.conductor;
-        modalFecha.textContent = viajeSeleccionado.fecha;
-        modalHora.textContent = viajeSeleccionado.hora;
-        modalRuta.textContent = viajeSeleccionado.ruta;
-
-        modalPuntoRecogida.innerHTML = "";
-        const puntos = viajeSeleccionado.puntosRecogida; // ya es un array
-
-        viajeSeleccionado.puntosRecogida.forEach(p => {
-    const opt = document.createElement("option");
-    opt.value = p;
-    opt.textContent = p;
-    modalPuntoRecogida.appendChild(opt);
-});
-
-        modal.style.display = "block";
-
-    });
-});
-
-
-    // Mostrar u ocultar campo monto
-    modalMetodo.addEventListener("change", (e) => {
-        if (e.target.value === "efectivo" || e.target.value === "yape") {
-            campoMonto.style.display = "block";
-        } else {
-            campoMonto.style.display = "none";
-            modalMonto.value = "";
+    // Delegación Reservar -> abrir modal
+    var tbody = document.querySelector('.driver-table tbody');
+    if (tbody){
+      tbody.addEventListener('click', function(e){
+        var btn = e.target.closest('.reserve-btn');
+        if (!btn) return;
+        var idx = parseInt(btn.getAttribute('data-index'),10);
+        if (window.PasajeroModals && !isNaN(idx)){
+          window.PasajeroModals.openReservaModal({ index: idx });
         }
-    });
-
-    // Cancelar modal
-    cancelarReservaBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-
-    // Cerrar modal clickeando fondo
-    window.addEventListener("click", (e) => {
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-
-    guardarReservaBtn.addEventListener("click", () => {
-    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-    // Buscar datos del pasajero
-    const pasajero = usuarios.find(u => u.id === usuarioActivo.id_usuario);
-
-    const nombrePasajero = pasajero 
-        ? `${pasajero.datosPersonales.nombres} ${pasajero.datosPersonales.apellidoPaterno}`
-        : "Pasajero desconocido";
-
-    const reservasExistentes = JSON.parse(localStorage.getItem("reservas")) || [];
-const nuevoIdReserva = reservasExistentes.length > 0 
-    ? Math.max(...reservasExistentes.map(r => r.idReserva || 0)) + 1 
-    : 1;
-    
-
-    const nuevaReserva = {
-        idReserva: nuevoIdReserva,
-        idViaje: viajeSeleccionado.idViaje || null,
-        idConductor: viajeSeleccionado.idConductor,
-        idPasajero: usuarioActivo.id_usuario,
-        nombrePasajero: nombrePasajero,
-        ruta: viajeSeleccionado.ruta,
-        fecha: viajeSeleccionado.fecha,
-        hora: viajeSeleccionado.hora,
-        puntoRecogida: modalPuntoRecogida.value,
-        metodo: modalMetodo.value,
-        monto: modalMonto.value || null,
-        estado: "pendiente",
-        fechaReserva: new Date().toISOString()
-    };
-
-    const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
-    reservas.push(nuevaReserva);
-    localStorage.setItem("reservas", JSON.stringify(reservas));
-
-    modal.style.display = "none";
-    alert("Reserva realizada exitosamente.");
-});
-
-
-
-
-
-});
+      });
+    }
+  });
+})();

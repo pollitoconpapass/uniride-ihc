@@ -1,102 +1,93 @@
-/* Contenedor principal al lado del sidebar */
-.main-content {
-  margin-left: 270px;
-  padding: 30px 40px;
-  background-color: var(--gray-100);
-  min-height: 100vh;
-  color: var(--text-color);
+.viajes-layout .section-card + .section-card {
+    margin-top: 32px;
 }
 
-/* Título de la página */
-.page-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin: 0 0 20px;
-  color: var(--gray-900);
+.scheduled-table .cancel-btn {
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: rgba(244, 63, 94, 0.12);
+    color: #dc2626;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+    text-decoration: none;
 }
 
-/* Botón "Agregar Viaje" */
-.add-trip-btn {
-  padding: 10px 20px;
-  background-color: var(--accent-color);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-.add-trip-btn:hover {
-  background-color: #4338ca; 
+.scheduled-table .cancel-btn:hover {
+    background-color: rgba(244, 63, 94, 0.2);
+    transform: translateY(-1px);
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
+.action-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid #dbe0f5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9ff;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.page-title {
-  margin: 0;
-  flex: 1;
+.action-icon:hover {
+    border-color: #6c63ff;
+    box-shadow: 0 10px 20px rgba(108, 99, 255, 0.15);
 }
 
-.section {
-  background: white;
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+.past-table .stars {
+    letter-spacing: 2px;
+    color: #f59e0b;
+    font-size: 16px;
 }
 
-.section h3 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  color: var(--gray-900);
+.badges-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-/* Tablas */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 8px;
+.table tbody td.small {
+    width: 130px;
 }
 
-th,
-td {
-  padding: 14px 16px;
-  text-align: left;
-  font-size: 0.95rem;
-  vertical-align: middle;
-  word-break: break-word; 
-}
+@media (max-width: 1024px) {
+    .table thead,
+    .table tbody,
+    .table tr,
+    .table td,
+    .table th {
+        display: block;
+    }
 
-th {
-  background-color: var(--gray-200);
-  color: var(--gray-700);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 0.85rem;
-}
+    .table thead {
+        display: none;
+    }
 
-tbody tr {
-  border-bottom: 1px solid var(--gray-200);
-}
-tbody tr:last-child {
-  border-bottom: none;
-}
+    .table tbody tr {
+        padding: 18px 0;
+        border-bottom: 1px solid #eef1f8;
+    }
 
-tbody tr:hover {
-  background-color: var(--gray-50); 
-}
- 
-.empty-table-message {
-  text-align: center;
-  padding: 24px;
-  color: var(--gray-500);
-  font-style: italic;
+    .table tbody td {
+        padding: 10px 0;
+    }
+
+    .table tbody td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #94a3b8;
+        margin-bottom: 6px;
+    }
+
+    .scheduled-table .cancel-btn,
+    .action-icon {
+        width: 100%;
+    }
 }

@@ -1,0 +1,39 @@
+.modal.confirm {
+    max-width: 420px;
+    text-align: center;
+    padding: 42px 48px;
+}
+
+.confirm-modal-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 28px;
+}
+
+.confirm-actions {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+}
+
+.confirm-actions .btn-primary,
+.confirm-actions .btn-outline {
+    min-width: 120px;
+}
+
+.modal-icon.alert {
+    background: rgba(248, 196, 48, 0.16);
+    color: #d97706;
+}
+
+.modal.success-cancel {
+    max-width: 380px;
+    padding: 48px 52px;
+}
+
+.modal.success-cancel h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+}
