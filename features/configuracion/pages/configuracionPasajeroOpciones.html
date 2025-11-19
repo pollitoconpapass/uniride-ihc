@@ -4,9 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <title>UniRide - Pasajero</title>
-    <link rel="stylesheet" href="../../../styles.css" />
-    <link rel="stylesheet" href="../css/principal.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="../css/configuracion.css">
 </head>
 
 <body>
@@ -14,10 +12,10 @@
     <div class="sidebar">
         <div>
             <div class="sidebar-header">
-                <img src="../../../assets/imgs/user_landing_icon.png" alt="">
+                <img src="../../../assets/imgs/usuario_jose.png" alt="User Avatar">
                 <div>
-                    <h3 id="sidebarNombre" style="color: white; font-size: 16px; margin: 0;"> .</h3>
-                    <p style="color: #aaa; font-size: 12px; margin: 0;">Pasajero</p>
+                    <h3 style="color: white; font-size: 16px; margin: 0;">Jose</h3>
+                    <p style="color: #aaa; font-size: 12px; margin: 0;">+51 920410686</p>
                 </div>
             </div>
             
@@ -29,7 +27,7 @@
                     Principal
                 </div>
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/pasajero/viajes_usuario.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/viajes.html'">
                     <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
                     <span>Viajes</span>
                 </div>
@@ -65,45 +63,11 @@
 
     <!--MAIN CONTENT-->
     <main class="main-content">
-        <h2>Buenos Días, <span id="tituloNombre"></span> 👋</h2>
-
-        <section class="general-info">
-        <h3>Información General</h3>
-
-        <div class="stats-section">
-            <div class="chart">
-            <canvas id="tripChart"></canvas>
-            </div>
-
-            <div class="user-card">
-            <h4>Sobre Ti</h4>
-            <p><strong>Nombre:</strong> <span id="nombre"></span></p>
-            <p><strong>Carrera:</strong> <span id="carrera"></span></p>
-            <p><strong>Universidad:</strong> <span id="universidad"></span></p>
-            <p><strong>Total de Viajes:</strong> <span id="totalViajes"></span></p>
-            <p><strong>Calificación Promedio:</strong></p>
-            </div>
+        <h1>Configuración de Perfil</h1>
+        <div class="config-opciones">
+            <button id="btn-datos-personales">Datos Personales</button>
+            <button id="btn-horarios">Horarios</button>
         </div>
-        </section>
-
-        <section class="next-trips">
-        <h3>Próximos Viajes</h3>
-        <table>
-            <thead>
-            <tr>
-                <th>Fecha y Hora</th>
-                <th>Conductores</th>
-                <th>Info del Carro</th>
-                <th>Punto de Encuentro</th>
-                <th>Estado</th>
-            </tr>
-            </thead>
-            <tbody id="tripsTableBody">
-            </tbody>
-        </table>
-        
-        </section>
-  </main>
-
-  <script src="../js/principalPasajero.js"></script>
+    </main>
+    <script src="../js/configuracionPasajeroOpciones.js"></script>
 </body>
