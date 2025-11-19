@@ -6,45 +6,13 @@ const btnVolver = document.querySelector(".contenedor-icon");
 let rolSeleccionado = null;
 
 // -----------------------------
-// Al cargar: leer rol desde localStorage y reflejarlo en la UI
-// -----------------------------
-window.addEventListener("DOMContentLoaded", function () {
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    const usuarioIncompleto = usuarios.find(u => u.registroCompleto === false);
-
-    if (!usuarioIncompleto) return;
-
-    const rolGuardado = usuarioIncompleto.rol;
-
-    if (rolGuardado === "conductor") {
-        // Simular selección de conductor
-        btnCardConductor.classList.add("btn-masiva-seleccionado");
-        btnCardConductor.style.backgroundColor = "#4A5568";
-        btnCardPasajero.classList.remove("btn-masiva-seleccionado");
-        btnCardPasajero.style.backgroundColor = "";
-
-        rolSeleccionado = "conductor";
-    } else if (rolGuardado === "pasajero") {
-        // Simular selección de pasajero
-        btnCardPasajero.classList.add("btn-masiva-seleccionado");
-        btnCardPasajero.style.backgroundColor = "#4A5568";
-        btnCardConductor.classList.remove("btn-masiva-seleccionado");
-        btnCardConductor.style.backgroundColor = "";
-
-        rolSeleccionado = "pasajero";
-    }
-});
-
-// -----------------------------
-// Seleccionar rol visualmente (clics)
+// Seleccionar rol visualmente
 // -----------------------------
 btnCardConductor.addEventListener("click", function () {
     // Activar Conductor
     btnCardConductor.classList.add("btn-masiva-seleccionado");
-    btnCardConductor.style.backgroundColor = "#4A5568";
     // Desactivar Pasajero
     btnCardPasajero.classList.remove("btn-masiva-seleccionado");
-    btnCardPasajero.style.backgroundColor = "";
 
     rolSeleccionado = "conductor";
     console.log("Botón Conductor presionado");
@@ -53,10 +21,8 @@ btnCardConductor.addEventListener("click", function () {
 btnCardPasajero.addEventListener("click", function () {
     // Activar Pasajero
     btnCardPasajero.classList.add("btn-masiva-seleccionado");
-    btnCardPasajero.style.backgroundColor = "#4A5568";
     // Desactivar Conductor
     btnCardConductor.classList.remove("btn-masiva-seleccionado");
-    btnCardConductor.style.backgroundColor = "";
 
     rolSeleccionado = "pasajero";
     console.log("Botón Pasajero presionado");
@@ -82,8 +48,8 @@ btnAceptar.addEventListener("click", function () {
     // Guardar el rol
     usuarioIncompleto.rol = rolSeleccionado;
 
-    // Inicializar datosVehiculares solo para conductor si quieres
-    if (rolSeleccionado === "conductor" && usuarioIncompleto.datosVehiculares == null) {
+    // Si quieres, aquí podrías inicializar datosVehiculares solo para conductor:
+    if (rolSeleccionado === "conductor" && usuarioIncompleto.datosVehiculares === null) {
         usuarioIncompleto.datosVehiculares = {
             modelo: "",
             marca: "",
@@ -94,7 +60,8 @@ btnAceptar.addEventListener("click", function () {
 
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-    // Ir a carga de horarios manual (o lo que tengas ahora)
+    // TODO: cambia esta ruta por la siguiente pantalla real
+    // Por ahora la dejo como "registroHorarios.html" de ejemplo
     window.location.href = "registroCargaManual.html";
 });
 
