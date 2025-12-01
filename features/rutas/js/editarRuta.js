@@ -14,8 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const dp = usuario.datosPersonales;
+    const universidad = dp.universidad;
+    
     document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
-
+    document.getElementById("universidad").textContent = universidad || "No especificada";
 })
 
 function getQueryParam(param) {
