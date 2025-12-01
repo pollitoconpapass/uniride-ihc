@@ -6,6 +6,7 @@
     <title>UniRide - Pasajero</title>
     <link rel="stylesheet" href="../../../styles.css" />
     <link rel="stylesheet" href="../css/principal.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 
 <body>
@@ -13,10 +14,10 @@
     <div class="sidebar">
         <div>
             <div class="sidebar-header">
-                <img src="../../../assets/imgs/usuario_jose.png" alt="User Avatar">
+                <img src="../../../assets/imgs/user_landing_icon.png" alt="">
                 <div>
-                    <h3 style="color: white; font-size: 16px; margin: 0;">Jose</h3>
-                    <p style="color: #aaa; font-size: 12px; margin: 0;">+51 920410686</p>
+                    <h3 id="sidebarNombre" style="color: white; font-size: 16px; margin: 0;"> .</h3>
+                    <p style="color: #aaa; font-size: 12px; margin: 0;">Pasajero</p>
                 </div>
             </div>
             
@@ -64,7 +65,7 @@
 
     <!--MAIN CONTENT-->
     <main class="main-content">
-        <h2>Buenos Días, Jose 👋</h2>
+        <h2>Buenos Días, <span id="tituloNombre"></span> 👋</h2>
 
         <section class="general-info">
         <h3>Información General</h3>
@@ -76,9 +77,9 @@
 
             <div class="user-card">
             <h4>Sobre Ti</h4>
-            <p><strong>Nombre:</strong> <span id="nombre">Jose Camilo Zapata Miranda</span></p>
-            <p><strong>Carrera:</strong> <span id="carrera">Ingenieria Industrial</span></p>
-            <p><strong>Universidad:</strong> <span id="universidad">Universidad de Lima</span></p>
+            <p><strong>Nombre:</strong> <span id="nombre"></span></p>
+            <p><strong>Carrera:</strong> <span id="carrera"></span></p>
+            <p><strong>Universidad:</strong> <span id="universidad"></span></p>
             <p><strong>Total de Viajes:</strong> <span id="totalViajes"></span></p>
             <p><strong>Calificación Promedio:</strong></p>
             </div>
@@ -100,7 +101,7 @@
             <tbody id="tripsTableBody">
             </tbody>
         </table>
-        <button id="addTripBtn">Agregar Viaje</button>
+        
         </section>
   </main>
 

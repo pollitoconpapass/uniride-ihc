@@ -98,18 +98,3 @@ tr:nth-child(even) {
   background-color: var(--gray-100);
 }
 
-#addTripBtn {
-  margin-top: 1rem;
-  padding: 8px 14px;
-  border: none;
-  background-color: var(--accent-color);
-  color: var(--white);
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background 0.3s ease;
-}
-
-#addTripBtn:hover {
-  background-color: #3730a3;
-}
