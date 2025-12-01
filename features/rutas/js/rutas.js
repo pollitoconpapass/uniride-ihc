@@ -1,8 +1,60 @@
-function loadRoutes() {
-    const routesContainer = document.getElementById('routesContainer');
-    const routes = JSON.parse(localStorage.getItem('userRoutes')) || [];
+let currentSort = 'asc'; // 'asc' -> A-Z, 'desc' -> Z-A
+let allRoutes = [];
 
-    if (routes.length === 0) {
+document.addEventListener("DOMContentLoaded", () => {
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+    if (!usuarioActivo) {
+        console.warn("No hay usuario activo...");
+        return;
+    }
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const usuario = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+
+    if (!usuario) {
+        console.warn("No se encontró al usuario activo en la base de usuarios");
+        return;
+    }
+
+    const dp = usuario.datosPersonales;
+    document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
+
+})
+
+function loadRoutes() {
+    allRoutes = JSON.parse(localStorage.getItem('userRoutes')) || [];
+    filterAndDisplayRoutes();
+}
+
+function toggleSort() {
+    currentSort = currentSort === 'asc' ? 'desc' : 'asc';
+    document.getElementById('sortLabel').innerText = currentSort === 'asc' ? 'A-Z' : 'Z-A';
+    filterAndDisplayRoutes();
+}
+
+function filterAndDisplayRoutes() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const routesContainer = document.getElementById('routesContainer');
+
+    // Filtro
+    let filteredRoutes = allRoutes.filter(route => 
+        route.name.toLowerCase().includes(searchTerm)
+    );
+
+    // Ordenar alfabeticamente
+    filteredRoutes.sort((a, b) => {
+        const nameA = a.name.toLowerCase();
+        const nameB = b.name.toLowerCase();
+        
+        if (currentSort === 'asc') {
+            return nameA.localeCompare(nameB);
+        } else {
+            return nameB.localeCompare(nameA);
+        }
+    });
+
+    // Mostrar rutas
+    if (allRoutes.length === 0) {
         routesContainer.innerHTML = `
             <div class="empty-state">
                 <div class="empty-state-icon">🗺️❌</div>
@@ -11,18 +63,27 @@ function loadRoutes() {
                 <button class="add-route-btn" onclick="window.location.href='../pages/agregarRuta.html'">Agregar Primera Ruta</button>
             </div>
         `;
+    } else if (filteredRoutes.length === 0) {
+        routesContainer.innerHTML = `
+            <div class="no-results">
+                <div class="no-results-icon">🔍❌</div>
+                <h3>No se encontraron rutas</h3>
+                <p>Intenta con otro término de búsqueda</p>
+            </div>
+        `;
     } else {
         let routesHTML = '';
-        let i = 1;
-        for (const [index, route] of routes.entries()) {
-            const routeName = `${route.name}`;
+        for (const route of filteredRoutes) {
+            const originalIndex = allRoutes.indexOf(route);
+            const imageIndex = (originalIndex % 3) + 1; 
+            const routeName = route.name;
+            
             routesHTML += `
-                <div class="route-card" onclick="viewRouteDetails(${index})">
+                <div class="route-card" onclick="viewRouteDetails(${originalIndex})">
                     <div class="route-card-title">${routeName}</div>
-                    <img src="../../../assets/imgs/ruta-${i}-trazado.png" alt="Mapa de la Ruta" class="route-card-map">
+                    <img src="../../../assets/imgs/ruta-${imageIndex}-trazado.png" alt="Mapa de la Ruta" class="route-card-map">
                 </div>
             `;
-            i+=1;
         }
         routesContainer.innerHTML = routesHTML;
     }

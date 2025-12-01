@@ -1,3 +1,26 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+    if (!usuarioActivo) {
+        console.warn("No hay usuario activo...");
+        return;
+    }
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const usuario = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+
+    if (!usuario) {
+        console.warn("No se encontró al usuario activo en la base de usuarios");
+        return;
+    }
+
+    const dp = usuario.datosPersonales;
+    const universidad = dp.universidad;
+    
+    document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
+    document.getElementById("universidad").textContent = universidad || "No especificada";
+})
+
+
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(globalThis.location.search);
     return urlParams.get(param);

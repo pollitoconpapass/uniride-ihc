@@ -134,9 +134,12 @@
 
     <!-- MODAL: AGREGAR VIAJE -->
     <div id="addTripModal" class="modal">
+        <!-- Dentro del modal, arriba del formulario -->
+
         <div class="modal-content">
             <h2>Agregar Viaje</h2>
-
+            <div id="formError" style="color: red; margin-bottom: 10px; display: none;"></div>
+            
             <form id="addTripForm">
                 <div class="form-columns">
 
@@ -158,7 +161,7 @@
                                     <option value="" disabled selected>Seleccione la ruta a tomar</option>
                                     <option value="1">Ruta 1</option>
                                 </select>
-                                <a href="#" class="additional-link">¿No tienes rutas establecidas? Haz clic aquí</a>
+                                <a href="../../../rutas/pages/rutas.html" class="additional-link">¿No tienes rutas establecidas? Haz clic aquí</a>
                             </div>
                         </div>
                     </div>
@@ -166,7 +169,8 @@
                     <div class="right-column">
                         <div class="form-group">
                             <label for="cantidadPasajeros">Cantidad Máxima de Pasajeros</label>
-                            <input type="number" id="cantidadPasajeros" name="cantidadPasajeros" min="1" max="6" value="4" required>
+                            <input type="number" id="cantidadPasajeros" name="cantidadPasajeros" min="1" max="4" value="4" required>
+
                         </div>
 
                     </div>

@@ -37,10 +37,58 @@ cancelBtn.addEventListener("click", () => {
 guardarBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
-    // Obtener todas las rutas
+    const formError = document.getElementById("formError");
+    formError.style.display = "none";
+
+    const fecha = fechaInicio.value;
+    const hora = horaInicio.value;
+
+    if (!fecha || !hora) {
+        formError.textContent = "Por favor, complete la fecha y la hora.";
+        formError.style.display = "block";
+        return;
+    }
+
+    // Fecha actual
+    const now = new Date();
+    const selectedDate = new Date(fecha + "T" + hora);
+
+    // Mínimo permitido: ahora + 5 minutos
+    const minAllowed = new Date(now.getTime() + 5 * 60000); // +5 minutos en milisegundos
+
+    // Comparar
+    if (selectedDate < minAllowed) {
+        const formattedMin = minAllowed.toLocaleString("es-ES", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+        formError.textContent = `La fecha y hora deben ser al menos 5 minutos después del momento actual. Mínimo permitido: ${formattedMin}`;
+        formError.style.display = "block";
+        return;
+    }
+
+    // Validar cantidad de pasajeros (doblemente, por si el input fue manipulado)
+    const pasajeros = parseInt(cantidadPasajeros.value, 10);
+    if (isNaN(pasajeros) || pasajeros < 1 || pasajeros > 4) {
+        formError.textContent = "La cantidad de pasajeros debe estar entre 1 y 4.";
+        formError.style.display = "block";
+        return;
+    }
+
+    // ✅ Validación pasada → proceder a guardar
     const routes = JSON.parse(localStorage.getItem("userRoutes")) || [];
     const selectedRoute = routes.find(route => route.name === rutaTomar.value);
 
+    if (!selectedRoute) {
+        formError.textContent = "Por favor, seleccione una ruta válida.";
+        formError.style.display = "block";
+        return;
+    }
+
+    // Resto de tu lógica de guardado...
     const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     const conductor = usuarios.find(u => u.id === usuarioActivo.id_usuario);
@@ -49,32 +97,29 @@ guardarBtn.addEventListener("click", (e) => {
         ? `${conductor.datosPersonales.nombres} ${conductor.datosPersonales.apellidoPaterno}`
         : "Conductor desconocido";
 
-const viajesExistentes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
-const nuevoId = viajesExistentes.length > 0 
-    ? Math.max(...viajesExistentes.map(v => v.id || 0)) + 1 
-    : 1;
+    const viajesExistentes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
+    const nuevoId = viajesExistentes.length > 0 
+        ? Math.max(...viajesExistentes.map(v => v.id || 0)) + 1 
+        : 1;
 
-const viaje = {
-    id: nuevoId, 
-    idConductor: usuarioActivo.id_usuario,
-    fecha: fechaInicio.value,
-    hora: horaInicio.value,
-    ruta: rutaTomar.value,
-    puntosRecogida: selectedRoute ? selectedRoute.referencePlaces : [],
-    pasajeros: cantidadPasajeros.value,
-    pasajerosActuales: 0,
-    estado: "Pendiente",
-    conductor: nombreConductor
-};
-
-
+    const viaje = {
+        id: nuevoId, 
+        idConductor: usuarioActivo.id_usuario,
+        fecha: fecha,
+        hora: hora,
+        ruta: rutaTomar.value,
+        puntosRecogida: selectedRoute.referencePlaces || [],
+        pasajeros: pasajeros,
+        pasajerosActuales: 0,
+        estado: "Pendiente",
+        conductor: nombreConductor
+    };
 
     let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
     viajes.push(viaje);
-
     localStorage.setItem("viajesGuardados", JSON.stringify(viajes));
 
-    // recargar lista
+    // Recargar
     window.location.href = "viajes_conductor.html";
 });
 
