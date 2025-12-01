@@ -172,10 +172,16 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // Mover a viajes pasados
-        let pasados = JSON.parse(localStorage.getItem("viajesPasados")) || [];
-        pasados.push(viaje);
-        localStorage.setItem("viajesPasados", JSON.stringify(pasados));
+        // Contar pasajeros RECIBIDOS (no solo aceptados)
+const pasajerosRecogidos = pasajerosAceptados.filter(p => p.estadoViaje === "Recogido").length;
+
+// Actualizar el viaje con el número real de pasajeros transportados
+viaje.pasajerosActuales = pasajerosRecogidos;
+
+// Ahora sí mover a viajes pasados
+let pasados = JSON.parse(localStorage.getItem("viajesPasados")) || [];
+pasados.push(viaje);
+localStorage.setItem("viajesPasados", JSON.stringify(pasados));
 
         // Eliminar de viajes guardados
         let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
@@ -187,6 +193,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         localStorage.setItem("actualizarTablaViajes", "true");
 
+        
+
         // Mostrar modal de agradecimiento
         const modalBienvenida = document.getElementById("modalBienvenida");
         if (modalBienvenida) {
@@ -197,6 +205,8 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             window.location.href = "viajes_conductor.html";
         }
+
+
     });
 
     // === Cargar pasajeros confirmados ===
@@ -241,19 +251,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 celdaEstado = p.estadoViaje || "—";
             }
 
-            tbody.innerHTML += `
-                <tr>
-                    <td>${p.nombrePasajero}</td>
-                    <td>${p.puntoRecogida}</td>
-                    <td>${p.metodo}</td>
-                    <td>${celdaEstado}</td>
-                    <td>
-                        <button class="table-btn btn-info-pasajero" data-id-pasajero="${p.idPasajero}">
-                            Información
-                        </button>
-                    </td>
-                </tr>
-            `;
+                    tbody.innerHTML += `
+            <tr>
+        <td>${p.nombrePasajero}</td>
+        <td>${p.puntoRecogida}</td>
+        <td>${p.metodo}</td>
+        <td>${p.monto || "—"}</td>  <!-- ✅ NUEVA COLUMNA: monto -->
+        <td>${celdaEstado}</td>
+        <td>
+            <button class="table-btn btn-info-pasajero" data-id-pasajero="${p.idPasajero}">
+                Información
+            </button>
+        </td>
+         </tr>
+        `;
         });
 
         // Listeners para estado (solo en curso)

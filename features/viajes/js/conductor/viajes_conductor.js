@@ -215,7 +215,7 @@ function loadPastTrips() {
                 <td>${v.fecha}</td>
                 <td>${v.hora}</td>
                 <td>${v.ruta}</td>
-                <td>${v.pasajeros}</td>
+                <td>${v.pasajerosActuales || 0}</td>
             </tr>`;
     });
 }
