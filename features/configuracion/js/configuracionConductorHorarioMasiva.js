@@ -1,12 +1,17 @@
+console.log("JS configuracionPasajeroHorarioMasiva CARGADO");
+
 // ================== REFERENCIAS A ELEMENTOS ==================
-const btnManual = document.getElementById("btn-manual-carga-masiva");
-const btnMasiva = document.getElementById("btn-masiva-carga-masiva");
-const btnContinuar = document.getElementById("btnContinuar");
-const btnVolver = document.querySelector(".contenedor-icon");
+const btnManual   = document.getElementById("btn-manual-carga-masiva");
+const btnMasiva   = document.getElementById("btn-masiva-carga-masiva");
+const btnRegresar = document.getElementById("btn-regresar");
 const btnAdjuntar = document.querySelector(".contenedor-adjuntar-img");
 
-// Representa los cursos del usuario en localStorage
+// Representa los cursos del usuario activo (solo referencia, por debug)
 const cursosUsuario = [];
+
+// Para manejar usuario activo
+let usuariosGlobal = [];
+let usuarioActual  = null;
 
 // ================== INPUT FILE OCULTO (SOLO PARA LEER PDF) ==================
 const inputFile = document.createElement("input");
@@ -29,17 +34,31 @@ if (window.pdfjsLib) {
     "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
 }
 
-// ================== CARGAR CURSOS EXISTENTES DEL USUARIO ==================
+// ================== CARGAR USUARIO ACTIVO Y SUS CURSOS ==================
 window.addEventListener("DOMContentLoaded", () => {
-  let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-  const usuarioIncompleto = usuarios.find(u => u.registroCompleto === false);
+  const usuarioActivoLS = JSON.parse(localStorage.getItem("usuario-activo") || "null");
 
-  if (!usuarioIncompleto || !Array.isArray(usuarioIncompleto.cursos)) return;
+  if (!usuarioActivoLS || !usuarioActivoLS.id_usuario) {
+    alert("No hay un usuario activo. Por favor, inicia sesión.");
+    window.location.href = "../../iniciar_sesion/pages/inicioSesion.html";
+    return;
+  }
 
-  cursosUsuario.length = 0;
-  usuarioIncompleto.cursos.forEach(c => cursosUsuario.push(c));
+  usuariosGlobal = JSON.parse(localStorage.getItem("usuarios")) || [];
+  usuarioActual  = usuariosGlobal.find(u => u.id === usuarioActivoLS.id_usuario);
 
-  console.log("📌 Cursos ya existentes del usuario:", cursosUsuario);
+  if (!usuarioActual) {
+    alert("No se encontró la información del usuario activo. Por favor, inicia sesión nuevamente.");
+    window.location.href = "../../iniciar_sesion/pages/inicioSesion.html";
+    return;
+  }
+
+  if (Array.isArray(usuarioActual.cursos)) {
+    cursosUsuario.length = 0;
+    usuarioActual.cursos.forEach(c => cursosUsuario.push(c));
+  }
+
+  console.log("📌 Cursos ya existentes del usuario (config):", cursosUsuario);
 });
 
 // ================== ADJUNTAR PDF: CLICK BOTÓN → ABRIR SELECTOR ==================
@@ -71,23 +90,19 @@ inputFile.addEventListener("change", async () => {
 
     for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
       const page = await pdf.getPage(pageNum);
-      const viewport = page.getViewport({ scale: 2 }); // más resolución para mejor OCR
+      const viewport = page.getViewport({ scale: 2 });
 
       canvas.width = viewport.width;
       canvas.height = viewport.height;
 
-      // Renderizar página en el canvas
       await page.render({ canvasContext: ctx, viewport }).promise;
 
       console.log(`🔍 Reconociendo texto de la página ${pageNum}/${pdf.numPages}...`);
 
-      // OCR con Tesseract (idioma español)
       const result = await Tesseract.recognize(canvas, "spa", {
         logger: (m) => {
           if (m.status === "recognizing text") {
-            console.log(
-              `P${pageNum}: ${Math.round(m.progress * 100)}%`
-            );
+            console.log(`P${pageNum}: ${Math.round(m.progress * 100)}%`);
           }
         },
       });
@@ -106,7 +121,7 @@ inputFile.addEventListener("change", async () => {
     console.log("===== CURSOS DETECTADOS (AGRUPADOS) =====");
     console.log(JSON.stringify(jsonHorario.cursosDetectados, null, 2));
 
-    // 💾 Guardar cursosDetectados en localStorage del usuario
+    // 💾 Guardar cursosDetectados en localStorage del usuario activo
     guardarCursosDetectadosEnLocalStorage(jsonHorario.cursosDetectados);
 
   } catch (error) {
@@ -124,19 +139,18 @@ function agruparCursosPorNombreYHorario(cursos) {
 
     if (!mapa.has(key)) {
       mapa.set(key, {
-        idCurso: crypto.randomUUID(),   // id único
+        idCurso: crypto.randomUUID(),
         nombreCurso: c.nombreCurso,
         horarioInicio: c.horarioInicio,
         marcadorHorarioInicio: c.marcadorHorarioInicio,
         horarioFin: c.horarioFin,
         marcadorHorarioFin: c.marcadorHorarioFin,
-        frecuencia: []                  // llenamos abajo
+        frecuencia: []
       });
     }
 
     const cursoDetectado = mapa.get(key);
 
-    // Evitar duplicar días
     if (!cursoDetectado.frecuencia.includes(c.dia)) {
       cursoDetectado.frecuencia.push(c.dia);
     }
@@ -147,7 +161,6 @@ function agruparCursosPorNombreYHorario(cursos) {
 
 // ================== PARSER: TEXTO → JSON DE HORARIO ==================
 function parseHorarioTexto(texto) {
-  // 1) Limpiamos líneas
   const lineas = texto
     .split(/\n/)
     .map((l) => l.trim())
@@ -169,10 +182,8 @@ function parseHorarioTexto(texto) {
   };
 
   for (let linea of lineas) {
-    // --- LIMPIEZA BÁSICA AL INICIO ---
     linea = linea.replace(/^[|•\-]+/, "").trim();
 
-    // 1) DETECCIÓN DE DÍA
     const mDia = linea.match(
       /^(Lunes|Martes|Mi[eé]rcoles|Jueves|Viernes|S[áa]bado|Domingo)\s+(\d{1,2})/i
     );
@@ -190,10 +201,8 @@ function parseHorarioTexto(texto) {
 
     if (!diaActual) continue;
 
-    // 2) DETECCIÓN DE CURSO
     const lineaSinBarra = linea.replace(/^\|\s*/, "");
 
-    // Opción A: NOMBRE - CODIGO HH:MM - HH:MM ...
     let mCurso = lineaSinBarra.match(
       /^(.+?)\s*-\s*([0-9A-Z]{3,})\s+(\d{2}:\d{2})\s*-\s*(\d{2}:\d{2})/i
     );
@@ -201,20 +210,19 @@ function parseHorarioTexto(texto) {
     let nombreRaw, horaInicio, horaFin;
 
     if (mCurso) {
-      nombreRaw   = mCurso[1];
-      horaInicio  = mCurso[3];
-      horaFin     = mCurso[4];
+      nombreRaw  = mCurso[1];
+      horaInicio = mCurso[3];
+      horaFin    = mCurso[4];
     } else {
-      // Opción B: NOMBRE - HH:MM - HH:MM (sin código)
       const mCursoSinCodigo = lineaSinBarra.match(
         /^(.+?)\s*-\s*(\d{2}:\d{2})\s*-\s*(\d{2}:\d{2})/i
       );
       if (!mCursoSinCodigo) {
         continue;
       }
-      nombreRaw   = mCursoSinCodigo[1];
-      horaInicio  = mCursoSinCodigo[2];
-      horaFin     = mCursoSinCodigo[3];
+      nombreRaw  = mCursoSinCodigo[1];
+      horaInicio = mCursoSinCodigo[2];
+      horaFin    = mCursoSinCodigo[3];
     }
 
     let nombreCurso = nombreRaw
@@ -244,27 +252,23 @@ function parseHorarioTexto(texto) {
   };
 }
 
-// ================== GUARDAR cursosDetectados EN LOCALSTORAGE ==================
+// ================== GUARDAR cursosDetectados EN LOCALSTORAGE (USUARIO ACTIVO) ==================
 function guardarCursosDetectadosEnLocalStorage(cursosDetectados) {
+  if (!usuarioActual) {
+    alert("No se encontró el usuario activo. Por favor, inicia sesión nuevamente.");
+    window.location.href = "../../iniciar_sesion/pages/inicioSesion.html";
+    return;
+  }
+
   if (!Array.isArray(cursosDetectados) || cursosDetectados.length === 0) {
     alert("No se detectaron cursos en el horario. Revisa el PDF o intenta nuevamente.");
     return;
   }
 
-  let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-  const usuarioIncompleto = usuarios.find(u => u.registroCompleto === false);
-
-  if (!usuarioIncompleto) {
-    alert("No se encontró un usuario en proceso de registro.");
-    return;
+  if (!Array.isArray(usuarioActual.cursos)) {
+    usuarioActual.cursos = [];
   }
 
-  if (!Array.isArray(usuarioIncompleto.cursos)) {
-    usuarioIncompleto.cursos = [];
-  }
-
-  // Mapear cursosDetectados al formato que usa cargaManual:
-  // { id, nombre, inicio: [hora, AM/PM], fin: [hora, AM/PM], dias: [] }
   cursosDetectados.forEach(cd => {
     const cursoManual = {
       id: cd.idCurso || crypto.randomUUID(),
@@ -274,75 +278,29 @@ function guardarCursosDetectadosEnLocalStorage(cursosDetectados) {
       dias: Array.isArray(cd.frecuencia) ? cd.frecuencia : []
     };
 
-    usuarioIncompleto.cursos.push(cursoManual);
-    cursosUsuario.push(cursoManual); // también lo reflejamos en la variable local
+    usuarioActual.cursos.push(cursoManual);
+    cursosUsuario.push(cursoManual);
   });
 
-  localStorage.setItem("usuarios", JSON.stringify(usuarios));
+  localStorage.setItem("usuarios", JSON.stringify(usuariosGlobal));
 
   alert("Cursos subidos masivamente con exito, para verlos ve a Manual");
 }
 
-// ================== BOTÓN MANUAL → IR A CARGA MANUAL ==================
+// ================== BOTONES NAVEGACIÓN ==================
 btnManual.addEventListener("click", function () {
   btnManual.classList.add("btn-seleccionar-rol-seleccionado");
   btnMasiva.classList.remove("btn-seleccionar-rol-seleccionado");
-
   console.log("Botón Manual presionado");
-
-  window.location.href = "registroCargaManual.html";
+  window.location.href = "configuracionConductorHorarioManual.html";
 });
 
-// ================== BOTÓN MASIVA (solo estilo) ==================
 btnMasiva.addEventListener("click", function () {
   btnMasiva.classList.add("btn-seleccionar-rol-seleccionado");
   btnManual.classList.remove("btn-seleccionar-rol-seleccionado");
-
   console.log("Botón Masiva presionado");
 });
 
-// ================== BOTÓN CONTINUAR → SEGÚN ROL ==================
-btnContinuar.addEventListener("click", function () {
-  let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-  const usuarioIncompleto = usuarios.find((u) => u.registroCompleto === false);
-
-  if (!usuarioIncompleto) {
-    alert("No se encontró un usuario en proceso de registro.");
-    return;
-  }
-
-  const rol = usuarioIncompleto.rol;
-
-  if (!rol) {
-    alert("Aún no has seleccionado un rol. Vuelve a la pantalla anterior.");
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-    window.location.href = "registroSeleccionarRol.html";
-    return;
-  }
-
-  if (rol === "pasajero") {
-    usuarioIncompleto.registroCompleto = true;
-
-    if ("datosVehiculares" in usuarioIncompleto) {
-      delete usuarioIncompleto.datosVehiculares;
-    }
-
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-    alert("Registro completado con éxito. Inicia sesión.");
-    window.location.href = "../../iniciar_sesion/pages/inicioSesion.html";
-  } else if (rol === "conductor") {
-    usuarioIncompleto.registroCompleto = false;
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-    window.location.href = "registroDatosVehiculares.html";
-  } else {
-    alert("Rol no válido. Vuelve a seleccionar tu rol.");
-    window.location.href = "registroSeleccionarRol.html";
-  }
-});
-
-// ================== BOTÓN RETROCEDER → REGRESAR A ELEGIR ROL ==================
-btnVolver.addEventListener("click", function () {
-  window.location.href = "registroSeleccionarRol.html";
+btnRegresar.addEventListener("click", function () {
+  window.location.href = "configuracionConductorOpciones.html";
 });
