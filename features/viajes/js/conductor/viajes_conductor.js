@@ -53,10 +53,9 @@ guardarBtn.addEventListener("click", (e) => {
     const now = new Date();
     const selectedDate = new Date(fecha + "T" + hora);
 
-    // Mínimo permitido: ahora + 5 minutos
-    const minAllowed = new Date(now.getTime() + 5 * 60000); // +5 minutos en milisegundos
+    // Mínimo permitido
+    const minAllowed = new Date(now.getTime() + 5 * 60000); 
 
-    // Comparar
     if (selectedDate < minAllowed) {
         const formattedMin = minAllowed.toLocaleString("es-ES", {
             day: "2-digit",
@@ -70,7 +69,6 @@ guardarBtn.addEventListener("click", (e) => {
         return;
     }
 
-    // Validar cantidad de pasajeros (doblemente, por si el input fue manipulado)
     const pasajeros = parseInt(cantidadPasajeros.value, 10);
     if (isNaN(pasajeros) || pasajeros < 1 || pasajeros > 4) {
         formError.textContent = "La cantidad de pasajeros debe estar entre 1 y 4.";
@@ -78,7 +76,6 @@ guardarBtn.addEventListener("click", (e) => {
         return;
     }
 
-    // ✅ Validación pasada → proceder a guardar
     const routes = JSON.parse(localStorage.getItem("userRoutes")) || [];
     const selectedRoute = routes.find(route => route.name === rutaTomar.value);
 
