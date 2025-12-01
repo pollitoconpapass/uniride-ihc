@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="../../../styles.css" />
     <link rel="stylesheet" href="../css/configuracion.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRKX4T1V9D"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DRKX4T1V9D');
+    </script>
 </head>
 
 <body>
@@ -32,6 +41,11 @@
                 <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/pasajero/viajes_usuario.html'">
                     <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
                     <span>Viajes</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionPasajeroHorarioManual.html'">
+                    <img src="../../../assets/icons/horarios_icon_deactive_sidebar.svg" alt="Horarios">
+                    <span>Horarios</span>
                 </div>
                 
                 <div class="nav-item-sidebar" onclick="window.location.href='../../compensaciones/pages/compensacionesPasajeros.html'">
@@ -110,7 +124,7 @@
             </div>
          </div> 
          <div class="group-botones">
-            <button type="button" id="btn-regresar">Regresar</button>
+            <button type="button" id="btn-regresar">Editar</button>
             <button type="button" id="btn-guardar-cambios">Guardar Cambios</button>
          </div>
         </form>
