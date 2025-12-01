@@ -5,6 +5,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
     const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo")); // conductor
 
+    if (!usuarioActivo) {
+        console.warn("No hay usuario activo...");
+        return;
+    }
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const usuario = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+
+    if (!usuario) {
+        console.warn("No se encontró al usuario activo en la base de usuarios");
+        return;
+    }
+
+    const dp = usuario.datosPersonales;
+    document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
+
     // === MODALES ===
     const modalAceptar = document.getElementById("modalAceptarSolicitud");
     const modalCancelar = document.getElementById("modalCancelarViaje");
@@ -60,15 +76,24 @@ document.addEventListener("DOMContentLoaded", () => {
 document.querySelectorAll(".btn-aceptar").forEach(btn => {
     btn.addEventListener("click", () => {
         const idx = btn.dataset.index;
+        const reservaAceptada = reservasFiltradas[idx];
 
-        reservasFiltradas[idx].estado = "Aceptado";
-        reservasFiltradas[idx].estadoViaje = "Por llegar";
-        actualizarReservas(reservas, reservasFiltradas[idx]);
+        // Encontrar la reserva original en el array completo
+        const idxOriginal = reservas.findIndex(r =>
+            r.idConductor === reservaAceptada.idConductor &&
+            r.idPasajero === reservaAceptada.idPasajero &&
+            r.fecha === reservaAceptada.fecha &&
+            r.hora === reservaAceptada.hora
+        );
+
+        if (idxOriginal !== -1) {
+            reservas[idxOriginal].estado = "Aceptado";
+            reservas[idxOriginal].estadoViaje = "Por llegar";
+            localStorage.setItem("reservas", JSON.stringify(reservas));
+        }
 
         actualizarPasajerosDelViaje(viaje);
-
         btn.closest(".solicitud-card").remove();
-
         modalAceptar.style.display = "flex";
     });
 });
@@ -114,14 +139,7 @@ document.querySelectorAll(".btn-rechazar").forEach(btn => {
 
 });
 
-// === ACTUALIZAR LOCAL STORAGE (clave) ===
-function actualizarReservas(reservasOriginal, reservaModificada) {
-    const nuevas = reservasOriginal.map(r =>
-        r.idReserva === reservaModificada.idReserva ? reservaModificada : r
-    );
 
-    localStorage.setItem("reservas", JSON.stringify(nuevas));
-}
 
 function actualizarPasajerosDelViaje(viajeSeleccionado) {
     let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];

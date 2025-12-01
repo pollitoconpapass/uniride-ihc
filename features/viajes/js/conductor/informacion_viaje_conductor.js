@@ -1,6 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("JS de información del viaje cargado");
 
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+    if (!usuarioActivo) {
+        console.warn("No hay usuario activo...");
+        return;
+    }
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const usuario = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+
+    if (!usuario) {
+        console.warn("No se encontró al usuario activo en la base de usuarios");
+        return;
+    }
+
+    const dp = usuario.datosPersonales;
+    document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
+
     let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
     const index = parseInt(localStorage.getItem("viajeIndex"));
     let viaje = viajes[index];
@@ -103,32 +120,32 @@ document.addEventListener("DOMContentLoaded", () => {
         // Inicializar estadoViaje de pasajeros si es necesario
         const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
         reservas.forEach(r => {
-            if (
-                r.idConductor === viaje.idConductor &&
-                r.fecha === viaje.fecha &&
-                r.hora === viaje.hora &&
-                r.ruta === viaje.ruta &&
-                r.estado === "Aceptado" &&
-                !r.estadoViaje
-            ) {
-                r.estadoViaje = "Recogido";
+         if (
+        String(r.idConductor) === String(viaje.idConductor) &&
+        r.fecha === viaje.fecha &&
+        r.hora === viaje.hora &&
+        r.ruta === viaje.ruta &&
+        r.estado === "Aceptado"
+         ) {
+        r.estadoViaje = "Recogido";
             }
         });
+
         localStorage.setItem("reservas", JSON.stringify(reservas));
 
         actualizarBotones();
         cargarPasajerosConfirmados();
-        alert("El viaje ha comenzado. Ahora puedes marcar el estado de cada pasajero.");
+        alert("El viaje comenzo, puede modificar el estado de cada pasajero.");
     });
 
     btnFinalizar?.addEventListener("click", () => {
         const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
         const pasajerosAceptados = reservas.filter(r =>
-            r.idConductor === viaje.idConductor &&
-            r.fecha === viaje.fecha &&
-            r.hora === viaje.hora &&
-            r.ruta === viaje.ruta &&
-            r.estado === "Aceptado"
+        String(r.idConductor) === String(viaje.idConductor) &&
+        r.fecha === viaje.fecha &&
+        r.hora === viaje.hora &&
+        r.ruta === viaje.ruta &&
+        r.estado === "Aceptado"
         );
 
         if (pasajerosAceptados.length > 0) {
@@ -163,9 +180,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // ==========================
-    //    CARGAR PASAJEROS
-    // ==========================
     function cargarPasajerosConfirmados() {
         const tbody = document.getElementById("pasajeros-confirmados");
         const reservas = JSON.parse(localStorage.getItem("reservas")) || [];

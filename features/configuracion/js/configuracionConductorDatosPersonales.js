@@ -10,6 +10,34 @@ const inputFechaNacimiento = document.querySelector('input[name="bday"]');
 const inputDireccion = document.querySelector('input[name="input-direccion-domicilio"]');
 const selectUniversidad = document.getElementById("id_universidad");
 const selectCarrera = document.getElementById("id_carrera");
+// INFO GENERAL
+document.addEventListener("DOMContentLoaded", () => {
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+    if (!usuarioActivo) {
+        console.warn("No hay usuario activo...");
+        return;
+    }
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const usuario = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+
+    if (!usuario) {
+        console.warn("No se encontró al usuario activo en la base de usuarios");
+        return;
+    }
+
+    const dp = usuario.datosPersonales;
+
+    document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
+    document.getElementById("tituloNombre").innerText = dp.nombres.split(" ")[0] || "";
+
+    document.getElementById("carrera").textContent =
+        dp.carrera || "No especificado";
+
+    document.getElementById("universidad").textContent =
+        dp.universidad || "No especificada";
+
+});
 
 // Variables globales para manejar el usuario
 let usuarios = [];

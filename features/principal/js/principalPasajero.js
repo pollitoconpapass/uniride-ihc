@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // VIAJES
 const tripsKey = "uniride_trips";
 const tripsTableBody = document.getElementById("tripsTableBody")
-const storageViajes = 'viajesStoragePasajero'
+const storageViajes = 'viajesGuardados'
 
 if (!localStorage.getItem(storageViajes)) {
   localStorage.setItem(storageViajes, JSON.stringify([]))
@@ -169,7 +169,7 @@ function loadTrips() {
       <td colspan="5" style="text-align: center; padding: 40px; color: #666;">
         <img src="../../../assets/imgs/vacio.png" alt="Empty Image" style="width: 100px; margin-bottom: 20px;">
         <p style="font-size: 16px; margin: 0;">Aún no tienes viajes planeados.</p>
-        <p style="font-size: 14px; margin-top: 10px;">Ve a la sección de <a href="../../viajes/pages/viajes.html" style="color: #4F46E5; text-decoration: underline;">viajes</a> para agendar uno.</p>
+        <p style="font-size: 14px; margin-top: 10px;">Ve a la sección de <a href="../../viajes/pages/pasajero/viajes_usuario.html" style="color: #4F46E5; text-decoration: underline;">viajes</a> para agendar uno.</p>
       </td>`
     tripsTableBody.appendChild(emptyRow)
   } else {
@@ -180,8 +180,7 @@ function loadTrips() {
         <td>${trip.conductor}</td>
         <td>${trip.infoCarro}</td>
         <td>${trip.puntoEncuentro}</td>
-        <td>${trip.estado}</td>
-        <td><img src="../../../assets/icons/ver_mas_icon.svg"></td>`
+        <td>${trip.estado}</td>`
       tripsTableBody.appendChild(row)
     }
   }

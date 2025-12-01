@@ -4,44 +4,54 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>UniRide - Información del Viaje</title>
+    <link rel="stylesheet" href="../../../../styles.css" />
     <link rel="stylesheet" href="../../css/pasajero/usuario_base.css">
     <link rel="stylesheet" href="../../css/pasajero/informacion_viaje.css">
     <link rel="stylesheet" href="../../css/pasajero/modals_pasajero.css">
 </head>
 <body>
     <div class="layout info-layout">
-        <aside class="sidebar">
-            <div class="user">
-                <img src="../../../../assets/imgs/uniride-logo.jpeg" alt="Avatar de Jose">
-                <div>
-                    <div class="name">Jose</div>
-                    <div class="phone">+51 920406868</div>
+        <!-- Menú lateral -->
+        <div class="sidebar">
+            <div>
+                <div class="sidebar-header">
+                    <img src="../../../../assets/imgs/user_landing_icon.png" alt="">
+                    <div>
+                        <h3 id="sidebarNombre" style="color: white; font-size: 16px; margin: 0;"> .</h3>
+                        <p style="color: #aaa; font-size: 12px; margin: 0;">Conductor</p>
+                    </div>
+                </div>
+
+                <div class="menu-title">MENU</div>
+
+                <div class="sidebar-nav">
+                    <div class="nav-item-sidebar" onclick="window.location.href='../../../principal/pages/principalPasajero.html'">
+                        <img src="../../../../assets/icons/principal_icon_deactive_sidebar.svg" alt="Home">
+                        Principal
+                    </div>
+
+                    <div class="nav-item-sidebar active" onclick="window.location.href='./viajes_usuario.html'">
+                        <img src="../../../../assets/icons/viajes_icon_active_sidebar.svg" alt="Travel">
+                        <span>Viajes</span>
+                    </div>
+
+                    <div class="nav-item-sidebar" onclick="window.location.href='../../../compensaciones/pages/compensacionesPasajeros.html'">
+                        <img src="../../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
+                        <span>Compensaciones y Pagos</span>
+                    </div>
+
+                    <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroOpciones.html'">
+                        <img src="../../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
+                        <span>Configuración</span>
+                    </div>
                 </div>
             </div>
-            <nav>
-                <a href="viajes_usuario.html" class="nav-item active">
-                    <span class="nav-dot"></span>
-                    <span>Viajes</span>
-                </a>
-                <a href="comunicacion_chat.html" class="nav-item">
-                    <span class="nav-dot"></span>
-                    <span>Comunicacion</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <span>Compensaciones y Pagos</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <span>Reportes</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <span>Configuración</span>
-                </a>
-            </nav>
-            <div class="sidebar-footer">
-                <img src="../../../../assets/imgs/uniride-wo-text.png" alt="Salir">
+
+            <div class="sidebar-footer" onclick="window.location.href='../../../iniciar_sesion/pages/inicioSesion.html'">
+                <img src="../../../../assets/icons/exit_icon_sidebar.svg" alt="Salir">
                 <span>Cerrar Sesión</span>
             </div>
-        </aside>
+        </div>
 
         <main class="main-content">
             <div class="breadcrumbs">
@@ -92,9 +102,6 @@
             </div>
         </main>
     </div>
-    <script src="../../js/pasajero/viajesData.js"></script>
-    <script src="../../js/pasajero/solicitudesData.js"></script>
-    <script src="../../js/pasajero/modals_pasajero.js"></script>
     <script src="../../js/pasajero/informacion_viaje.js"></script>
 </body>
 </html>

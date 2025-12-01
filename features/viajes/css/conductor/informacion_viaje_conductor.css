@@ -1,3 +1,4 @@
+/* Estilos base (escritorio) */
 .main-content {
   margin-left: 270px;
   padding: 30px 40px;
@@ -35,6 +36,7 @@
   font-weight: bold;
   cursor: pointer;
 }
+
 .modal {
   display: none;
   position: fixed;
@@ -243,7 +245,6 @@ tbody tr:hover {
   color: #333;
 }
 
-
 /* MODAL: AGRADECIMIENTO */
 #modalBienvenida .modal-content {
   max-width: 400px;
@@ -348,4 +349,186 @@ tbody tr:hover {
 #modalCancelarViaje .btn-submit {
   background: #6c63ff;
   color: white;
+}
+
+/* RESPONSIVE */
+
+/* Para tablets y pantallas medianas */
+@media (max-width: 1024px) {
+  .main-content {
+    margin-left: 200px; /* Ajusta según el ancho colapsado del sidebar */
+    padding: 20px 25px;
+  }
+
+  .page-title {
+    font-size: 1.6rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .add-trip-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .section {
+    padding: 20px;
+    margin-bottom: 25px;
+  }
+
+  th,
+  td {
+    padding: 12px 14px;
+    font-size: 0.9rem;
+  }
+
+  /* Ajustes para tablas en pantallas medianas */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .modal-content {
+    width: 70%;
+    max-width: 500px;
+    padding: 20px;
+  }
+}
+
+/* Para móviles grandes - Sidebar colapsado a 60px */
+@media (max-width: 768px) and (min-width: 481px) {
+  .main-content {
+    margin-left: 60px; /* Ancho del sidebar colapsado */
+    padding: 15px 20px;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .header {
+    margin-bottom: 18px;
+  }
+
+  .section {
+    padding: 18px;
+    margin-bottom: 20px;
+  }
+
+  .section h3 {
+    font-size: 1.25rem;
+  }
+
+  th,
+  td {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+
+  .table-btn {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+
+  /* Ajustes para formularios en móviles */
+  .modal {
+    padding: 20px;
+  }
+
+  .modal-content {
+    width: 95%;
+    max-width: 95%;
+    padding: 20px;
+  }
+
+  .modal-content h2 {
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px 20px;
+    text-align: center;
+  }
+}
+
+/* Para móviles pequeños - Sidebar oculto */
+@media (max-width: 480px) {
+  .main-content {
+    margin-left: 0; /* Sin margen cuando sidebar está oculto */
+    padding: 12px 15px;
+    width: 100%;
+  }
+
+  .page-title {
+    font-size: 1.4rem;
+  }
+
+  .section {
+    padding: 15px;
+  }
+
+  .section h3 {
+    font-size: 1.2rem;
+  }
+
+  th,
+  td {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+
+  .add-trip-btn {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+  }
+
+  .modal-content {
+    padding: 16px;
+  }
+
+  .modal-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 9px;
+    font-size: 0.9rem;
+  }
+
+  .additional-link {
+    font-size: 0.8rem;
+  }
+
+  .btn {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
 }
