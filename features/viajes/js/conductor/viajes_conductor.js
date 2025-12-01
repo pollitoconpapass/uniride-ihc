@@ -119,6 +119,7 @@ guardarBtn.addEventListener("click", (e) => {
     const viaje = {
         id: nuevoId, 
         idConductor: usuarioActivo.id_usuario,
+        universidadConductor: conductor.datosPersonales.universidad,
         fecha: fecha,
         hora: hora,
         ruta: rutaTomar.value,
@@ -158,11 +159,14 @@ function loadRoutesIntoSelect() {
 function loadPlannedTrips() {
     const tbody = document.getElementById("viajes_planeados_total");
     const viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
 
-    if (viajes.length === 0) {
+    const misViajes = viajes.filter(viaje => viaje.idConductor === usuarioActivo.id_usuario);
+
+    if (misViajes.length === 0) {
         tbody.innerHTML = `
             <tr>
-                <td colspan="6" class="empty-table-message">
+                <td colspan="7" class="empty-table-message">
                     No tienes viajes planeados por el momento.
                 </td>
             </tr>
@@ -171,40 +175,30 @@ function loadPlannedTrips() {
     }
 
     tbody.innerHTML = "";
-
-    viajes.forEach((viaje, index) => {
+    misViajes.forEach(viaje => {
         tbody.innerHTML += `
             <tr>
                 <td>${viaje.fecha}</td>
                 <td>${viaje.hora}</td>
                 <td>${viaje.ruta}</td>
                 <td>${viaje.pasajerosActuales || 0} / ${viaje.pasajeros}</td>
-                <td><button class="table-btn" onclick="verSolicitud(${index})">Ver</button></td>
+                <td><button class="table-btn" onclick="verSolicitudPorId(${viaje.id})">Ver</button></td>
                 <td>${viaje.estado}</td>
-                <td><button class="table-btn" onclick="verDetalle(${index})">Detalles</button></td>
+                <td><button class="table-btn" onclick="verDetallePorId(${viaje.id})">Detalles</button></td>
             </tr>
         `;
     });
-}
-
-function verDetalle(index) {
-    const viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
-    const viajeSeleccionado = viajes[index];
-
-    localStorage.setItem("viajeGuardado", JSON.stringify(viajeSeleccionado));
-    localStorage.setItem("viajeIndex", index);
-
-    window.location.href = "informacion_viaje_conductor.html";
 }
 
 
 function loadPastTrips() {
     const tbody = document.getElementById("viajes_pasados_total");
     const viajesPasados = JSON.parse(localStorage.getItem("viajesPasados")) || [];
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
 
-    if (!tbody) return; 
+    const misViajesPasados = viajesPasados.filter(v => v.idConductor === usuarioActivo.id_usuario);
 
-    if (viajesPasados.length === 0) {
+    if (misViajesPasados.length === 0) {
         tbody.innerHTML = `
             <tr>
                 <td colspan="4" class="empty-table-message">
@@ -215,8 +209,7 @@ function loadPastTrips() {
     }
 
     tbody.innerHTML = "";
-
-    viajesPasados.forEach(v => {
+    misViajesPasados.forEach(v => {
         tbody.innerHTML += `
             <tr>
                 <td>${v.fecha}</td>
@@ -228,13 +221,20 @@ function loadPastTrips() {
 }
 
 
-function verSolicitud(index) {
+function verDetallePorId(viajeId) {
     const viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
-    const viajeSeleccionado = viajes[index];
+    const viajeSeleccionado = viajes.find(v => v.id === viajeId);
+    localStorage.setItem("viajeGuardado", JSON.stringify(viajeSeleccionado));
+    window.location.href = "informacion_viaje_conductor.html";
+}
 
-    localStorage.setItem("viajeSeleccionadoParaSolicitudes", JSON.stringify(viajeSeleccionado));
-
-    window.location.href = "solicitudes_pasajeros.html";
+function verSolicitudPorId(viajeId) {
+    const viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
+    const viajeSeleccionado = viajes.find(v => v.id === viajeId);
+    if (viajeSeleccionado) {
+        localStorage.setItem("viajeSeleccionadoParaSolicitudes", JSON.stringify(viajeSeleccionado));
+        window.location.href = "solicitudes_pasajeros.html";
+    }
 }
 
 window.addEventListener("click", (e) => {
