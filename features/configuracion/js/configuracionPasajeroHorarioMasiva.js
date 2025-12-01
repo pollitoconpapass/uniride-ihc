@@ -329,5 +329,5 @@ btnMasiva.addEventListener("click", function () {
 });
 
 btnRegresar.addEventListener("click", function () {
-  window.location.href = "configuracionPasajeroOpciones.html";
+  window.location.href = "configuracionPasajeroHorarioManual.html";
 });

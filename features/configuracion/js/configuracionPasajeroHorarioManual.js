@@ -35,7 +35,6 @@ const btnAddCurso = document.getElementById("btnAddCurso");
 const btnCancelarFormulario = document.getElementById("btnCancelFormulario");
 const btnGuardarFormulario = document.getElementById("btnGuardarFormulario");
 const listaCursos = document.getElementById("listaCursos");
-const btnRegresar = document.getElementById("btn-regresar");
 const btnGuardarCurso = document.getElementById("btnGuardarCurso");
 
 const cursos = [];   // aquí viven los cursos en memoria
@@ -91,9 +90,6 @@ window.addEventListener("DOMContentLoaded", () => {
 // ---------------------------
 // NAVEGACIÓN
 // ---------------------------
-btnRegresar.addEventListener("click", function () {
-  window.location.href = "configuracionPasajeroOpciones.html";
-});
 
 btnManual.addEventListener("click", function () {
   btnManual.classList.add("btn-seleccionar-rol-seleccionado");

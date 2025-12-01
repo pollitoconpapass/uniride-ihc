@@ -7,7 +7,6 @@ const btnAddCurso = document.getElementById("btnAddCurso");
 const btnCancelarFormulario = document.getElementById("btnCancelFormulario");
 const btnGuardarFormulario = document.getElementById("btnGuardarFormulario");
 const listaCursos = document.getElementById("listaCursos");
-const btnRegresar = document.getElementById("btn-regresar");
 const btnGuardarCurso = document.getElementById("btnGuardarCurso");
 // INFO GENERAL
 document.addEventListener("DOMContentLoaded", () => {
@@ -91,9 +90,6 @@ window.addEventListener("DOMContentLoaded", () => {
 // ---------------------------
 // NAVEGACIÓN
 // ---------------------------
-btnRegresar.addEventListener("click", function () {
-  window.location.href = "configuracionConductorOpciones.html";
-});
 
 btnManual.addEventListener("click", function () {
   btnManual.classList.add("btn-seleccionar-rol-seleccionado");
