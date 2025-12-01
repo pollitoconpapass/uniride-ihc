@@ -11,9 +11,54 @@ const btnVolver = document.querySelector(".contenedor-icon");
 const cursos = [];
 let onGuardar = null;
 
-// ---------------------------
+// Inputs del mini-formulario
+const inputNombreCurso = document.querySelector('input[name="input-nombre-curso"]');
+const inputHoraInicio = document.querySelector('input[name="input-horario-inicio"]');
+const inputHoraFin = document.querySelector('input[name="input-horario-fin"]');
+
+// -------------------------------------
+// Helpers
+// -------------------------------------
+function estaVacio(valor) {
+  return !valor || valor.trim() === "";
+}
+
+// Validar datos del mini-formulario ANTES de guardar
+function validarFormularioCurso() {
+  const nombre = (inputNombreCurso.value || "").trim();
+  const horaInicio = inputHoraInicio.value;
+  const horaFin = inputHoraFin.value;
+
+  const diasBtns = document.querySelectorAll('.group-frecuencia button');
+  const diasSeleccionados = [...diasBtns].filter(b =>
+    b.classList.contains("btn-dia-seleccionado")
+  );
+
+  // Campos vacíos
+  if (estaVacio(nombre) || estaVacio(horaInicio) || estaVacio(horaFin)) {
+    alert("Por favor, completa el nombre del curso y ambos horarios (inicio y fin).");
+    return false;
+  }
+
+  // Al menos un día seleccionado
+  if (diasSeleccionados.length === 0) {
+    alert("Selecciona al menos un día de la semana para la frecuencia del curso.");
+    return false;
+  }
+
+  // Hora inicio < hora fin
+  // Los inputs type="time" devuelven "HH:MM" en formato 24h, se puede comparar como string
+  if (horaFin <= horaInicio) {
+    alert("La hora de fin debe ser mayor que la hora de inicio.");
+    return false;
+  }
+
+  return true;
+}
+
+// -------------------------------------
 // CARGAR CURSOS DEL USUARIO
-// ---------------------------
+// -------------------------------------
 window.addEventListener("DOMContentLoaded", function () {
   let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
   const usuarioIncompleto = usuarios.find(u => u.registroCompleto === false);
@@ -33,12 +78,26 @@ window.addEventListener("DOMContentLoaded", function () {
     });
     renderAll();
   }
+
+  // Configurar restricción en hora fin según hora inicio
+  if (inputHoraInicio && inputHoraFin) {
+    inputHoraInicio.addEventListener("change", () => {
+      // Cuando cambie la hora de inicio, la hora fin mínima será esa
+      inputHoraFin.min = inputHoraInicio.value || "";
+      // Si ya había una hora fin menor, la limpiamos
+      if (inputHoraFin.value && inputHoraFin.value < inputHoraFin.min) {
+        inputHoraFin.value = "";
+      }
+    });
+  }
 });
 
 function resetFormValue(){
-  document.querySelector('input[name="input-nombre-curso"]').value = '';
-  document.querySelector('input[name="input-horario-inicio"]').value = '';
-  document.querySelector('input[name="input-horario-fin"]').value = '';
+  inputNombreCurso.value = '';
+  inputHoraInicio.value = '';
+  inputHoraFin.value = '';
+  inputHoraFin.min = ""; // reset min
+
   const diasBtns = document.querySelectorAll('.group-frecuencia button');
   diasBtns.forEach(b => {
     b.classList.remove("btn-dia-seleccionado");
@@ -47,24 +106,31 @@ function resetFormValue(){
 }
 
 function putFormValue(curso) {
-  document.querySelector('input[name="input-nombre-curso"]').value = curso.nombre;
-  document.querySelector('input[name="input-horario-inicio"]').value = curso.inicio[0];
-  document.querySelector('input[name="input-horario-fin"]').value = curso.fin[0];
-  
-  curso.dias.forEach(dia => {
-    const diasBtns = document.querySelectorAll('.group-frecuencia button');
-    diasBtns.forEach(b => {
-      if (b.textContent === dia) {
-        b.classList.add("btn-dia-seleccionado");
-        b.style.backgroundColor = '#A0A1C8';
-      }
-    });
+  inputNombreCurso.value = curso.nombre;
+  inputHoraInicio.value = curso.inicio[0] || "";
+  inputHoraFin.value = curso.fin[0] || "";
+
+  // Ajustar min de fin en base a inicio
+  if (inputHoraInicio.value) {
+    inputHoraFin.min = inputHoraInicio.value;
+  }
+
+  const diasBtns = document.querySelectorAll('.group-frecuencia button');
+  diasBtns.forEach(b => {
+    if (curso.dias.includes(b.textContent)) {
+      b.classList.add("btn-dia-seleccionado");
+      b.style.backgroundColor = '#A0A1C8';
+    } else {
+      b.classList.remove("btn-dia-seleccionado");
+      b.style.backgroundColor = '';
+    }
   });
 }
 
 function getFormValue(){
-  const nombre = document.querySelector('input[name="input-nombre-curso"]').value.trim();
-  let horaInicio = document.querySelector('input[name="input-horario-inicio"]').value;
+  const nombre = (inputNombreCurso.value || "").trim();
+
+  let horaInicio = inputHoraInicio.value;
   let horaInicioSplit = horaInicio.split(':');
   const inicio = [];
   if (horaInicioSplit[0] >= 12) {
@@ -73,7 +139,7 @@ function getFormValue(){
     inicio.push(horaInicio, 'AM');
   }
 
-  let horaFin = document.querySelector('input[name="input-horario-fin"]').value;
+  let horaFin = inputHoraFin.value;
   let horaFinSplit = horaFin.split(':');
   const fin = [];
   if (horaFinSplit[0] >= 12) {
@@ -125,6 +191,9 @@ function renderCard(curso){
       mostrarFormulario.removeAttribute("hidden");
     }
     onGuardar = () => {
+      // VALIDACIÓN ANTES DE EDITAR
+      if (!validarFormularioCurso()) return;
+
       const { nombre, inicio, fin, dias } = getFormValue();
       const cursoEditado = cursos[idx];
       cursoEditado.nombre = nombre;
@@ -147,21 +216,28 @@ function renderAll(){
   cursos.forEach(c => listaCursos.appendChild(renderCard(c)));
 }
 
+// Guardar del mini-formulario
 btnGuardarFormulario.addEventListener("click", function () {
   if (typeof onGuardar === "function") {
     onGuardar();
   }
 });
 
+// Cancelar del mini-formulario
 btnCancelarFormulario.addEventListener("click", function () {
   mostrarFormulario.setAttribute('hidden', '');
+  resetFormValue();
   console.log("Formulario cerrado");
 });
 
+// Abrir mini-formulario para AGREGAR
 btnAddCurso.addEventListener("click", function () {
   resetFormValue();
   mostrarFormulario.removeAttribute("hidden");
   onGuardar = () => {
+    // VALIDACIÓN ANTES DE CREAR
+    if (!validarFormularioCurso()) return;
+
     const { nombre, inicio, fin, dias } = getFormValue();
     const nuevo = {
       id: crypto.randomUUID(),
@@ -198,7 +274,7 @@ btnMasiva.addEventListener("click", function () {
     return;
   }
 
-  // 1) Guardar cursos en el usuario
+  // Guardar cursos en el usuario
   usuarioIncompleto.cursos = [...cursos];
   localStorage.setItem("usuarios", JSON.stringify(usuarios));
   window.location.href = "registroCargaMasiva.html";
@@ -238,7 +314,6 @@ btnContinuar.addEventListener("click", function () {
     return;
   }
 
-  // 1) Guardar cursos en el usuario
   usuarioIncompleto.cursos = [...cursos];
 
   const rol = usuarioIncompleto.rol;
@@ -251,10 +326,8 @@ btnContinuar.addEventListener("click", function () {
   }
 
   if (rol === "pasajero") {
-    // 2A) Pasajero → completar registro
     usuarioIncompleto.registroCompleto = true;
 
-    // eliminar datosVehiculares si existe
     if ("datosVehiculares" in usuarioIncompleto) {
       delete usuarioIncompleto.datosVehiculares;
     }
@@ -265,14 +338,12 @@ btnContinuar.addEventListener("click", function () {
     window.location.href = "../../iniciar_sesion/pages/inicioSesion.html";
 
   } else if (rol === "conductor") {
-    // 2B) Conductor → falta datos vehiculares, sigue incompleto
     usuarioIncompleto.registroCompleto = false;
 
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
     window.location.href = "registroDatosVehiculares.html";
   } else {
-    // Rol raro / inesperado
     alert("Rol no válido. Vuelve a seleccionar tu rol.");
     window.location.href = "registroSeleccionarRol.html";
   }
