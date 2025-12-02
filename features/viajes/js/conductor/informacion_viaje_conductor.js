@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const dp = usuario.datosPersonales;
     document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
 
-    // ✅ Cargar el viaje directamente desde localStorage (objeto completo)
+    // Cargar el viaje directamente desde localStorage
     const viaje = JSON.parse(localStorage.getItem("viajeGuardado"));
     if (!viaje) {
         alert("No se pudo cargar la información del viaje.");
@@ -172,16 +172,16 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // Contar pasajeros RECIBIDOS (no solo aceptados)
-const pasajerosRecogidos = pasajerosAceptados.filter(p => p.estadoViaje === "Recogido").length;
+             // Contar pasajeros RECIBIDOS (no solo aceptados)
+        const pasajerosRecogidos = pasajerosAceptados.filter(p => p.estadoViaje === "Recogido").length;
 
-// Actualizar el viaje con el número real de pasajeros transportados
-viaje.pasajerosActuales = pasajerosRecogidos;
 
-// Ahora sí mover a viajes pasados
-let pasados = JSON.parse(localStorage.getItem("viajesPasados")) || [];
-pasados.push(viaje);
-localStorage.setItem("viajesPasados", JSON.stringify(pasados));
+        viaje.pasajerosActuales = pasajerosRecogidos;
+
+
+        let pasados = JSON.parse(localStorage.getItem("viajesPasados")) || [];
+        pasados.push(viaje);
+        localStorage.setItem("viajesPasados", JSON.stringify(pasados));
 
         // Eliminar de viajes guardados
         let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
@@ -256,7 +256,7 @@ localStorage.setItem("viajesPasados", JSON.stringify(pasados));
         <td>${p.nombrePasajero}</td>
         <td>${p.puntoRecogida}</td>
         <td>${p.metodo}</td>
-        <td>${p.monto || "—"}</td>  <!-- ✅ NUEVA COLUMNA: monto -->
+        <td>${p.monto || "—"}</td>  
         <td>${celdaEstado}</td>
         <td>
             <button class="table-btn btn-info-pasajero" data-id-pasajero="${p.idPasajero}">
