@@ -22,50 +22,62 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     const todosLosViajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
-    const viajes = todosLosViajes.filter(viaje => 
-        viaje.universidadConductor === universidadPasajero &&
-        viaje.estado === "Pendiente"
-    );
+    const misReservas = JSON.parse(localStorage.getItem("reservas")) || [];
+
+    // Identificar índices de viajes que el usuario YA reservó y que están activos (pendiente/aceptado)
+    const viajesReservadosIndices = misReservas
+        .filter(r => r.idPasajero === usuarioActivo.id_usuario && r.estado !== "cancelado")
+        .map(r => r.viajeIndex);
+
+    // Mapeamos para conservar el índice original antes de filtrar
+    const viajes = todosLosViajes
+        .map((viaje, originalIndex) => ({ ...viaje, originalIndex }))
+        .filter(viaje => 
+            viaje.universidadConductor === universidadPasajero &&
+            viaje.estado === "Pendiente" &&
+            !viajesReservadosIndices.includes(String(viaje.originalIndex)) // Filtramos si ya está reservado (comparando string por si acaso)
+        );
 
     if (viajes.length === 0) {
         tbody.innerHTML = `
             <tr>
-                <td colspan="6" class="empty-table-message">
+                <td colspan="7" class="empty-table-message">
                     No hay viajes disponibles de tu universidad.
                 </td>
             </tr>
         `;
-        return;
+        // No hacemos return aquí para no romper listeners de modales si hubiera
+    } else {
+        tbody.innerHTML = "";
+
+        viajes.forEach((viaje) => {
+            const row = document.createElement("tr");
+    
+            const puntosTexto = Array.isArray(viaje.puntosRecogida)
+                ? viaje.puntosRecogida.join(", ")
+                : viaje.puntosRecogida || "—";
+    
+            row.innerHTML = `
+                <td>${viaje.conductor}</td>
+                <td>${viaje.universidadConductor || "—"}</td>
+                <td>${puntosTexto}</td>
+                <td>${viaje.fecha}</td>
+                <td>${viaje.hora}</td>
+                <td>
+                    <button class="reserve-btn" data-index="${viaje.originalIndex}">
+                        Reservar
+                    </button>
+                </td>
+                <td>
+                    <button class="details-btn" data-index="${viaje.originalIndex}">
+                        Ver detalles
+                    </button>
+                </td>
+            `;
+    
+            tbody.appendChild(row);
+        });
     }
-
-    tbody.innerHTML = "";
-
-    viajes.forEach((viaje, index) => {
-        const row = document.createElement("tr");
-
-        const puntosTexto = Array.isArray(viaje.puntosRecogida)
-            ? viaje.puntosRecogida.join(", ")
-            : viaje.puntosRecogida || "—";
-
-        row.innerHTML = `
-            <td>${viaje.conductor}</td>
-            <td>${puntosTexto}</td>
-            <td>${viaje.fecha}</td>
-            <td>${viaje.hora}</td>
-            <td>
-                <button class="reserve-btn" data-index="${index}">
-                    Reservar
-                </button>
-            </td>
-            <td>
-                <button class="details-btn" data-index="${index}">
-                    Ver detalles
-                </button>
-            </td>
-        `;
-
-        tbody.appendChild(row);
-    });
 
     // ---------- MODAL LOGIC ----------
     const modal = document.getElementById("reservarModal");
@@ -83,10 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let seleccion = null;
 
-    document.querySelectorAll(".reserve-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const index = btn.dataset.index;
-            const viaje = viajes[index];
+    // Delegación de eventos para botones dinámicos (mejor práctica)
+    tbody.addEventListener('click', (e) => {
+        if (e.target.classList.contains('reserve-btn')) {
+            const index = e.target.dataset.index; // Es el originalIndex
+            const viaje = todosLosViajes[index];
             seleccion = { viaje, index };
 
             // Rellenar modal
@@ -107,14 +120,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             modal.style.display = "flex";
-        });
-    });
+        }
 
-    document.querySelectorAll(".details-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const index = btn.dataset.index;
-            alert(`Detalles del viaje:\nConductor: ${viajes[index].conductor}\nRuta: ${viajes[index].ruta}`);
-        });
+        if (e.target.classList.contains('details-btn')) {
+             const index = e.target.dataset.index;
+             // Redirigir a la página de detalles pasando el índice original
+             window.location.href = `informacion_viaje.html?viajeIndex=${index}`;
+        }
     });
 
     // Mostrar/ocultar campo de monto
@@ -130,17 +142,29 @@ document.addEventListener("DOMContentLoaded", () => {
     // Cancelar modal
     cancelarReservaBtn.addEventListener("click", () => {
         modal.style.display = "none";
+        seleccion = null;
     });
 
     window.addEventListener("click", (e) => {
         if (e.target === modal) {
             modal.style.display = "none";
+            seleccion = null;
         }
     });
 
     // Guardar reserva
     guardarReservaBtn.addEventListener("click", () => {
         if (!seleccion) return;
+
+        // Validación básica de monto si es requerido
+        if (campoMonto.style.display === "block" && !modalMonto.value) {
+            alert("Por favor ingrese el monto.");
+            return;
+        }
+
+        // Desactivar botón para evitar doble envío
+        guardarReservaBtn.disabled = true;
+        guardarReservaBtn.textContent = "Procesando...";
 
         const pasajero = usuarios.find(u => u.id === usuarioActivo.id_usuario);
         const nombrePasajero = pasajero 
@@ -154,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const nuevaReserva = {
             idReserva: nuevoIdReserva,
-            viajeIndex: seleccion.index, 
+            viajeIndex: seleccion.index, // Índice original
             idConductor: seleccion.viaje.idConductor,
             idPasajero: usuarioActivo.id_usuario,
             nombrePasajero: nombrePasajero,
@@ -174,6 +198,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         modal.style.display = "none";
         alert("Reserva realizada exitosamente.");
+        
+        // Recargar la página para actualizar la tabla (el viaje reservado seguirá en estado 'pendiente' en reservas, 
+        // pero la lógica actual de 'encontrar_viajes' no filtra los que ya reservé, solo filtra por estado del viaje global.
+        // Si se quisiera ocultar YA, habría que filtrar también los que el usuario ya reservó.
+        // Asumiremos por ahora que recargar es suficiente según la práctica habitual del proyecto).
         location.reload(); 
     });
 });

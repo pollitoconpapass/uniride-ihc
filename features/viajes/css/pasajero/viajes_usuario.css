@@ -135,3 +135,23 @@ tbody tr:hover {
     background-color: #f1f1f1;
     cursor: pointer;
 }
+
+/* Estilos para el botón Ver detalles */
+.details-btn {
+  padding: 8px 12px;
+  background-color: var(--accent-color); /* Usar el color principal del tema */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  min-width: 100px; /* Para que todos tengan un tamaño similar */
+  text-align: center;
+  display: inline-block; /* Para que padding y width funcionen bien */
+}
+
+.details-btn:hover {
+  background-color: #4338ca; /* Un tono un poco más oscuro */
+}

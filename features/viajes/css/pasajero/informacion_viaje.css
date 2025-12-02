@@ -1,171 +1,104 @@
-.info-layout .info-wrapper {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 28px;
+/* Estilos base (escritorio) adaptados del conductor */
+.main-content {
+  margin-left: 270px;
+  padding: 30px 40px;
+  background-color: var(--gray-100);
+  min-height: 100vh;
+  color: var(--text-color);
 }
 
-.trip-card {
-    background-color: #ffffff;
-    border-radius: 28px;
-    padding: 32px 36px;
-    box-shadow: 0 18px 44px rgba(15, 23, 42, 0.1);
+/* Título de la página */
+.page-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 20px;
+  color: var(--gray-900);
 }
 
-.trip-card .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 24px;
+.page-header-informacion {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
 }
 
-.trip-card .header h2 {
-    font-size: 28px;
-    font-weight: 800;
-    color: #1e293b;
+.back-icon {
+  width: 24px;
+  height: 24px;
+  background-color: #6c63ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.driver-profile {
-    margin-bottom: 24px;
+/* Sección de contenido */
+.section {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.driver-profile .details .meta span {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    background-color: rgba(148, 163, 184, 0.16);
-    border-radius: 999px;
-    font-size: 13px;
+.section h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--gray-900);
 }
 
-.driver-profile .details .meta span strong {
-    color: #1e293b;
-}
-
-.description-box {
-    background-color: #f8f9ff;
-    border-radius: 18px;
-    padding: 20px 22px;
-    margin-bottom: 32px;
-    color: #4a5568;
-    line-height: 1.6;
-}
-
-.cta-group .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.cta-group .btn-secondary {
-    padding: 12px 24px;
-    border-radius: 12px;
-    border: 1px solid rgba(34, 197, 94, 0.2);
-    background-color: rgba(34, 197, 94, 0.12);
-    color: #047857;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.cta-group .btn-secondary:hover {
-    transform: translateY(-1px);
-}
-
-.map-section {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 280px;
-    gap: 28px;
-    align-items: start;
-}
-
-.map-card {
-    border-radius: 28px;
-    background: linear-gradient(180deg, #0f172a 0%, #070a1a 100%);
-    min-height: 320px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: inset 0 0 60px rgba(15, 23, 42, 0.54);
-}
-
-.map-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: url("../assets/uniride-logo-wo-text-dark.png") center/180px no-repeat;
-    opacity: 0.08;
-}
-
-.map-route {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.32), transparent 55%),
-                radial-gradient(circle at 65% 65%, rgba(129, 140, 248, 0.45), transparent 50%);
-}
-
-.pickup-card {
-    background-color: #ffffff;
-    border-radius: 22px;
-    padding: 22px;
-    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
-}
-
-.pickup-card h3 {
-    font-size: 18px;
-    color: #2b2f4c;
-    margin-bottom: 16px;
-    font-weight: 700;
-}
-
-.pickup-card .info-pill {
-    display: block;
+/* Estilos para párrafos dentro de las secciones */
+.section p {
     margin-bottom: 12px;
+    line-height: 1.5;
+    color: #444;
+    font-size: 1rem;
 }
 
-.trip-meta {
-    margin-top: 28px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 16px;
+.section strong {
+    color: #222;
 }
 
-.trip-meta .light-card strong {
-    display: block;
-    font-size: 13px;
-    text-transform: uppercase;
-    color: #94a3b8;
-    margin-bottom: 6px;
+/* Lista de puntos de recogida */
+.pickup-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.trip-meta .light-card span {
-    font-size: 17px;
-    font-weight: 700;
-    color: #1e293b;
+.pickup-list li {
+    background: #f9f9f9;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border-left: 4px solid #6c63ff;
+    font-size: 0.95rem;
 }
 
-.badge-whatsapp {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-radius: 12px;
-    background-color: rgba(52, 211, 153, 0.18);
-    color: #0f766e;
-    font-weight: 600;
-}
-
-.badge-whatsapp::before {
-    content: "💬";
-}
-
-.driver-profile .details .meta span::before {
-    content: "•";
-    color: #6c63ff;
-    font-weight: 800;
-}
-
+/* Responsive (copiado del conductor) */
 @media (max-width: 1024px) {
-    .map-section {
-        grid-template-columns: 1fr;
-    }
+  .main-content {
+    margin-left: 200px;
+    padding: 20px 25px;
+  }
+}
+
+@media (max-width: 768px) and (min-width: 481px) {
+  .main-content {
+    margin-left: 60px;
+    padding: 15px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    margin-left: 0;
+    padding: 12px 15px;
+  }
 }
