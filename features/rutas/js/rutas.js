@@ -1,3 +1,4 @@
+let currentUser = null;
 let currentSort = 'asc'; // 'asc' -> A-Z, 'desc' -> Z-A
 let allRoutes = [];
 
@@ -16,13 +17,22 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
+    currentUser = usuario
+
     const dp = usuario.datosPersonales;
     document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
 
 })
 
 function loadRoutes() {
-    allRoutes = JSON.parse(localStorage.getItem('userRoutes')) || [];
+    const routes = JSON.parse(localStorage.getItem('userRoutes')) || [];
+
+    if (!currentUser) {
+        console.warn("Usuario no iniciado aún");
+        return;
+    }
+
+    allRoutes = routes.filter(r => r.idConductor === currentUser.id); // -> filtro para que solo vea las rutas que le corresponden
     filterAndDisplayRoutes();
 }
 
@@ -55,6 +65,7 @@ function filterAndDisplayRoutes() {
 
     // Mostrar rutas
     if (allRoutes.length === 0) {
+        routesContainer.classList.add("centered");
         routesContainer.innerHTML = `
             <div class="empty-state">
                 <div class="empty-state-icon">🗺️❌</div>
@@ -64,6 +75,7 @@ function filterAndDisplayRoutes() {
             </div>
         `;
     } else if (filteredRoutes.length === 0) {
+        routesContainer.classList.add("centered");
         routesContainer.innerHTML = `
             <div class="no-results">
                 <div class="no-results-icon">🔍❌</div>
@@ -72,6 +84,7 @@ function filterAndDisplayRoutes() {
             </div>
         `;
     } else {
+        routesContainer.classList.remove("centered");
         let routesHTML = '';
         for (const route of filteredRoutes) {
             const originalIndex = allRoutes.indexOf(route);
