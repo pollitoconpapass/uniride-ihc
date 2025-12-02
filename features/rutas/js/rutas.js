@@ -1,0 +1,55 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+    if (!usuarioActivo) {
+        console.warn("No hay usuario activo...");
+        return;
+    }
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const usuario = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+
+    if (!usuario) {
+        console.warn("No se encontró al usuario activo en la base de usuarios");
+        return;
+    }
+
+    const dp = usuario.datosPersonales;
+    document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
+
+})
+
+function loadRoutes() {
+    const routesContainer = document.getElementById('routesContainer');
+    const routes = JSON.parse(localStorage.getItem('userRoutes')) || [];
+
+    if (routes.length === 0) {
+        routesContainer.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon">🗺️❌</div>
+                <h2 class="empty-state-title">¡No tienes rutas aún!</h2>
+                <p class="empty-state-text">Empieza a gestionar tus viajes agregando tu primera ruta.</p>
+                <button class="add-route-btn" onclick="window.location.href='../pages/agregarRuta.html'">Agregar Primera Ruta</button>
+            </div>
+        `;
+    } else {
+        let routesHTML = '';
+        let i = 1;
+        for (const [index, route] of routes.entries()) {
+            const routeName = `${route.name}`;
+            routesHTML += `
+                <div class="route-card" onclick="viewRouteDetails(${index})">
+                    <div class="route-card-title">${routeName}</div>
+                    <img src="../../../assets/imgs/ruta-${i}-trazado.png" alt="Mapa de la Ruta" class="route-card-map">
+                </div>
+            `;
+            i+=1;
+        }
+        routesContainer.innerHTML = routesHTML;
+    }
+}
+
+function viewRouteDetails(routeIndex) {
+    globalThis.location.href = `../pages/consultarRuta.html?index=${routeIndex}`;
+}
+
+document.addEventListener('DOMContentLoaded', loadRoutes);

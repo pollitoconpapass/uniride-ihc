@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UniRide - Información del Viaje</title>
+    <link rel="stylesheet" href="../../../../styles.css" />
+    <link rel="stylesheet" href="../../css/pasajero/usuario_base.css">
+    <link rel="stylesheet" href="../../css/pasajero/informacion_viaje.css">
+    <link rel="stylesheet" href="../../css/pasajero/modals_pasajero.css">
+</head>
+<body>
+    <div class="layout info-layout">
+        <!-- Menú lateral -->
+        <div class="sidebar">
+            <div>
+                <div class="sidebar-header">
+                    <img src="../../../../assets/imgs/user_landing_icon.png" alt="">
+                    <div>
+                        <h3 id="sidebarNombre" style="color: white; font-size: 16px; margin: 0;"> .</h3>
+                        <p style="color: #aaa; font-size: 12px; margin: 0;">Conductor</p>
+                    </div>
+                </div>
+
+                <div class="menu-title">MENU</div>
+
+                <div class="sidebar-nav">
+                    <div class="nav-item-sidebar" onclick="window.location.href='../../../principal/pages/principalPasajero.html'">
+                        <img src="../../../../assets/icons/principal_icon_deactive_sidebar.svg" alt="Home">
+                        Principal
+                    </div>
+
+                    <div class="nav-item-sidebar active" onclick="window.location.href='./viajes_usuario.html'">
+                        <img src="../../../../assets/icons/viajes_icon_active_sidebar.svg" alt="Travel">
+                        <span>Viajes</span>
+                    </div>
+
+                    <div class="nav-item-sidebar" onclick="window.location.href='../../../compensaciones/pages/compensacionesPasajeros.html'">
+                        <img src="../../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
+                        <span>Compensaciones y Pagos</span>
+                    </div>
+
+                    <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroOpciones.html'">
+                        <img src="../../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
+                        <span>Configuración</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer" onclick="window.location.href='../../../iniciar_sesion/pages/inicioSesion.html'">
+                <img src="../../../../assets/icons/exit_icon_sidebar.svg" alt="Salir">
+                <span>Cerrar Sesión</span>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <div class="breadcrumbs">
+                <a class="action-link" href="encontrar_viajes.html">Encontrar Viajes</a>
+                <span>/</span>
+                <span>Información del viaje</span>
+            </div>
+
+            <div class="info-wrapper">
+                <section class="trip-card">
+                    <div class="header">
+                        <h2 id="trip-route-name">Información del viaje</h2>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <span id="trip-status" class="badge badge-blue">Disponible</span>
+                            <button class="btn-outline" onclick="window.history.back()">Regresar</button>
+                        </div>
+                    </div>
+
+                    <div class="driver-profile">
+                        <img id="driver-image" src="../../../../assets/imgs/uniride-logo-wo-text-dark.png" alt="Foto del conductor">
+                        <div class="details">
+                            <h2 id="driver-name"></h2>
+                            <div class="meta"></div>
+                        </div>
+                    </div>
+
+                    <div class="cta-group">
+                        <a class="btn-primary" href="#">Reservar asiento</a>
+                        <a class="btn-secondary" href="#">Conversar con el conductor</a>
+                    </div>
+
+                    <div class="pickup-card">
+                        <h3>Lugares por los que pasa la ruta</h3>
+                        <!-- Las paradas se insertan dinámicamente aquí -->
+                    </div>
+
+                    <div class="trip-meta">
+                        <div class="light-card">
+                            <strong>Hora de Salida</strong>
+                            <span id="trip-time"></span>
+                        </div>
+                        <div class="light-card">
+                            <strong>Fecha de Salida</strong>
+                            <span id="trip-date"></span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="../../js/pasajero/informacion_viaje.js"></script>
+</body>
+</html>

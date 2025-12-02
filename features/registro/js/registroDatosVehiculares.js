@@ -32,6 +32,13 @@ window.addEventListener("DOMContentLoaded", function () {
 });
 
 // -------------------------------------------
+// VALIDACIÓN DE CAMPOS VACÍOS
+// -------------------------------------------
+function estaVacio(valor) {
+  return !valor || valor.trim() === "";
+}
+
+// -------------------------------------------
 // BOTÓN ACEPTAR → GUARDAR DATOS VEHICULARES
 // -------------------------------------------
 btnAceptar.addEventListener("click", function () {
@@ -40,7 +47,16 @@ btnAceptar.addEventListener("click", function () {
   const color = inputColor.value.trim();
   const placa = inputPlaca.value.trim();
 
-  // Aquí podrías agregar validaciones si quieres (campos vacíos, etc.)
+  // VALIDACIÓN DE CAMPOS VACÍOS
+  if (
+    estaVacio(modelo) ||
+    estaVacio(marca) ||
+    estaVacio(color) ||
+    estaVacio(placa)
+  ) {
+    alert("Por favor llena todos los datos del vehículo antes de continuar.");
+    return;
+  }
 
   let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
   const usuarioIncompleto = usuarios.find(u => u.registroCompleto === false);
@@ -48,11 +64,6 @@ btnAceptar.addEventListener("click", function () {
   if (!usuarioIncompleto) {
     alert("No se encontró un usuario en proceso de registro.");
     return;
-  }
-
-  // Opcional: verificar que realmente es conductor
-  if (usuarioIncompleto.rol !== "conductor") {
-    console.warn("Usuario no es conductor, pero está en datos vehiculares.");
   }
 
   // Actualizar datosVehiculares
@@ -69,13 +80,13 @@ btnAceptar.addEventListener("click", function () {
   // Guardar en localStorage
   localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-  // Alert y redirección
-  alert("Registro Completado, Ahora Inicia Sesion");
+  // Redirección
+  alert("Registro Completado, Ahora Inicia Sesión");
   window.location.href = "../../iniciar_sesion/pages/inicioSesion.html";
 });
 
 // -------------------------------------------
-// BOTÓN RETROCEDER → VOLVER A CARGA HORARIOS MANUAL
+// BOTÓN RETROCEDER → VOLVER
 // -------------------------------------------
 btnRetroceder.addEventListener("click", function () {
   window.location.href = "registroCargaManual.html";

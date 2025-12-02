@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UniRide - Viajes (Pasajero)</title>
+    <link rel="stylesheet" href="../../../../styles.css"/>
+    <link rel="stylesheet" href="../../css/pasajero/viajes_usuario.css"/>
+
+</head>
+<body>
+    <div class="viajes_pasajero">
+    <!-- Menú lateral -->
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <img src="../../../../assets/imgs/user_landing_icon.png" alt="">
+                <div>
+                    <h3 id="sidebarNombre" style="color: white; font-size: 16px; margin: 0;"> .</h3>
+                    <p style="color: #aaa; font-size: 12px; margin: 0;">Pasajero</p>
+                </div>
+            </div>
+
+            <div class="menu-title">MENU</div>
+
+            <div class="sidebar-nav">
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../../principal/pages/principalPasajero.html'">
+                    <img src="../../../../assets/icons/principal_icon_deactive_sidebar.svg" alt="Home">
+                    Principal
+                </div>
+
+                <div class="nav-item-sidebar active" onclick="window.location.href='./viajes_usuario.html'">
+                    <img src="../../../../assets/icons/viajes_icon_active_sidebar.svg" alt="Travel">
+                    <span>Viajes</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../../compensaciones/pages/compensacionesPasajeros.html'">
+                    <img src="../../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
+                    <span>Compensaciones y Pagos</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroOpciones.html'">
+                    <img src="../../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
+                    <span>Configuración</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="sidebar-footer" onclick="window.location.href='../../../iniciar_sesion/pages/inicioSesion.html'">
+            <img src="../../../../assets/icons/exit_icon_sidebar.svg" alt="Logout">
+            <span>Cerrar Sesión</span>
+        </div>
+    </div>
+
+     <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content">
+        <header class="header">
+            <h1 class="page-title">Viajes</h1>
+            <button class="add-trip-btn" id="addTripBtn">Encontrar Viajes</button>
+        </header>
+
+        <!-- VIAJES AGENDADOS -->
+       <section class="section">
+                <h3>Viajes Agendados</h3>
+                <table class="table scheduled-table">
+                    <thead>
+                        <tr>
+                            <th>Conductor</th>
+                            <th>Hora</th>
+                            <th>Fecha de salida</th>
+                            <th>Lugar de recojo</th>
+                            <th>Estado</th>
+                            <th>Ver detalles</th>
+                        </tr>
+                    </thead>
+                    <tbody class="viajes_agendados_confirmados">
+                         <tr>
+                        <td colspan="4" class="empty-table-message">
+                            No tienes viajes agendados por el momento.
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </section>
+            <!-- VIAJES PASADOS -->
+            <section class="section">
+                <h3>Viajes Pasados</h3>
+                <table class="table past-table">
+                    <thead>
+                        <tr>
+                            <th>Conductor</th>
+                            <th>Hora</th>
+                            <th>Fecha de salida</th>
+                            <th>Método de compensación</th>
+                            <th>Estado</th>
+                            <th>Calificación</th>
+                        </tr>
+                    </thead>
+                    <tbody class="viajes_pasados">
+                       <tr>
+                        <td colspan="4" class="empty-table-message">
+                            No tienes viajes pasados por el momento.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+    </main>
+    </div>
+    <script src="../../js/pasajero/viajes_usuario.js"></script>
+</body>
+</html>
+

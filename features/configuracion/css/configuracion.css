@@ -713,22 +713,25 @@ img {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+    gap: 20px;
 }
 
 .config-opciones button {
-    background-color: #718096;;
+    background-color: var(--primary-color);
     border: 0 0 0 2px solid black;
+    border-radius: 10px;
+    color: var(--white);
     padding: 15px 20px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: left;
-
 }
 
 .config-opciones button:hover {
     background: white;
+    color:var(--black);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }

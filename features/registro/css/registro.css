@@ -320,6 +320,7 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2) inset;
     transition: all 0.15s ease-out;
     background-color: #A0A1C8;
+    color: var(--white);
 }
 .group-btns{
     display: flex;

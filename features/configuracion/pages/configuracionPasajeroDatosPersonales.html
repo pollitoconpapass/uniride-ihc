@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>UniRide - Pasajero</title>
+    <link rel="stylesheet" href="../../../styles.css" />
+    <link rel="stylesheet" href="../css/configuracion.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRKX4T1V9D"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DRKX4T1V9D');
+    </script>
+</head>
+
+<body>
+    <!-- SIDEBAR-->
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <img src="../../../assets/imgs/user_landing_icon.png" alt="">
+                <div>
+                    <h3 id="sidebarNombre" style="color: white; font-size: 16px; margin: 0;"> .</h3>
+                    <p style="color: #aaa; font-size: 12px; margin: 0;">Pasajero</p>
+                </div>
+            </div>
+            
+            <div class="menu-title">MENU</div>
+            
+            <div class="sidebar-nav">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../principal/pages/principalPasajero.html'">
+                    <img src="../../../assets/icons/principal_icon_deactive_sidebar.svg" alt="Home">
+                    Principal
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/pasajero/viajes_usuario.html'">
+                    <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
+                    <span>Viajes</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionPasajeroHorarioManual.html'">
+                    <img src="../../../assets/icons/horarios_icon_deactive_sidebar.svg" alt="Horarios">
+                    <span>Horarios</span>
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='../../compensaciones/pages/compensacionesPasajeros.html'">
+                    <img src="../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
+                    <span>Compensaciones y Pagos</span>
+                </div>
+                
+                <div class="nav-item-sidebar active" onclick="window.location.href='../../configuracion/pages/configuracionPasajeroOpciones.html'">
+                    <img src="../../../assets/icons/configuracion_icon_active_sidebar.svg" alt="Settings">
+                    <span>Configuración</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar-footer" onclick="window.location.href='../../iniciar_sesion/pages/inicioSesion.html'">
+            <img src="../../../assets/icons/exit_icon_sidebar.svg" alt="Logout">
+            <span>Cerrar Sesión</span>
+        </div>
+    </div>
+
+
+    <main class="main-content">
+        <h1>Configuración de Perfil</h1>
+        <form class="registrate-form-1" name="registrate-form-1">
+            <div class="group-title">
+                <h3>Ingresa tus datos personales</h3>
+            </div>
+         <div class="group-inputs">
+            <div class="group-input-1">
+                <label for="nombres">
+                    Nombres
+                    <input type="text" placeholder="Ingrese sus nombres" name="input-nombres" />
+                </label>
+                <label for="apellido-materno">
+                    Apellido Materno
+                    <input type="text" placeholder="Ingrese su apellido materno" name="input-apellido-materno" />
+                </label>
+                <label for="nro-celular">
+                    Nro de Celular
+                    <input type="text" placeholder="Ingrese su numero de celular" name="input-numero-celular" />
+                </label>
+                <label for="universidad">
+                    Universidad
+                    <select name="universidades" id="id_universidad" placeholder="Seleccione su universidad">
+                        <option value ="UPC">Universidad Peruana de Ciencias Aplicadas</option>
+                        <option value ="ULIMA">Universidad de Lima</option>
+                        <option value ="PUCP">Pontificia Universidad Catolica Peruana</option>
+                        <option value ="SANMARCOS">Universidad San Narcos</option>
+                        <option value ="UNI">Universidad Nacional de Ingenieria</option>
+                    </select>
+                </label>
+            </div>
+            <div class="group-input-2">
+                 <label for="apellido-paterno">
+                    Apellido Paterno
+                    <input type="text" placeholder="Ingrese su apellido paterno" name="input-apellido-paterno" />
+                </label>
+                <label for="fecha-nacimiento">
+                    Fecha de Nacimiento
+                    <input type="date" name="bday" />
+                </label>
+                <label for="direccion-domicilio">
+                    Direccion de Domicilio
+                    <input type="text" placeholder="Ingrese su direccion" name="input-direccion-domicilio" />
+                </label>
+                <label for="carrera">
+                    Carrera
+                    <select name="carreras" id="id_carrera" placeholder="Ingrese su carrera">
+                        <option value ="Administracion">Administracion</option>
+                        <option value ="Ingenieria de Software">Ingenieria de Software</option>
+                        <option value ="Ingenieria de Sistemas">Ingenieria de Sistemas</option>
+                        <option value ="Derecho">Derecho</option>
+                        <option value ="Ciencias de la Computacion">Ciencias de la Computacion</option>
+                    </select>
+                </label>
+            </div>
+         </div> 
+         <div class="group-botones">
+            <button type="button" id="btn-regresar">Editar</button>
+            <button type="button" id="btn-guardar-cambios">Guardar Cambios</button>
+         </div>
+        </form>
+  </main>
+  <script src="../js/configuracionPasajeroDatosPersonales.js"></script>
+</body>

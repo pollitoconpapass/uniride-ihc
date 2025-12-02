@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // VIAJES
 const tripsKey = "uniride_trips";
 const tripsTableBody = document.getElementById("tripsTableBody")
-const storageViajes = 'viajesStorageConductor'
+const storageViajes = 'viajesGuardados'
 
 function getDayOfWeek(dateString){
   const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
@@ -182,22 +182,40 @@ function loadTrips() {
       <td colspan="5" style="text-align: center; padding: 40px; color: #666;">
         <img src="../../../assets/imgs/vacio.png" alt="Empty Image" style="width: 100px; margin-bottom: 20px;">
         <p style="font-size: 16px; margin: 0;">Aún no tienes viajes planeados.</p>
-        <p style="font-size: 14px; margin-top: 10px;">Ve a la sección de <a href="../../viajes/pages/viajes.html" style="color: #4F46E5; text-decoration: underline;">viajes</a> para agendar uno.</p>
+        <p style="font-size: 14px; margin-top: 10px;">Ve a la sección de <a href="../../viajes/pages/conductor/viajes_conductor.html" style="color: #4F46E5; text-decoration: underline;">viajes</a> para agendar uno.</p>
       </td>`
     tripsTableBody.appendChild(emptyRow)
   } else {
-    for (const trip of trips) {
+    for (let i = 0; i < trips.length; i++) { 
+      const trip = trips[i];
       const row = document.createElement("tr")
       row.innerHTML = `
         <td>${trip.fecha} ${trip.hora}</td>
         <td>${trip.ruta}</td>
         <td>${trip.pasajeros || 0}</td>
-        <td><img src="../../../assets/icons/ver_mas_icon.svg"></td>`
+        <td><img src="../../../assets/icons/ver_mas_icon.svg" class="ver-mas-icon" data-index="${i}" style="cursor: pointer;"></td>`
       tripsTableBody.appendChild(row)
     }
+
+    document.querySelectorAll('.ver-mas-icon').forEach(icon => {
+      icon.addEventListener('click', function() {
+        const index = parseInt(this.getAttribute('data-index'));
+        verDetalle(index);
+      });
+    });
   }
   
   document.getElementById("totalViajes").textContent = trips.length
+}
+
+function verDetalle(index) {
+    const viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
+    const viajeSeleccionado = viajes[index];
+
+    localStorage.setItem("viajeGuardado", JSON.stringify(viajeSeleccionado));
+    localStorage.setItem("viajeIndex", index);
+
+    window.location.href = "../../viajes/pages/conductor/informacion_viaje_conductor.html";
 }
 
 globalThis.addEventListener('DOMContentLoaded', function() {

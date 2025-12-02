@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>UniRide - Pasajero</title>
+    <link rel="stylesheet" href="../../../styles.css" />
+    <link rel="stylesheet" href="../css/configuracion.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRKX4T1V9D"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DRKX4T1V9D');
+    </script>
+</head>
+
+<body>
+    <!-- SIDEBAR-->
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <img src="../../../assets/imgs/user_landing_icon.png" alt="">
+                <div>
+                    <h3 id="sidebarNombre" style="color: white; font-size: 16px; margin: 0;"> .</h3>
+                    <p style="color: #aaa; font-size: 12px; margin: 0;">Pasajero</p>
+                </div>
+            </div>
+            
+            <div class="menu-title">MENU</div>
+            
+            <div class="sidebar-nav">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../principal/pages/principalPasajero.html'">
+                    <img src="../../../assets/icons/principal_icon_deactive_sidebar.svg" alt="Home">
+                    Principal
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/pasajero/viajes_usuario.html'">
+                    <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
+                    <span>Viajes</span>
+                </div>
+                
+                <div class="nav-item-sidebar active" onclick="window.location.href='../../configuracion/pages/configuracionPasajeroHorarioManual.html'">
+                    <img src="../../../assets/icons/horarios_icon_active_sidebar.svg" alt="Horarios">
+                    <span>Horarios</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../compensaciones/pages/compensacionesPasajeros.html'">
+                    <img src="../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
+                    <span>Compensaciones y Pagos</span>
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionPasajeroOpciones.html'">
+                    <img src="../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
+                    <span>Configuración</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar-footer" onclick="window.location.href='../../iniciar_sesion/pages/inicioSesion.html'">
+            <img src="../../../assets/icons/exit_icon_sidebar.svg" alt="Logout">
+            <span>Cerrar Sesión</span>
+        </div>
+    </div>
+
+
+    <main class="main-content">
+        <h1>Configuración de Horarios</h1>
+        <form class="registrate-form-1" name="registrate-form-1">
+            <div class="group-title">
+                <h3>Mis Cursos</h3>
+            </div>
+            <div class="group-btns">
+              <button type="button" id="btn-manual-carga-masiva" class="btn-manual">Manual</button>
+              <button type="button" id="btn-masiva-carga-masiva" class="btn-masiva">Masiva</button>
+            </div>
+            <button type="button" class="contenedor-adjuntar-img">
+                <img class="adjuntar-image"src="../../../assets/icons/adjuntar_archivo_icon.svg" alt="adjuntar archivo">
+                <p>Adjuntar tu horario en un documento o pdf</p>
+            </button>
+            <div class="group-input-botones">
+                <button type="button" id="btn-regresar" class = "btn_regresar">Ir a manual</button>
+            </div>
+        </form>
+  </main>
+  <!-- pdf.js SOLO para dibujar el PDF en un canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+  <!-- Tesseract.js para hacer OCR al canvas -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+  
+  <script src="../js/configuracionPasajeroHorarioMasiva.js"></script>
+</body>

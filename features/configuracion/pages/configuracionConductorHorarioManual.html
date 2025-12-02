@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>UniRide - Conductor</title>
+    <link rel="stylesheet" href="../../../styles.css" />
+    <link rel="stylesheet" href="../css/configuracion.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRKX4T1V9D"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DRKX4T1V9D');
+    </script>
+</head>
+
+<body>
+     <!-- SIDEBAR-->
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <img src="../../../assets/imgs/user_landing_icon.png" alt="">
+                <div>
+                    <h3 id="sidebarNombre" style="color: white; font-size: 16px; margin: 0;"> .</h3>
+                    <p style="color: #aaa; font-size: 12px; margin: 0;">Conductor</p>
+                </div>
+            </div>
+            
+            <div class="menu-title">MENU</div>
+            
+            <div class="sidebar-nav">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../principal/pages/principalConductor.html'">
+                    <img src="../../../assets/icons/principal_icon_deactive_sidebar.svg" alt="Home">
+                    <span>Principal</span>
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='../../viajes/pages/conductor/viajes_conductor.html'">
+                    <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
+                    <span>Viajes</span>
+                </div>
+                
+                <div class="nav-item-sidebar active" onclick="window.location.href='../../configuracion/pages/configuracionConductorHorarioManual.html'">
+                    <img src="../../../assets/icons/horarios_icon_active_sidebar.svg" alt="Horarios">
+                    <span>Horarios</span>
+                </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../rutas/pages/rutas.html'">
+                    <img src="../../../assets/icons/gestion_de_rutas_desactivado_sidebar.svg" alt="Routes">
+                    <span>Gestion de Rutas</span>
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='../../compensaciones/pages/compensaciones.html'">
+                    <img src="../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
+                    <span>Compensaciones y Pagos</span>
+                </div>
+                
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionConductorOpciones.html'">
+                    <img src="../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
+                    <span>Configuración</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar-footer" onclick="window.location.href='../../iniciar_sesion/pages/inicioSesion.html'">
+            <img src="../../../assets/icons/exit_icon_sidebar.svg" alt="Logout">
+            <span>Cerrar Sesión</span>
+        </div>
+    </div>
+
+
+    <main class="main-content">
+        <h1>Configuración de Horarios</h1>
+        <form class="registrate-form-1" name="registrate-form-carga-manual">
+            <div class="group-title">
+                <h3>Mis cursos</h3>
+            </div>
+            <div class="group-btns">
+              <button id="btn-manual-carga-manual" class="btn-manual" type="button">Manual</button>
+              <button id="btn-masiva-carga-manual" class="btn-masiva" type="button">Masiva</button>
+            </div>
+          <div class="listaCursos" id="listaCursos"></div>
+          <div class="grupo-botones-config">
+            <button type="button" id="btnGuardarCurso"class="btnGuardarCurso">Guardar</button>
+            <button type="button" id="btnAddCurso"class="btnAddCurso">Agregar Curso</button>
+          </div>
+        </form>
+  </main>
+    <div id="modal-curso" class="modal" hidden>
+        <label for="nombre-curso">
+            Nombre del curso
+            <input type="text" placeholder="Escribe el nombre del curso" name="input-nombre-curso" />
+        </label>
+        <label for="horario">
+            Horario
+            <div class="group-horario">
+                <input type="time" name="input-horario-inicio" />
+                <p>-</p>
+                <input type="time" name="input-horario-fin" />
+            </div>
+        </label>
+            <label for="horario">
+                Frecuencia
+                <div class="group-frecuencia">
+                    <button id = "lunes" type="button">L</button>
+                    <button id = "martes" type="button">M</button>
+                    <button id = "miercoles" type="button">Mi</button>
+                    <button id = "jueves" type="button">J</button>
+                    <button id = "viernes" type="button">V</button>
+                    <button id = "sabado" type="button">S</button>
+                    <button id="domingo" type="button">D</button>
+                </div>
+            </label>
+        <div class="grupo-botones-formulario">
+            <button id="btnCancelFormulario" class="btnCancel" type="button">Cancelar</button>
+            <button id="btnGuardarFormulario" class="btnGuardar" type="button">Guardar</button>
+        </div>
+    </div>
+    <script src="../js/configuracionConductorHorarioManual.js"></script>
+</body>
