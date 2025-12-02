@@ -1,3 +1,5 @@
+let currentUser = null;
+
 // INFO GENERAL
 document.addEventListener("DOMContentLoaded", () => {
     const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
@@ -8,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     const usuario = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+    currentUser = usuario;
 
     if (!usuario) {
         console.warn("No se encontró al usuario activo en la base de usuarios");
@@ -56,7 +59,8 @@ function getDayOfWeek(dateString){
 }
 
 function createGraphics(){
-  const trips = JSON.parse(localStorage.getItem(storageViajes)) || []
+  const allTrips = JSON.parse(localStorage.getItem(storageViajes)) || [];
+  const trips = allTrips.filter(t => t.idConductor === currentUser.id);
   
   const dayCount = {
     'Lunes': 0,
@@ -167,7 +171,8 @@ function createGraphics(){
 }
 
 function loadTrips() {
-  const trips = JSON.parse(localStorage.getItem(storageViajes)) || []
+  const allTrips = JSON.parse(localStorage.getItem(storageViajes)) || [];
+  const trips = allTrips.filter(t => t.idConductor === currentUser.id);
   
   tripsTableBody.innerHTML = ""
   
@@ -199,15 +204,3 @@ globalThis.addEventListener('DOMContentLoaded', function() {
   loadTrips()
   createGraphics()
 })
-
-
-/*
-localStorage.setItem('viajesStorageConductor', JSON.stringify([
-  {id: '1', fecha: '2024-11-18', hora: '08:00', ruta: 'Lima - San Isidro', pasajeros: 3},
-  {id: '2', fecha: '2024-11-19', hora: '09:00', ruta: 'Miraflores - Lima', pasajeros: 2},
-  {id: '3', fecha: '2024-11-20', hora: '07:30', ruta: 'Surco - Centro', pasajeros: 4},
-  {id: '4', fecha: '2024-11-18', hora: '17:00', ruta: 'Lima - Callao', pasajeros: 2}
-]));
-
-location.reload();
-*/
