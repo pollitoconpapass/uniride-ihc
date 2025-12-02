@@ -42,74 +42,76 @@
   background-color: #584ef7;
   transform: scale(1.08);
 }
-
-/* === CONTENEDOR DE SOLICITUDES === */
-/* Contenedor de cards centrado y con ancho limitado */
+/* === CONTENEDOR DE SOLICITUDES: CUADRÍCULA IZQUIERDA === */
 .solicitudes-list {
   display: flex;
-  flex-direction: column;
-  gap: 18px;
-  align-items: center; /* Centrado en móviles */
-  padding: 0 10px; /* Espaciado lateral en móviles */
+  flex-wrap: wrap; /* ✅ Permite que las cards se envuelvan */
+  gap: 20px; /* Espacio entre cards */
+  justify-content: flex-start; /* ✅ Alinea a la izquierda */
   margin-top: 20px;
-  width: 100%; /* Asegura ancho completo */
-  max-width: 1200px; /* Limita ancho máximo */
-  margin-left: auto;
-  margin-right: auto;
+  padding: 0; /* Elimina padding innecesario */
 }
 
-/* Card más pequeña y con ancho controlado */
+/* === CARD DE SOLICITUD MEJORADA === */
 .solicitud-card {
   background: #ffffff;
   border-radius: 16px;
-  padding: 18px 22px;
-  width: 100%;
-  max-width: 420px; /* Ancho máximo de card */
+  padding: 20px;
+  width: 280px; /* ✅ Más estrecha (ajustable) */
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.06);
   border: 1px solid #eaeaea;
   transition: 0.25s ease;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 }
 
 .solicitud-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.10);
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
 }
 
+/* Nombre del pasajero centrado */
 .solicitud-card h3 {
   margin: 0;
   font-size: 18px;
   color: #242424;
   font-weight: 600;
+  text-align: center; /* ✅ Centrado */
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0; /* Línea sutil */
 }
 
+/* Información del pasajero */
 .solicitud-card p {
   margin: 2px 0;
   font-size: 14px;
   color: #555;
+  text-align: left; /* Información alineada a la izquierda */
 }
 
-/* Acciones */
+/* Acciones: botones distribuidos */
 .solicitud-acciones {
   display: flex;
-  gap: 12px;
-  margin-top: 12px;
+  justify-content: space-between; /* ✅ Aceptar a la izq, Rechazar a la derecha */
+  margin-top: 8px;
+  gap: 8px;
 }
 
 .btn-aceptar,
 .btn-rechazar {
-  padding: 8px 18px;
-  border-radius: 10px;
+  padding: 8px 16px;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   border: none;
   transition: 0.2s ease;
+  flex: 1; /* Opcional: para que tengan el mismo ancho */
+  min-width: 80px;
 }
 
-/* Botón aceptar */
+/* Botón aceptar (izquierda) */
 .btn-aceptar {
   background: #28a745;
   color: #fff;
@@ -117,10 +119,10 @@
 
 .btn-aceptar:hover {
   background: #218838;
-  transform: scale(1.05);
+  transform: translateY(-2px);
 }
 
-/* Botón rechazar */
+/* Botón rechazar (derecha) */
 .btn-rechazar {
   background: #dc3545;
   color: #fff;
@@ -128,8 +130,37 @@
 
 .btn-rechazar:hover {
   background: #c82333;
-  transform: scale(1.05);
+  transform: translateY(-2px);
 }
+
+/* === Mensaje de cupo completo: CENTRADO Y ESTILIZADO === */
+.mensaje-cupo {
+  text-align: center;
+  padding: 24px 32px;
+  background-color: #d4edda; /* Fondo verde suave (como éxito) */
+  border: 1px solid #c3e6cb; /* Borde verde claro */
+  border-radius: 12px; /* Bordes redondeados */
+  margin: 30px auto; /* Centrado + margen vertical */
+  color: #155724; /* Texto verde oscuro */
+  font-size: 1.1rem;
+  font-weight: 600;
+  max-width: 600px; /* Ancho máximo controlado */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra suave */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mensaje-cupo h3 {
+  margin: 0 0 8px;
+  font-size: 1.3rem;
+  color: #155724;
+}
+
+.mensaje-cupo p {
+  margin: 0;
+  font-weight: 500;
+}
+
 
 /* === MODALES === */
 .modal {

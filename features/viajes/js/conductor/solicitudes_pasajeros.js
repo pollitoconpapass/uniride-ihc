@@ -37,18 +37,17 @@ document.addEventListener("DOMContentLoaded", () => {
         r.estado === "pendiente"
     );
 
-    // ✅ Verificar si el cupo está lleno
     const cupoLleno = viaje.pasajerosActuales >= viaje.pasajeros;
 
     if (cupoLleno) {
-        contenedor.innerHTML = `
-            <div class="mensaje-cupo">
-                <h3>✅ Cupo completo</h3>
-                <p>Has alcanzado el máximo de <strong>${viaje.pasajeros} pasajeros</strong>.</p>
-                <p>No puedes aceptar más solicitudes para este viaje.</p>
-            </div>
+       document.getElementById("mensaje-global").innerHTML = `
+         <div class="mensaje-cupo">
+           <h3>✅ Cupo completo</h3>
+          <p>Has alcanzado el máximo de <strong>${viaje.pasajeros} pasajeros</strong>.</p>
+         <p>No puedes aceptar más solicitudes para este viaje.</p>
+         </div>
         `;
-        return;
+return;
     }
 
     if (reservasFiltradas.length === 0) {
@@ -79,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // === ACEPTAR ===
     document.querySelectorAll(".btn-aceptar").forEach(btn => {
         btn.addEventListener("click", () => {
-            // ✅ Verificar cupo en tiempo real (por si hay cambios)
+            // Verificar cupo en tiempo real
             const viajeActual = JSON.parse(localStorage.getItem("viajeSeleccionadoParaSolicitudes"));
             if (viajeActual.pasajerosActuales >= viajeActual.pasajeros) {
                 alert("No se pueden aceptar más pasajeros. El cupo está lleno.");
@@ -113,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Mostrar modal
             modalAceptar.style.display = "flex";
 
-            // ✅ Si ahora el cupo está lleno, desactivar otros botones
+            //desactivar otros botones
             if (viaje.pasajerosActuales >= viaje.pasajeros) {
                 document.querySelectorAll(".btn-aceptar, .btn-rechazar").forEach(b => {
                     b.disabled = true;

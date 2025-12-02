@@ -7,6 +7,18 @@
   color: var(--text-color);
 }
 
+.header {
+  position: static !important;
+  top: auto !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  z-index: auto !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
 /* Título de la página */
 .page-title {
   font-size: 1.8rem;
@@ -32,14 +44,6 @@
   background-color: #4338ca; 
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
-
 .section {
   background: white;
   border-radius: 16px;
@@ -55,7 +59,6 @@
   color: var(--gray-900);
 }
 
-/* Tablas */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -68,7 +71,9 @@ td {
   text-align: left;
   font-size: 0.95rem;
   vertical-align: middle;
-  word-break: break-word; 
+  white-space: normal;
+  word-wrap: break-word;
+  min-width: 100px;
 }
 
 th {
@@ -99,6 +104,48 @@ tbody tr:hover {
   font-style: italic;
 }
 
+#viajes_pasados_total td:nth-child(4),
+#viajes_pasados_total th:nth-child(4) {
+  text-align: center;
+}
+/* estado */
+.estado {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  min-width: 80px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.estado-pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.estado-en-curso {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+.estado-cancelado,
+.estado-rechazado {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.estado-finalizado,
+.estado-completado {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
 /* Botones dentro de tablas */
 .table-btn {
   padding: 6px 12px;
@@ -122,7 +169,7 @@ tbody tr:hover {
   transform: translateY(0);
 }
 
-/*Form al agregar viaje*/
+/* === Modal: Agregar Viaje === */
 .modal {
   display: none; 
   position: fixed;
@@ -208,6 +255,15 @@ tbody tr:hover {
   text-decoration: underline;
 }
 
+/* Centrar contenido en las tablas */
+#viajes_planeados_total th,
+#viajes_planeados_total td,
+#viajes_pasados_total th,
+#viajes_pasados_total td {
+  text-align: center;
+}
+
+
 /* Botones del modal */
 .btn {
   padding: 10px 20px;
@@ -243,12 +299,10 @@ tbody tr:hover {
   margin-top: 20px;
 }
 
-/* RESPONSIVE */
-
-/* Para tablets y pantallas medianas */
+/* === RESPONSIVE === */
 @media (max-width: 1024px) {
   .main-content {
-    margin-left: 200px; /* Ajusta según el ancho colapsado del sidebar */
+    margin-left: 200px;
     padding: 20px 25px;
   }
 
@@ -272,13 +326,6 @@ tbody tr:hover {
     margin-bottom: 25px;
   }
 
-  th,
-  td {
-    padding: 12px 14px;
-    font-size: 0.9rem;
-  }
-
-  /* Ajustes para tablas en pantallas medianas */
   table {
     display: block;
     overflow-x: auto;
@@ -292,61 +339,14 @@ tbody tr:hover {
   }
 }
 
-/* Para móviles grandes - Sidebar colapsado a 60px */
 @media (max-width: 768px) and (min-width: 481px) {
   .main-content {
-    margin-left: 60px; /* Ancho del sidebar colapsado */
+    margin-left: 60px;
     padding: 15px 20px;
-  }
-
-  .page-title {
-    font-size: 1.5rem;
   }
 
   .header {
     margin-bottom: 18px;
-  }
-
-  .section {
-    padding: 18px;
-    margin-bottom: 20px;
-  }
-
-  .section h3 {
-    font-size: 1.25rem;
-  }
-
-  th,
-  td {
-    padding: 10px 12px;
-    font-size: 0.85rem;
-  }
-
-  .table-btn {
-    padding: 5px 10px;
-    font-size: 0.8rem;
-  }
-
-  /* Ajustes para formularios en móviles */
-  .modal {
-    padding: 20px;
-  }
-
-  .modal-content {
-    width: 95%;
-    max-width: 95%;
-    padding: 20px;
-  }
-
-  .modal-content h2 {
-    font-size: 1.3rem;
-    margin-bottom: 16px;
-  }
-
-  .form-group input,
-  .form-group select {
-    padding: 10px;
-    font-size: 0.95rem;
   }
 
   .action-buttons {
@@ -357,70 +357,16 @@ tbody tr:hover {
 
   .btn {
     width: 100%;
-    padding: 12px 20px;
-    text-align: center;
   }
 }
 
-/* Para móviles pequeños - Sidebar oculto */
 @media (max-width: 480px) {
   .main-content {
     margin-left: 0;
     padding: 12px 15px;
-    width: 100%;
   }
 
-  .page-title {
-    font-size: 1.4rem;
-  }
-
-  .section {
-    padding: 15px;
-  }
-
-  .section h3 {
-    font-size: 1.2rem;
-  }
-
-  th,
-  td {
-    padding: 8px 10px;
-    font-size: 0.8rem;
-  }
-
-  .add-trip-btn {
-    padding: 8px 16px;
-    font-size: 0.95rem;
-  }
-
-  .modal-content {
-    padding: 16px;
-  }
-
-  .modal-content h2 {
-    font-size: 1.2rem;
-  }
-
-  .form-group {
-    margin-bottom: 15px;
-  }
-
-  .form-group label {
-    font-size: 0.9rem;
-  }
-
-  .form-group input,
-  .form-group select {
-    padding: 9px;
-    font-size: 0.9rem;
-  }
-
-  .additional-link {
-    font-size: 0.8rem;
-  }
-
-  .btn {
-    padding: 10px 16px;
-    font-size: 0.95rem;
+  table {
+    white-space: normal; 
   }
 }

@@ -102,7 +102,6 @@ guardarBtn.addEventListener("click", (e) => {
         return;
     }
 
-    // Resto de tu lógica de guardado...
     const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     const conductor = usuarios.find(u => u.id === usuarioActivo.id_usuario);
@@ -183,7 +182,11 @@ function loadPlannedTrips() {
                 <td>${viaje.ruta}</td>
                 <td>${viaje.pasajerosActuales || 0} / ${viaje.pasajeros}</td>
                 <td><button class="table-btn" onclick="verSolicitudPorId(${viaje.id})">Ver</button></td>
-                <td>${viaje.estado}</td>
+                <td>
+                <span class="estado estado-${viaje.estado.toLowerCase().replace(/\s+/g, '-')}">
+                    ${viaje.estado}
+                </span>
+                </td>
                 <td><button class="table-btn" onclick="verDetallePorId(${viaje.id})">Detalles</button></td>
             </tr>
         `;
