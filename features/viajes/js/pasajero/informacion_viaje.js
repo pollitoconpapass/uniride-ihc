@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("trip-date").textContent = viaje.fecha || "No especificada";
 
     // Poblar los puntos de recogida
-    const pickupCard = document.querySelector(".pickup-card");
+    const pickupContainer = document.getElementById("pickup-list-container");
     if (viaje.puntosRecogida && Array.isArray(viaje.puntosRecogida)) {
         const list = document.createElement("ul");
         list.className = "pickup-list";
@@ -48,26 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
             item.textContent = punto;
             list.appendChild(item);
         });
-        pickupCard.appendChild(list);
+        pickupContainer.appendChild(list);
     } else {
-        pickupCard.innerHTML += "<p>No hay puntos de recogida especificados.</p>";
-    }
-
-    // Lógica para los botones de acción (ej. reservar, conversar)
-    const reserveBtn = document.querySelector(".cta-group .btn-primary");
-    if (reserveBtn) {
-        // La reserva se maneja en la página anterior, este botón podría llevar a una confirmación
-        // o simplemente ser un placeholder. Por ahora, lo dejaremos como está.
-        // Opcional: Ocultarlo si la lógica de reserva no aplica aquí.
-        reserveBtn.style.display = 'none';
-    }
-    
-    const chatBtn = document.querySelector(".cta-group .btn-secondary");
-    if (chatBtn) {
-        // Aquí se podría añadir la lógica para iniciar un chat
-        chatBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            alert("Funcionalidad de chat no implementada.");
-        });
+        pickupContainer.innerHTML = "<p>No hay puntos de recogida especificados.</p>";
     }
 });
