@@ -1,3 +1,22 @@
+// Google Analytics
+document.addEventListener('DOMContentLoaded', function() {
+    const buttonClasses = [
+        { class: '.add-route-btn', label: 'add_route' }
+    ];
+
+    buttonClasses.forEach(function(btn) {
+        document.querySelectorAll(btn.class).forEach(function(button) {
+            button.addEventListener('click', function() {
+                gtag('event', 'button_click', {
+                    'event_category': 'engagement',
+                    'event_label': btn.label
+                });
+            });
+        });
+    });
+});
+
+// Variables globales
 let currentUser = null;
 let currentSort = 'asc'; // 'asc' -> A-Z, 'desc' -> Z-A
 let allRoutes = [];

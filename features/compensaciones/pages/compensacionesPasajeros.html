@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Pagos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRKX4T1V9D"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DRKX4T1V9D');
+    </script>
+    
     <style>
         :root {
             --primary-color: #8E8CC7;
@@ -379,7 +388,7 @@
             0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); }
             70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
             100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
-        }
+        }   
         
         @keyframes success-pulse {
             0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.6); }
@@ -427,13 +436,18 @@
                     <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
                     <span>Viajes</span>
                 </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionPasajeroHorarioManual.html'">
+                    <img src="../../../assets/icons/horarios_icon_deactive_sidebar.svg" alt="Horarios">
+                    <span>Horarios</span>
+                </div>
                 
                 <div class="nav-item-sidebar active" onclick="window.location.href='./compensacionesPasajeros.html'">
                     <img src="../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
                     <span>Compensaciones y Pagos</span>
                 </div>
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionPasajeroOpciones.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionPasajeroDatosPersonales.html'">
                     <img src="../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
                     <span>Configuración</span>
                 </div>

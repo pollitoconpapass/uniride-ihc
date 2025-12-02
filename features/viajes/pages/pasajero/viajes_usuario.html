@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="../../../../styles.css"/>
     <link rel="stylesheet" href="../../css/pasajero/viajes_usuario.css"/>
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRKX4T1V9D"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DRKX4T1V9D');
+    </script>
 </head>
 <body>
     <div class="viajes_pasajero">
@@ -35,12 +42,17 @@
                     <span>Viajes</span>
                 </div>
 
+                <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroHorarioManual.html'">
+                    <img src="../../../../assets/icons/horarios_icon_deactive_sidebar.svg" alt="Horarios">
+                    <span>Horarios</span>
+                </div>
+
                 <div class="nav-item-sidebar" onclick="window.location.href='../../../compensaciones/pages/compensacionesPasajeros.html'">
                     <img src="../../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
                     <span>Compensaciones y Pagos</span>
                 </div>
 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroOpciones.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroDatosPersonales.html'">
                     <img src="../../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
                     <span>Configuración</span>
                 </div>

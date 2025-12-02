@@ -1,3 +1,22 @@
+// Google Analytics
+document.addEventListener('DOMContentLoaded', function() {
+  const buttonIds = [
+    'addTripBtn'
+  ];
+
+  buttonIds.forEach(function(buttonId) {
+    const button = document.getElementById(buttonId);
+    if (button) {
+      button.addEventListener('click', function() {
+        gtag('event', 'button_click', {
+          'event_category': 'engagement',
+          'event_label': buttonId
+        });
+      });
+    }
+  });
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     
     // Botón para encontrar nuevos viajes

@@ -1,3 +1,24 @@
+// Google Analytics
+document.addEventListener('DOMContentLoaded', function() {
+  const buttonIds = [
+    'btnAddCurso',
+    'btnGuardarCurso'
+  ];
+
+  buttonIds.forEach(function(buttonId) {
+    const button = document.getElementById(buttonId);
+    if (button) {
+      button.addEventListener('click', function() {
+        gtag('event', 'button_click', {
+          'event_category': 'engagement',
+          'event_label': buttonId
+        });
+      });
+    }
+  });
+});
+
+
 console.log("JS de configuracionConductorHorarioManual.js CARGADO");
 
 const btnManual = document.getElementById("btn-manual-carga-manual");
