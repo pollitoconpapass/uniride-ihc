@@ -1,3 +1,4 @@
+/* Contenedor principal */
 .main-content {
   margin-left: 270px;
   padding: 30px 40px;
@@ -18,12 +19,42 @@
   flex: 1;
 }
 
-.section {
-  background: white;
-  border-radius: 16px;
-  padding: 24px;
+/* Cabecera con botón de regreso */
+.page-header-informacion {
+  display: flex;
+  gap: 20px;
+  align-items: center;
   margin-bottom: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.back-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.back-icon:hover {
+  transform: scale(1.1);
+}
+
+.back-icon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* === SECTION & GRID === */
+.section {
+  background: transparent; /* Transparente para que las cards resalten */
+  padding: 0;
+  margin-bottom: 30px;
+  box-shadow: none;
 }
 
 .section h3 {
@@ -33,59 +64,164 @@
   color: var(--gray-900);
 }
 
-/* Tablas */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 8px;
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
 }
 
-th,
-td {
-  padding: 14px 16px;
-  text-align: left;
-  font-size: 0.95rem;
-  vertical-align: middle;
-  word-break: break-word; 
-}
-
-th {
-  background-color: var(--gray-200);
-  color: var(--gray-700);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 0.85rem;
-}
-
-tbody tr {
-  border-bottom: 1px solid var(--gray-200);
-}
-tbody tr:last-child {
-  border-bottom: none;
-}
-
-tbody tr:hover {
-  background-color: var(--gray-50); 
-}
-
-.empty-table-message {
-  text-align: center;
+/* === CARD DESIGN === */
+.trip-card-item {
+  background: white;
+  border-radius: 16px;
   padding: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid transparent;
+}
+
+.trip-card-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+  border-color: #e0e0e0;
+}
+
+/* Header de la tarjeta */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.driver-info h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--gray-900);
+}
+
+.driver-info .uni-dest {
+  font-size: 0.85rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  display: block;
+  margin-top: 2px;
+}
+
+.price-badge {
+  background-color: #f0f9ff;
+  color: #0284c7;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* Cuerpo de la tarjeta */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.info-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #94a3b8;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--gray-800);
+  font-weight: 500;
+}
+
+/* Footer de botones */
+.card-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  display: flex;
+  gap: 10px;
+}
+
+.reserve-btn {
+  flex: 1;
+  padding: 10px;
+  background: linear-gradient(90deg, #6c63ff 0%, #8979ff 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 10px rgba(108, 99, 255, 0.2);
+}
+
+.reserve-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(108, 99, 255, 0.3);
+}
+
+.details-btn {
+  flex: 1;
+  padding: 10px;
+  background-color: white;
+  color: var(--gray-700);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.details-btn:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* Estados vacíos */
+.empty-state-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px;
+  background: white;
+  border-radius: 20px;
   color: var(--gray-500);
   font-style: italic;
+  border: 2px dashed #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-/* === MODAL REDISEÑADO === */
+/* === MODAL === (Mantenemos el rediseño anterior) */
 .modal-overlay {
-    display: none; /* Oculto por defecto */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(5px); /* Efecto blur estético */
+    backdrop-filter: blur(5px);
     justify-content: center;
     align-items: center;
     z-index: 2000;
@@ -93,7 +229,6 @@ tbody tr:hover {
     transition: opacity 0.3s ease;
 }
 
-/* Clase auxiliar para mostrar con animación */
 .modal-overlay[style*="display: flex"] {
     opacity: 1;
 }
@@ -134,7 +269,6 @@ tbody tr:hover {
     color: var(--gray-900);
 }
 
-/* Inputs y Selects */
 .modal-content label {
     display: block;
     font-weight: 600;
@@ -153,7 +287,7 @@ tbody tr:hover {
     background-color: #f8fafc;
     color: var(--gray-800);
     transition: all 0.2s;
-    box-sizing: border-box; /* Para que el padding no rompa el ancho */
+    box-sizing: border-box;
 }
 
 .modal-content select:focus,
@@ -164,7 +298,6 @@ tbody tr:hover {
     box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
 }
 
-/* Botones del Modal */
 .modal-buttons {
     display: flex;
     gap: 12px;
@@ -208,133 +341,4 @@ tbody tr:hover {
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
-}
-
-/* Estilos de la copia de seguridad para la tarjeta de conductores y botones */
-.drivers-card {
-    background-color: #ffffff;
-    border-radius: 28px;
-    padding: 26px 30px;
-    box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
-}
-
-.drivers-card header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 22px;
-}
-
-.drivers-card h2 {
-    font-size: 22px;
-    font-weight: 700;
-    color: #1e293b;
-}
-
-.filters {
-    display: flex;
-    gap: 12px;
-}
-
-.filters button {
-    border: none;
-    border-radius: 10px;
-    padding: 8px 14px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #475569;
-    background-color: #edf2ff;
-    cursor: pointer;
-}
-
-.filters button.active {
-    background: linear-gradient(90deg, #6c63ff 0%, #8673ff 100%);
-    color: #fff;
-}
-
-.drivers-card table .reserve-btn {
-    padding: 8px 16px;
-    border-radius: 10px;
-    border: none;
-    font-weight: 600;
-    font-size: 13px;
-    background: linear-gradient(90deg, #6c63ff 0%, #8979ff 100%);
-    color: #fff;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.drivers-card table .reserve-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 12px 24px rgba(108, 99, 255, 0.28);
-}
-
-.details-btn {
-    border: none;
-    border-radius: 10px;
-    padding: 8px 14px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #475569;
-    background-color: #edf2ff;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.details-btn:hover {
-    background-color: #e0e7ff;
-}
-
-.availability-pill {
-    padding: 6px 14px;
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 13px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.availability-pill.good {
-    background-color: rgba(34, 197, 94, 0.12);
-    color: #15803d;
-}
-
-.availability-pill.medium {
-    background-color: rgba(251, 191, 36, 0.16);
-    color: #c2410c;
-}
-
-.availability-pill.low {
-    background-color: rgba(239, 68, 68, 0.16);
-    color: #b91c1c;
-}
-
-.drivers-card .action-icon {
-    background-color: rgba(148, 163, 184, 0.16);
-    color: #1e293b;
-}
-
-.drivers-card .action-icon:hover {
-    border-color: #1e293b;
-}
-
-.back-icon {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.back-icon:hover {
-  transform: scale(1.1);
-}
-
-.back-icon img {
-  width: 100%;
-  height: 100%;
-  display: block;
 }

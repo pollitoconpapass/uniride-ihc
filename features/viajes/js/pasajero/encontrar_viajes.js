@@ -18,8 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const universidadPasajero = dp.universidad;
 
-    const tbody = document.getElementById("pasajeros-confirmados");
-
+    const container = document.getElementById("viajes-container"); // Nuevo contenedor de grid
 
     const todosLosViajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
     const misReservas = JSON.parse(localStorage.getItem("reservas")) || [];
@@ -31,51 +30,82 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Mapeamos para conservar el índice original antes de filtrar
     const viajes = todosLosViajes
-        .map((viaje, originalIndex) => ({ ...viaje, originalIndex }))
-        .filter(viaje => 
-            viaje.universidadConductor === universidadPasajero &&
-            viaje.estado === "Pendiente" &&
-            !viajesReservadosIndices.includes(String(viaje.originalIndex)) // Filtramos si ya está reservado (comparando string por si acaso)
-        );
+        .map((viaje, originalIndex) => {
+            if (!viaje) return null;
+            return { ...viaje, originalIndex };
+        })
+        .filter(viaje => {
+            if (!viaje) return false;
 
-    if (viajes.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="7" class="empty-table-message">
-                    No hay viajes disponibles de tu universidad.
-                </td>
-            </tr>
-        `;
-        // No hacemos return aquí para no romper listeners de modales si hubiera
-    } else {
-        tbody.innerHTML = "";
+            const uniConductor = (viaje.universidadConductor || "").trim().toLowerCase();
+            const uniPasajero = (universidadPasajero || "").trim().toLowerCase();
 
-        viajes.forEach((viaje) => {
-            const row = document.createElement("tr");
-    
-            const puntosTexto = Array.isArray(viaje.puntosRecogida)
-                ? viaje.puntosRecogida.join(", ")
-                : viaje.puntosRecogida || "—";
-    
-            row.innerHTML = `
-                <td>${viaje.conductor}</td>
-                <td>${viaje.universidadConductor || "—"}</td>
-                <td>${puntosTexto}</td>
-                <td>${viaje.fecha}</td>
-                <td>${viaje.hora}</td>
-                <td>
+            // Filtramos por universidad, estado Pendiente y que el usuario no lo haya reservado aún
+            return uniConductor === uniPasajero &&
+                   viaje.estado === "Pendiente" &&
+                   !viajesReservadosIndices.includes(String(viaje.originalIndex));
+        });
+
+    // console.log(`[Debug] Buscando viajes para: '${universidadPasajero}'. Encontrados: ${viajes.length}`);
+
+
+    function generarTarjetaHTML(viaje) {
+        const puntosTexto = Array.isArray(viaje.puntosRecogida)
+            ? viaje.puntosRecogida.join(", ")
+            : viaje.puntosRecogida || "—";
+
+        // Universidad destino (si no tiene, mostramos la del conductor que es la misma del filtro)
+        const destinoFinal = viaje.universidadConductor || "Universidad";
+
+        return `
+            <div class="trip-card-item">
+                <div class="card-header">
+                    <div class="driver-info">
+                        <h4>${viaje.conductor}</h4>
+                        <span class="uni-dest">Hacia: ${destinoFinal}</span>
+                    </div>
+                    <!-- Podríamos poner precio si existiera -->
+                </div>
+                
+                <div class="card-body">
+                    <div class="info-group">
+                        <span class="info-label">Salida</span>
+                        <div class="info-row">
+                            📅 ${viaje.fecha} - ⏰ ${viaje.hora}
+                        </div>
+                    </div>
+                    
+                    <div class="info-group">
+                        <span class="info-label">Puntos de Recogida</span>
+                        <div class="info-row">
+                            📍 ${puntosTexto}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
                     <button class="reserve-btn" data-index="${viaje.originalIndex}">
                         Reservar
                     </button>
-                </td>
-                <td>
                     <button class="details-btn" data-index="${viaje.originalIndex}">
                         Ver detalles
                     </button>
-                </td>
-            `;
-    
-            tbody.appendChild(row);
+                </div>
+            </div>
+        `;
+    }
+
+    if (viajes.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state-message">
+                <p>No hay viajes disponibles de tu universidad en este momento.</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Intenta buscar más tarde o crea uno nuevo si eres conductor.</p>
+            </div>
+        `;
+    } else {
+        container.innerHTML = "";
+        viajes.forEach((viaje) => {
+            container.innerHTML += generarTarjetaHTML(viaje);
         });
     }
 
@@ -95,8 +125,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let seleccion = null;
 
-    // Delegación de eventos para botones dinámicos (mejor práctica)
-    tbody.addEventListener('click', (e) => {
+    // Delegación de eventos para botones dinámicos
+    container.addEventListener('click', (e) => {
         if (e.target.classList.contains('reserve-btn')) {
             const index = e.target.dataset.index; // Es el originalIndex
             const viaje = todosLosViajes[index];
@@ -134,7 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const metodosConMonto = ["efectivo", "yape", "gasolina", "almuerzo"];
         if (metodosConMonto.includes(e.target.value)) {
             campoMonto.style.display = "block";
-            // Opcional: Cambiar el placeholder según el método para mejor UX
             if (e.target.value === "gasolina" || e.target.value === "almuerzo") {
                 modalMonto.placeholder = "Ingrese el valor aproximado (S/)";
             } else {
@@ -206,10 +235,6 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.style.display = "none";
         alert("Reserva realizada exitosamente.");
         
-        // Recargar la página para actualizar la tabla (el viaje reservado seguirá en estado 'pendiente' en reservas, 
-        // pero la lógica actual de 'encontrar_viajes' no filtra los que ya reservé, solo filtra por estado del viaje global.
-        // Si se quisiera ocultar YA, habría que filtrar también los que el usuario ya reservó.
-        // Asumiremos por ahora que recargar es suficiente según la práctica habitual del proyecto).
         location.reload(); 
     });
 });

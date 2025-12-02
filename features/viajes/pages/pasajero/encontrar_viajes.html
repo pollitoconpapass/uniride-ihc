@@ -60,31 +60,15 @@
             <h1 class="page-title">Viajes / Encontrar viajes</h1>
         </div>    
     <!-- PASAJEROS -->
-        <section class="section drivers-card">
+        <section class="section">
             <h3>Viajes de los conductores</h3>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombres</th>
-                        <th>Destino Final</th>
-                        <th>Lugar de recojo</th>
-                        <th>Fecha de inicio</th>
-                        <th>Hora</th>
-                        <th>Reservar</th>
-                        <th>Ver detalles</th>
-                    </tr>
-                </thead>
-
-                <tbody id="pasajeros-confirmados">
-                    <tr>
-                        <td colspan="7" class="empty-table-message">
-                            No hay viajes publicados por el conductor
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
+            
+            <div id="viajes-container" class="cards-grid">
+                <!-- Aquí se inyectan las tarjetas desde JS -->
+                <div class="empty-state-message">
+                    Cargando viajes disponibles...
+                </div>
+            </div>
         </section>
 
 <!-- MODAL DE RESERVA -->
