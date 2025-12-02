@@ -44,11 +44,11 @@
 }
 
 .section {
-  background: white;
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  /* Quitamos el fondo blanco de la sección para que las cards resalten sobre el gris */
+  background: transparent; 
+  padding: 0;
+  margin-bottom: 40px;
+  box-shadow: none;
 }
 
 .section h3 {
@@ -58,100 +58,161 @@
   color: var(--gray-900);
 }
 
-/* Tablas */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 8px;
+/* === GRID SYSTEM === */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
 }
 
-th,
-td {
-  padding: 14px 16px;
-  text-align: left;
-  font-size: 0.95rem;
-  vertical-align: middle;
-  word-break: break-word; 
+/* === CARD DESIGN === */
+.trip-card-item {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid transparent;
 }
 
-th {
-  background-color: var(--gray-200);
-  color: var(--gray-700);
-  font-weight: 600;
+.trip-card-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+  border-color: #e0e0e0;
+}
+
+/* Header de la tarjeta (Conductor + Estado) */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.driver-info h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--gray-900);
+}
+
+.driver-info span {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+}
+
+/* Badges de estado */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  font-size: 0.85rem;
 }
 
-tbody tr {
-  border-bottom: 1px solid var(--gray-200);
-}
-tbody tr:last-child {
-  border-bottom: none;
+.status-badge.pendiente {
+  background-color: #fff3cd;
+  color: #856404;
 }
 
-tbody tr:hover {
-  background-color: var(--gray-50); 
+.status-badge.aceptado, .status-badge.aprobado {
+  background-color: #d4edda;
+  color: #155724;
 }
- 
-.empty-table-message {
+
+.status-badge.cancelado {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Detalles de la tarjeta (Fecha, Ruta, etc.) */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--gray-700);
+}
+
+.info-row .icon {
+  font-size: 1.1rem;
+  width: 20px;
   text-align: center;
-  padding: 24px;
-  color: var(--gray-500);
-  font-style: italic;
+  color: var(--accent-color);
 }
 
-/* Estilos para la fila de detalles in-page */
-.trip-details-row td {
-    padding: 0;
-    background-color: #f8f9ff;
+.info-label {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: -4px; /* Pegadito al valor */
+    display: block;
 }
 
-.trip-details-card {
-    padding: 24px;
-    margin: 10px 20px;
-    background-color: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.07);
-    border: 1px solid #eef1f8;
-}
-
-.trip-details-card h4 {
-    font-size: 1.2rem;
-    margin-bottom: 16px;
-    color: #6c63ff;
-}
-
-.trip-details-card p {
-    margin-bottom: 8px;
-    line-height: 1.6;
-}
-
-.trip-details-card .close-details-btn {
-    margin-top: 16px;
-    padding: 8px 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f1f1f1;
-    cursor: pointer;
+/* Footer de la tarjeta (Botón) */
+.card-footer {
+  margin-top: auto; /* Empuja el botón al final */
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
 }
 
 /* Estilos para el botón Ver detalles */
 .details-btn {
-  padding: 8px 12px;
-  background-color: var(--accent-color); /* Usar el color principal del tema */
-  color: white;
-  border: none;
+  width: 100%;
+  padding: 10px;
+  background-color: var(--white);
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
   border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-  min-width: 100px; /* Para que todos tengan un tamaño similar */
+  transition: all 0.2s ease;
   text-align: center;
-  display: inline-block; /* Para que padding y width funcionen bien */
 }
 
 .details-btn:hover {
-  background-color: #4338ca; /* Un tono un poco más oscuro */
+  background-color: var(--accent-color);
+  color: white;
+}
+
+/* Estilos para el botón Cancelar */
+.cancel-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #fff1f2;
+  color: #be123c;
+  border: 1px solid #fecdd3;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.cancel-btn:hover {
+  background-color: #ffe4e6;
+  border-color: #fda4af;
+}
+
+.empty-state-message {
+  grid-column: 1 / -1; /* Ocupa todo el ancho */
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border-radius: 16px;
+  color: var(--gray-500);
+  font-style: italic;
+  border: 2px dashed #e0e0e0;
 }

@@ -131,8 +131,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Mostrar/ocultar campo de monto
     modalMetodo.addEventListener("change", (e) => {
-        if (e.target.value === "efectivo" || e.target.value === "yape") {
+        const metodosConMonto = ["efectivo", "yape", "gasolina", "almuerzo"];
+        if (metodosConMonto.includes(e.target.value)) {
             campoMonto.style.display = "block";
+            // Opcional: Cambiar el placeholder según el método para mejor UX
+            if (e.target.value === "gasolina" || e.target.value === "almuerzo") {
+                modalMonto.placeholder = "Ingrese el valor aproximado (S/)";
+            } else {
+                modalMonto.placeholder = "Ingrese el monto (S/)";
+            }
         } else {
             campoMonto.style.display = "none";
             modalMonto.value = "";

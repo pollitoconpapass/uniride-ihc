@@ -64,49 +64,23 @@
         <!-- VIAJES AGENDADOS -->
        <section class="section">
                 <h3>Viajes Agendados</h3>
-                <table class="table scheduled-table">
-                    <thead>
-                        <tr>
-                            <th>Conductor</th>
-                            <th>Hora</th>
-                            <th>Fecha de salida</th>
-                            <th>Lugar de recojo</th>
-                            <th>Estado</th>
-                            <th>Ver detalles</th>
-                        </tr>
-                    </thead>
-                    <tbody class="viajes_agendados_confirmados">
-                         <tr>
-                        <td colspan="4" class="empty-table-message">
-                            No tienes viajes agendados por el momento.
-                        </td>
-                    </tr>
-
-                    </tbody>
-                </table>
+                <!-- Contenedor de tarjetas -->
+                <div class="cards-grid viajes_agendados_confirmados">
+                     <div class="empty-state-message">
+                        No tienes viajes agendados por el momento.
+                    </div>
+                </div>
             </section>
+            
             <!-- VIAJES PASADOS -->
             <section class="section">
                 <h3>Viajes Pasados</h3>
-                <table class="table past-table">
-                    <thead>
-                        <tr>
-                            <th>Conductor</th>
-                            <th>Hora</th>
-                            <th>Fecha de salida</th>
-                            <th>Método de compensación</th>
-                            <th>Estado</th>
-                            <th>Calificación</th>
-                        </tr>
-                    </thead>
-                    <tbody class="viajes_pasados">
-                       <tr>
-                        <td colspan="4" class="empty-table-message">
+                <!-- Contenedor de tarjetas -->
+                <div class="cards-grid viajes_pasados">
+                       <div class="empty-state-message">
                             No tienes viajes pasados por el momento.
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                        </div>
+                </div>
             </section>
 
     </main>
