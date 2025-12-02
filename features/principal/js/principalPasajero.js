@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const tripsKey = "uniride_trips";
 const tripsTableBody = document.getElementById("tripsTableBody")
 const storageViajes = 'viajesGuardados'
+const storageReservas = 'reservas'
 
 if (!localStorage.getItem(storageViajes)) {
   localStorage.setItem(storageViajes, JSON.stringify([]))
@@ -47,7 +48,12 @@ function getDayOfWeek(dateString){
 }
 
 function createGraphics(){
-  const trips = JSON.parse(localStorage.getItem(storageViajes)) || []
+  const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+  const allTrips = JSON.parse(localStorage.getItem(storageViajes)) || [];
+  const allReservas = JSON.parse(localStorage.getItem(storageReservas)) || [];
+
+  const misReservas = allReservas.filter(r => r.idPasajero === usuarioActivo.id_usuario);
+  const trips = misReservas.map(r => allTrips[r.viajeIndex]).filter(v => v);
   
   // Count trips by day of week
   const dayCount = {
@@ -159,34 +165,59 @@ function createGraphics(){
 }
 
 function loadTrips() {
-  const trips = JSON.parse(localStorage.getItem(storageViajes)) || []
-  
-  tripsTableBody.innerHTML = ""
-  
-  if (trips.length === 0) {
-    const emptyRow = document.createElement("tr")
+  const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+  if (!usuarioActivo) return;
+
+  const allTrips = JSON.parse(localStorage.getItem(storageViajes)) || [];
+  const allReservas = JSON.parse(localStorage.getItem(storageReservas)) || [];
+
+  const misReservas = allReservas.filter(r => r.idPasajero === usuarioActivo.id_usuario);
+
+  const misViajesDetallados = misReservas.map(reserva => {
+    const viaje = allTrips[reserva.viajeIndex];
+    if (!viaje) return null;
+
+    return {
+      ...viaje,
+      puntoRecogida: reserva.puntoRecogida,
+      estado: reserva.estado,
+      metodo: reserva.metodo,
+      monto: reserva.monto ?? null,
+      hora: reserva.hora,
+      fecha: reserva.fecha
+    };
+  }).filter(v => v !== null);
+
+  console.log("Viajes completos del pasajero:", misViajesDetallados);
+
+  tripsTableBody.innerHTML = "";
+
+  if (misViajesDetallados.length === 0) {
+    const emptyRow = document.createElement("tr");
     emptyRow.innerHTML = `
       <td colspan="5" style="text-align: center; padding: 40px; color: #666;">
         <img src="../../../assets/imgs/vacio.png" alt="Empty Image" style="width: 100px; margin-bottom: 20px;">
         <p style="font-size: 16px; margin: 0;">Aún no tienes viajes planeados.</p>
         <p style="font-size: 14px; margin-top: 10px;">Ve a la sección de <a href="../../viajes/pages/pasajero/viajes_usuario.html" style="color: #4F46E5; text-decoration: underline;">viajes</a> para agendar uno.</p>
-      </td>`
-    tripsTableBody.appendChild(emptyRow)
+      </td>`;
+    tripsTableBody.appendChild(emptyRow);
   } else {
-    for (const trip of trips) {
-      const row = document.createElement("tr")
+    for (const trip of misViajesDetallados) {
+      const row = document.createElement("tr");
       row.innerHTML = `
-        <td>${trip.fecha} ${trip.hora}</td>
+        <td>${trip.fecha}</td>
+        <td>${trip.hora}</td>
         <td>${trip.conductor}</td>
-        <td>${trip.infoCarro}</td>
-        <td>${trip.puntoEncuentro}</td>
-        <td>${trip.estado}</td>`
-      tripsTableBody.appendChild(row)
+        <td>${trip.puntoRecogida}</td>
+        <td>${trip.estado}</td>
+      `;
+      tripsTableBody.appendChild(row);
     }
   }
-  
-  document.getElementById("totalViajes").textContent = trips.length
+
+  document.getElementById("totalViajes").textContent = misViajesDetallados.length;
 }
+
 
 globalThis.addEventListener('DOMContentLoaded', function() {
   loadTrips()

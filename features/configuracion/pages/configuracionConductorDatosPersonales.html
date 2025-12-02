@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="../../../styles.css" />
     <link rel="stylesheet" href="../css/configuracion.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRKX4T1V9D"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DRKX4T1V9D');
+    </script>
 </head>
 
 <body>
@@ -34,6 +43,11 @@
                     <span>Viajes</span>
                 </div>
                 
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionConductorHorarioManual.html'">
+                    <img src="../../../assets/icons/horarios_icon_deactive_sidebar.svg" alt="Horarios">
+                    <span>Horarios</span>
+                </div>
+
                 <div class="nav-item-sidebar" onclick="window.location.href='../../rutas/pages/rutas.html'">
                     <img src="../../../assets/icons/gestion_de_rutas_desactivado_sidebar.svg" alt="Routes">
                     <span>Gestion de Rutas</span>
@@ -61,8 +75,9 @@
     <main class="main-content">
         <h1>Configuración de Perfil</h1>
         <form class="registrate-form-1" name="registrate-form-1">
-            <div class="group-title">
-                <h3>Ingresa tus datos personales</h3>
+            <div class="group-btns">
+              <button id="btn-configuracion-personal" class="btn-manual" type="button">Personal</button>
+              <button id="btn-configuracion-vehiculares" class="btn-masiva" type="button" onclick="window.location.href='../../configuracion/pages/configuracionConductorDatosVehiculares.html'">Vehicular</button>
             </div>
          <div class="group-inputs">
             <div class="group-input-1">
@@ -115,7 +130,7 @@
             </div>
          </div> 
          <div class="group-botones">
-            <button type="button" id="btn-regresar">Regresar</button>
+            <button type="button" id="btn-regresar">Editar</button>
             <button type="button" id="btn-guardar-cambios">Guardar Cambios</button>
          </div>
         </form>

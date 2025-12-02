@@ -330,5 +330,5 @@ btnMasiva.addEventListener("click", function () {
 });
 
 btnRegresar.addEventListener("click", function () {
-  window.location.href = "configuracionConductorOpciones.html";
+  window.location.href = "configuracionConductorHorarioManual.html";
 });

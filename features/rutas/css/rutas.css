@@ -103,6 +103,7 @@
     text-align: center;
     padding: 40px;
     color: #666;
+    font-size: 18px;
 }
 
 .no-results-icon {
@@ -118,9 +119,18 @@
     margin-bottom: 30px;
 }
 
+.routes-container.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+
+
 /* Route Card */
 .route-card {
-    background-color: #3366FF33;
+    background-color: #bebbfa;
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -330,7 +340,7 @@
 .map-preview {
     flex: 0 0 400px; 
     height: 400px;
-    background-color: #3366FF33;
+    background-color: #bebbfa;
     border-radius: 12px;
     padding: 20px;
     display: flex;
@@ -412,13 +422,14 @@
 /* Action Buttons */
 .action-buttons {
     display: flex;
+    justify-content: center;
     gap: 10px;
     margin-bottom: 20px;
 }
 
 .edit-btn {
-    background-color: #3366FF33;
-    color: #3366FF;
+    background-color: #bebbfa;
+    color: #6333ff;
     border: 1px solid #ccc;
     padding: 10px 20px;
     border-radius: 8px;
@@ -470,6 +481,11 @@
     background-color: #5a54d8;
 }
 
+.agregar-button-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
 
 /* Custom Delete Confirmation Modal */
 .modal-overlay {
