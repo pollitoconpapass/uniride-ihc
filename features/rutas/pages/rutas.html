@@ -63,6 +63,25 @@
             <button class="add-route-btn" onclick="window.location.href='agregarRuta.html'">Agregar Ruta</button>
         </div>
 
+        <div class="search-filter-container">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Buscar ruta por nombre..."
+                    oninput="filterAndDisplayRoutes()"
+                >
+                <span class="search-icon">🔍</span>
+            </div>
+            
+            <div class="filter-dropdown">
+                <button class="filter-btn" onclick="toggleSort()">
+                    <span class="filter-icon">⇅</span>
+                    <span id="sortLabel">A-Z</span>
+                </button>
+            </div>
+        </div>
+
         <div id="routesContainer" class="routes-container">
 
         </div>
