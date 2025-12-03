@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const contenedor = document.getElementById("contenedorSolicitudes");
-
     const viaje = JSON.parse(localStorage.getItem("viajeSeleccionadoParaSolicitudes"));
-    const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
-    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo")); // conductor
+    let reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
 
     if (!usuarioActivo) {
         console.warn("No hay usuario activo...");
@@ -12,19 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     const usuario = usuarios.find(u => u.id === usuarioActivo.id_usuario);
-
-    if (!usuario) {
-        console.warn("No se encontró al usuario activo en la base de usuarios");
-        return;
+    if (usuario) {
+        const dp = usuario.datosPersonales;
+        document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
     }
 
-    const dp = usuario.datosPersonales;
-    document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
-
-    // === MODALES ===
+    // Modales
     const modalAceptar = document.getElementById("modalAceptarSolicitud");
     const modalCancelar = document.getElementById("modalCancelarViaje");
-
     const cerrarAceptarBtn = document.getElementById("btnCerrarAceptar");
     const cerrarCancelarBtn = document.getElementById("btnCerrarCancelarViaje");
     const formCancelar = document.getElementById("formCancelarViaje");
@@ -34,14 +28,27 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
+    // Filtrar solicitudes PENDIENTES para este viaje
     const reservasFiltradas = reservas.filter(r =>
-    r.idConductor === usuarioActivo.id_usuario &&
-    r.ruta === viaje.ruta &&
-    r.fecha === viaje.fecha &&
-    r.hora === viaje.hora &&
-    r.estado === "pendiente"
-);
+        r.idConductor === viaje.idConductor &&
+        r.fecha === viaje.fecha &&
+        r.hora === viaje.hora &&
+        r.ruta === viaje.ruta &&
+        r.estado === "pendiente"
+    );
 
+    const cupoLleno = viaje.pasajerosActuales >= viaje.pasajeros;
+
+    if (cupoLleno) {
+       document.getElementById("mensaje-global").innerHTML = `
+         <div class="mensaje-cupo">
+           <h3>✅ Cupo completo</h3>
+          <p>Has alcanzado el máximo de <strong>${viaje.pasajeros} pasajeros</strong>.</p>
+         <p>No puedes aceptar más solicitudes para este viaje.</p>
+         </div>
+        `;
+return;
+    }
 
     if (reservasFiltradas.length === 0) {
         contenedor.innerHTML = `
@@ -51,113 +58,101 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Crear cards
-    reservasFiltradas.forEach((reserva, index) => {
+    reservasFiltradas.forEach(reserva => {
         const card = document.createElement("div");
         card.className = "solicitud-card";
-
         card.innerHTML = `
             <h3>${reserva.nombrePasajero}</h3>
-
             <p><strong>Punto:</strong> ${reserva.puntoRecogida}</p>
             <p><strong>Método:</strong> ${reserva.metodo}</p>
             <p><strong>Monto:</strong> ${reserva.monto || "—"}</p>
             <p><strong>Estado:</strong> ${reserva.estado}</p>
-
             <div class="solicitud-acciones">
-                <button class="btn-aceptar" data-index="${index}">Aceptar</button>
-                <button class="btn-rechazar" data-index="${index}">Rechazar</button>
+                <button class="btn-aceptar" data-id-reserva="${reserva.idReserva}">Aceptar</button>
+                <button class="btn-rechazar" data-id-reserva="${reserva.idReserva}">Rechazar</button>
             </div>
         `;
-
         contenedor.appendChild(card);
     });
 
-// === EVENTOS: ACEPTAR ===
-document.querySelectorAll(".btn-aceptar").forEach(btn => {
-    btn.addEventListener("click", () => {
-        const idx = btn.dataset.index;
-        const reservaAceptada = reservasFiltradas[idx];
+    // === ACEPTAR ===
+    document.querySelectorAll(".btn-aceptar").forEach(btn => {
+        btn.addEventListener("click", () => {
+            // Verificar cupo en tiempo real
+            const viajeActual = JSON.parse(localStorage.getItem("viajeSeleccionadoParaSolicitudes"));
+            if (viajeActual.pasajerosActuales >= viajeActual.pasajeros) {
+                alert("No se pueden aceptar más pasajeros. El cupo está lleno.");
+                return;
+            }
 
-        // Encontrar la reserva original en el array completo
-        const idxOriginal = reservas.findIndex(r =>
-            r.idConductor === reservaAceptada.idConductor &&
-            r.idPasajero === reservaAceptada.idPasajero &&
-            r.fecha === reservaAceptada.fecha &&
-            r.hora === reservaAceptada.hora
-        );
+            const idReserva = btn.dataset.idReserva;
+            const reserva = reservas.find(r => r.idReserva == idReserva);
+            if (!reserva) return;
 
-        if (idxOriginal !== -1) {
-            reservas[idxOriginal].estado = "Aceptado";
-            reservas[idxOriginal].estadoViaje = "Por llegar";
+            // Aceptar
+            reserva.estado = "Aceptado";
+            reserva.estadoViaje = "Por llegar";
             localStorage.setItem("reservas", JSON.stringify(reservas));
-        }
 
-        actualizarPasajerosDelViaje(viaje);
-        btn.closest(".solicitud-card").remove();
-        modalAceptar.style.display = "flex";
+            // Actualizar viaje en localStorage
+            let viajesGuardados = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
+            const viajeIndex = viajesGuardados.findIndex(v =>
+                v.id === viaje.id
+            );
+            if (viajeIndex !== -1) {
+                viajesGuardados[viajeIndex].pasajerosActuales += 1;
+                localStorage.setItem("viajesGuardados", JSON.stringify(viajesGuardados));
+                // Actualizar copia local para posteriores verificaciones
+                viaje.pasajerosActuales = viajesGuardados[viajeIndex].pasajerosActuales;
+            }
+
+            // Eliminar card
+            btn.closest(".solicitud-card").remove();
+
+            // Mostrar modal
+            modalAceptar.style.display = "flex";
+
+            //desactivar otros botones
+            if (viaje.pasajerosActuales >= viaje.pasajeros) {
+                document.querySelectorAll(".btn-aceptar, .btn-rechazar").forEach(b => {
+                    b.disabled = true;
+                    b.style.opacity = "0.5";
+                    b.style.cursor = "not-allowed";
+                });
+                setTimeout(() => {
+                    alert("¡Cupo completo! Ya no puedes aceptar más pasajeros.");
+                }, 300);
+            }
+        });
     });
-});
 
+    // === RECHAZAR ===
+    document.querySelectorAll(".btn-rechazar").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const idReserva = btn.dataset.idReserva;
+            const reserva = reservas.find(r => r.idReserva == idReserva);
+            if (reserva) {
+                reserva.estado = "Rechazado";
+                localStorage.setItem("reservas", JSON.stringify(reservas));
+                btn.closest(".solicitud-card").remove();
 
-
-cerrarAceptarBtn.addEventListener("click", () => {
-    modalAceptar.style.display = "none";
-});
-
-
-
-
-
-    // === EVENTOS: RECHAZAR ===
-document.querySelectorAll(".btn-rechazar").forEach(btn => {
-    btn.addEventListener("click", () => {
-        const idx = btn.dataset.index;
-
-        reservasFiltradas[idx].estado = "Rechazado";
-        actualizarReservas(reservas, reservasFiltradas[idx]);
-
-        // Ocultar la card del DOM inmediatamente
-        btn.closest(".solicitud-card").remove();
-
-        // Mostrar modal rechazar
-        modalCancelar.style.display = "flex";
+                // Mostrar modal
+                modalCancelar.style.display = "flex";
+            }
+        });
     });
-});
 
+    // === Cerrar modales ===
+    cerrarAceptarBtn?.addEventListener("click", () => {
+        modalAceptar.style.display = "none";
+    });
 
-
-    cerrarCancelarBtn.addEventListener("click", () => {
+    cerrarCancelarBtn?.addEventListener("click", () => {
         modalCancelar.style.display = "none";
-        location.reload();
     });
 
-    formCancelar.addEventListener("submit", (e) => {
+    formCancelar?.addEventListener("submit", (e) => {
         e.preventDefault();
         modalCancelar.style.display = "none";
-        location.reload();
     });
-
 });
-
-
-
-function actualizarPasajerosDelViaje(viajeSeleccionado) {
-    let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
-
-    viajes = viajes.map(v => {
-        if (
-            v.idConductor === viajeSeleccionado.idConductor &&
-            v.fecha === viajeSeleccionado.fecha &&
-            v.hora === viajeSeleccionado.hora &&
-            v.ruta === viajeSeleccionado.ruta
-        ) {
-            v.pasajerosActuales = (v.pasajerosActuales || 0) + 1;
-        }
-        return v;
-    });
-
-    localStorage.setItem("viajesGuardados", JSON.stringify(viajes));
-}
-
-
-

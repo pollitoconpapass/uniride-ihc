@@ -6,7 +6,15 @@
     <title>UniRide - Viajes Conductor</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="../../../../styles.css" />
-     <link rel="stylesheet" href="../../css/conductor/informacion_viaje_conductor.css" />
+    <link rel="stylesheet" href="../../css/conductor/informacion_viaje_conductor.css" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRKX4T1V9D"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DRKX4T1V9D');
+    </script> 
 </head>
 <body>
 
@@ -37,6 +45,11 @@
                     <span>Viajes</span>
                 </div>
 
+                <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionConductorHorarioManual.html'">
+                    <img src="../../../../assets/icons/horarios_icon_deactive_sidebar.svg" alt="Horarios">
+                    <span>Horarios</span>
+                </div>
+
                 <div class="nav-item-sidebar" onclick="window.location.href='../../../rutas/pages/rutas.html'">
                     <img src="../../../../assets/icons/gestion_de_rutas_desactivado_sidebar.svg" alt="Routes">
                     <span>Gestión de Rutas</span>
@@ -47,7 +60,7 @@
                     <span>Compensaciones y Pagos</span>
                 </div>
 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionConductorOpciones.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionConductorDatosPersonales.html'">
                     <img src="../../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
                     <span>Configuración</span>
                 </div>
@@ -97,6 +110,7 @@
                         <th>Nombres</th>
                         <th>Lugar de recojo</th>
                         <th>Metodo de compensación</th>
+                        <th>Cantidad monetaria</th>
                         <th>Estado</th>
                         <th>Comunicación</th>
                     </tr>

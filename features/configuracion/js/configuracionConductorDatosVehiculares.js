@@ -1,4 +1,4 @@
-const btnRegresar = document.getElementById("btn-regresar");
+const btnRegresar = document.getElementById("btn-regresar"); // ahora es EDITAR
 const btnGuardarCambios = document.getElementById("btn-guardar-cambios");
 
 // Inputs
@@ -6,7 +6,42 @@ const inputModelo = document.getElementById("modelo-carro");
 const inputMarca  = document.getElementById("marca-carro");
 const inputColor  = document.getElementById("color-carro");
 const inputPlaca  = document.getElementById("placa-carro");
-// INFO GENERAL
+
+// Función básica reutilizable
+function estaVacio(valor) {
+  return !valor || valor.trim() === "";
+}
+
+// -------------------------------------
+// MODO EDICIÓN / SOLO LECTURA
+// -------------------------------------
+function setModoEdicion(activo) {
+  const campos = [inputModelo, inputMarca, inputColor, inputPlaca];
+
+  campos.forEach(campo => {
+    if (!campo) return;
+    campo.disabled = !activo;
+
+    if (!activo) {
+      campo.style.backgroundColor = "#f0f0f0";
+      campo.style.color = "#555";
+    } else {
+      campo.style.backgroundColor = "#ffffff";
+      campo.style.color = "#000";
+    }
+  });
+
+  btnGuardarCambios.disabled = !activo;
+  if (!activo) {
+    btnGuardarCambios.style.opacity = "0.6";
+    btnGuardarCambios.style.cursor = "not-allowed";
+  } else {
+    btnGuardarCambios.style.opacity = "1";
+    btnGuardarCambios.style.cursor = "pointer";
+  }
+}
+
+// INFO GENERAL (sidebar)
 document.addEventListener("DOMContentLoaded", () => {
     const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
     if (!usuarioActivo) {
@@ -22,17 +57,27 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    const dp = usuario.datosPersonales;
+    const dp = usuario.datosPersonales || {};
 
-    document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
-    document.getElementById("tituloNombre").innerText = dp.nombres.split(" ")[0] || "";
+    const sidebarNombre = document.getElementById("sidebarNombre");
+    if (sidebarNombre) {
+      sidebarNombre.innerText = (dp.nombres || "").split(" ")[0] || "";
+    }
 
-    document.getElementById("carrera").textContent =
-        dp.carrera || "No especificado";
+    const tituloNombre = document.getElementById("tituloNombre");
+    if (tituloNombre) {
+      tituloNombre.innerText = (dp.nombres || "").split(" ")[0] || "";
+    }
 
-    document.getElementById("universidad").textContent =
-        dp.universidad || "No especificada";
+    const carreraTexto = document.getElementById("carrera");
+    if (carreraTexto) {
+      carreraTexto.textContent = dp.carrera || "No especificado";
+    }
 
+    const universidadTexto = document.getElementById("universidad");
+    if (universidadTexto) {
+      universidadTexto.textContent = dp.universidad || "No especificada";
+    }
 });
 
 // Variables globales
@@ -43,7 +88,7 @@ let usuarioActual = null;
 // CARGAR USUARIO ACTIVO Y DATOS
 // ------------------------------
 window.addEventListener("DOMContentLoaded", () => {
-  // 1) Leer usuario-activo
+
   const usuarioActivoLS = JSON.parse(localStorage.getItem("usuario-activo") || "null");
 
   if (!usuarioActivoLS || !usuarioActivoLS.id_usuario) {
@@ -52,10 +97,7 @@ window.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // 2) Leer lista de usuarios
   usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-  // 3) Buscar usuario por id
   usuarioActual = usuarios.find(u => u.id === usuarioActivoLS.id_usuario);
 
   if (!usuarioActual) {
@@ -64,12 +106,6 @@ window.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // (Opcional) verificar que sea conductor
-  if (usuarioActual.rol !== "conductor") {
-    console.warn("El usuario activo no es conductor, pero está en configuración de datos vehiculares.");
-  }
-
-  // 4) Asegurar que datosVehiculares exista
   if (!usuarioActual.datosVehiculares) {
     usuarioActual.datosVehiculares = {
       modelo: "",
@@ -79,8 +115,10 @@ window.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  // 5) Rellenar el formulario
   rellenarFormulario(usuarioActual.datosVehiculares);
+
+  // 🔒 Al cargar: modo solo lectura
+  setModoEdicion(false);
 });
 
 function rellenarFormulario(vehiculo) {
@@ -91,37 +129,56 @@ function rellenarFormulario(vehiculo) {
 }
 
 // ------------------------------
-// BOTÓN REGRESAR
+// BOTÓN EDITAR (antes "Regresar")
 // ------------------------------
 btnRegresar.addEventListener("click", () => {
-  window.location.href = "configuracionConductorOpciones.html";
+  setModoEdicion(true);
+  console.log("🔓 Modo edición activado para datos vehiculares");
 });
 
 // ------------------------------
 // BOTÓN GUARDAR CAMBIOS
 // ------------------------------
 btnGuardarCambios.addEventListener("click", () => {
+
   if (!usuarioActual) {
     alert("No se encontró el usuario activo. Intenta iniciar sesión nuevamente.");
     window.location.href = "../../iniciar_sesion/pages/inicioSesion.html";
     return;
   }
 
-  // 1) Leer valores del formulario
-  const nuevosDatosVehiculares = {
-    modelo: (inputModelo.value || "").trim(),
-    marca:  (inputMarca.value  || "").trim(),
-    color:  (inputColor.value  || "").trim(),
-    placa:  (inputPlaca.value  || "").trim()
+  if (btnGuardarCambios.disabled) {
+    alert("Primero presiona el botón 'Editar' para modificar tus datos vehiculares.");
+    return;
+  }
+
+  const modelo = (inputModelo.value || "").trim();
+  const marca  = (inputMarca.value  || "").trim();
+  const color  = (inputColor.value  || "").trim();
+  const placa  = (inputPlaca.value  || "").trim();
+
+  // ❌ Validación principal
+  if (
+    estaVacio(modelo) ||
+    estaVacio(marca)  ||
+    estaVacio(color)  ||
+    estaVacio(placa)
+  ) {
+    alert("Por favor, completa todos los datos vehiculares antes de guardar.");
+    return;
+  }
+
+  // ✅ Si llega aquí, todo ok
+  usuarioActual.datosVehiculares = {
+    modelo,
+    marca,
+    color,
+    placa
   };
 
-  // 2) Actualizar en el usuario
-  usuarioActual.datosVehiculares = nuevosDatosVehiculares;
-
-  // 3) Guardar en localStorage
   localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-  // 4) Avisar y refrescar formulario
   alert("Cambios aplicados correctamente.");
   rellenarFormulario(usuarioActual.datosVehiculares);
+  setModoEdicion(false);
 });

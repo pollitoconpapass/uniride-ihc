@@ -7,7 +7,16 @@
     <link rel="stylesheet" href="../../../../styles.css" />
     <link rel="stylesheet" href="../../css/pasajero/usuario_base.css">
     <link rel="stylesheet" href="../../css/pasajero/informacion_viaje.css">
+    <!-- Reutilizamos modals si fueran necesarios, aunque en esta vista simple quizás no -->
     <link rel="stylesheet" href="../../css/pasajero/modals_pasajero.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRKX4T1V9D"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DRKX4T1V9D');
+    </script>
 </head>
 <body>
     <div class="layout info-layout">
@@ -35,12 +44,17 @@
                         <span>Viajes</span>
                     </div>
 
+                    <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroHorarioManual.html'">
+                    <img src="../../../../assets/icons/horarios_icon_deactive_sidebar.svg" alt="Horarios">
+                    <span>Horarios</span>
+                </div>
+
                     <div class="nav-item-sidebar" onclick="window.location.href='../../../compensaciones/pages/compensacionesPasajeros.html'">
                         <img src="../../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
                         <span>Compensaciones y Pagos</span>
                     </div>
 
-                    <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroOpciones.html'">
+                    <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroDatosPersonales.html'">
                         <img src="../../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
                         <span>Configuración</span>
                     </div>
@@ -54,52 +68,29 @@
         </div>
 
         <main class="main-content">
-            <div class="breadcrumbs">
-                <a class="action-link" href="encontrar_viajes.html">Encontrar Viajes</a>
-                <span>/</span>
-                <span>Información del viaje</span>
+            <div class="page-header-informacion">
+                <!-- Usamos history.back() pero con cuidado. Si venimos de encontrar viajes, vuelve ahí. -->
+                <div class="back-icon" onclick="window.history.back()">←</div>
+                <h1 class="page-title">Encontrar viajes / Información del viaje</h1>
             </div>
 
-            <div class="info-wrapper">
-                <section class="trip-card">
-                    <div class="header">
-                        <h2 id="trip-route-name">Información del viaje</h2>
-                        <div style="display: flex; align-items: center; gap: 16px;">
-                            <span id="trip-status" class="badge badge-blue">Disponible</span>
-                            <button class="btn-outline" onclick="window.history.back()">Regresar</button>
-                        </div>
-                    </div>
+            <!-- INFORMACION GENERAL -->
+            <section class="section" id="infoGeneral">
+                <h3>Información general</h3>
+                <p><strong>Conductor:</strong> <span id="driver-name"></span></p>
+                <p><strong>Fecha:</strong> <span id="trip-date"></span></p>
+                <p><strong>Hora de inicio:</strong> <span id="trip-time"></span></p>
+                <p><strong>Ruta:</strong> <span id="trip-route-name"></span></p>
+            </section>
 
-                    <div class="driver-profile">
-                        <img id="driver-image" src="../../../../assets/imgs/uniride-logo-wo-text-dark.png" alt="Foto del conductor">
-                        <div class="details">
-                            <h2 id="driver-name"></h2>
-                            <div class="meta"></div>
-                        </div>
-                    </div>
-
-                    <div class="cta-group">
-                        <a class="btn-primary" href="#">Reservar asiento</a>
-                        <a class="btn-secondary" href="#">Conversar con el conductor</a>
-                    </div>
-
-                    <div class="pickup-card">
-                        <h3>Lugares por los que pasa la ruta</h3>
-                        <!-- Las paradas se insertan dinámicamente aquí -->
-                    </div>
-
-                    <div class="trip-meta">
-                        <div class="light-card">
-                            <strong>Hora de Salida</strong>
-                            <span id="trip-time"></span>
-                        </div>
-                        <div class="light-card">
-                            <strong>Fecha de Salida</strong>
-                            <span id="trip-date"></span>
-                        </div>
-                    </div>
-                </section>
-            </div>
+            <!-- PUNTOS DE RECOGIDA -->
+            <section class="section">
+                <h3>Puntos de recogida</h3>
+                <div id="pickup-list-container">
+                    <!-- Se llena dinámicamente -->
+                </div>
+            </section>
+            
         </main>
     </div>
     <script src="../../js/pasajero/informacion_viaje.js"></script>

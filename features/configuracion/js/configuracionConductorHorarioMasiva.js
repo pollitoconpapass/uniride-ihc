@@ -1,3 +1,23 @@
+// Google Analytics
+document.addEventListener('DOMContentLoaded', function() {
+    const buttonClasses = [
+        { class: '.contenedor-adjuntar-img', label: 'adjuntar_archivo' },
+        { class: '.btn-manual', label: 'boton_carga_manual' },
+        { class: '.btn-masiva', label: 'boton_carga_masiva' },
+    ];
+
+    buttonClasses.forEach(function(btn) {
+        document.querySelectorAll(btn.class).forEach(function(button) {
+            button.addEventListener('click', function() {
+                gtag('event', 'button_click', {
+                    'event_category': 'engagement',
+                    'event_label': btn.label
+                });
+            });
+        });
+    });
+});
+
 console.log("JS configuracionPasajeroHorarioMasiva CARGADO");
 
 // ================== REFERENCIAS A ELEMENTOS ==================
@@ -330,5 +350,5 @@ btnMasiva.addEventListener("click", function () {
 });
 
 btnRegresar.addEventListener("click", function () {
-  window.location.href = "configuracionConductorOpciones.html";
+  window.location.href = "configuracionConductorHorarioManual.html";
 });

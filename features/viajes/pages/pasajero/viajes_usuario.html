@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="../../../../styles.css"/>
     <link rel="stylesheet" href="../../css/pasajero/viajes_usuario.css"/>
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRKX4T1V9D"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DRKX4T1V9D');
+    </script>
 </head>
 <body>
     <div class="viajes_pasajero">
@@ -35,12 +42,17 @@
                     <span>Viajes</span>
                 </div>
 
+                <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroHorarioManual.html'">
+                    <img src="../../../../assets/icons/horarios_icon_deactive_sidebar.svg" alt="Horarios">
+                    <span>Horarios</span>
+                </div>
+
                 <div class="nav-item-sidebar" onclick="window.location.href='../../../compensaciones/pages/compensacionesPasajeros.html'">
                     <img src="../../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
                     <span>Compensaciones y Pagos</span>
                 </div>
 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroOpciones.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroDatosPersonales.html'">
                     <img src="../../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
                     <span>Configuración</span>
                 </div>
@@ -64,49 +76,23 @@
         <!-- VIAJES AGENDADOS -->
        <section class="section">
                 <h3>Viajes Agendados</h3>
-                <table class="table scheduled-table">
-                    <thead>
-                        <tr>
-                            <th>Conductor</th>
-                            <th>Hora</th>
-                            <th>Fecha de salida</th>
-                            <th>Lugar de recojo</th>
-                            <th>Estado</th>
-                            <th>Ver detalles</th>
-                        </tr>
-                    </thead>
-                    <tbody class="viajes_agendados_confirmados">
-                         <tr>
-                        <td colspan="4" class="empty-table-message">
-                            No tienes viajes agendados por el momento.
-                        </td>
-                    </tr>
-
-                    </tbody>
-                </table>
+                <!-- Contenedor de tarjetas -->
+                <div class="cards-grid viajes_agendados_confirmados">
+                     <div class="empty-state-message">
+                        No tienes viajes agendados por el momento.
+                    </div>
+                </div>
             </section>
+            
             <!-- VIAJES PASADOS -->
             <section class="section">
                 <h3>Viajes Pasados</h3>
-                <table class="table past-table">
-                    <thead>
-                        <tr>
-                            <th>Conductor</th>
-                            <th>Hora</th>
-                            <th>Fecha de salida</th>
-                            <th>Método de compensación</th>
-                            <th>Estado</th>
-                            <th>Calificación</th>
-                        </tr>
-                    </thead>
-                    <tbody class="viajes_pasados">
-                       <tr>
-                        <td colspan="4" class="empty-table-message">
+                <!-- Contenedor de tarjetas -->
+                <div class="cards-grid viajes_pasados">
+                       <div class="empty-state-message">
                             No tienes viajes pasados por el momento.
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                        </div>
+                </div>
             </section>
 
     </main>

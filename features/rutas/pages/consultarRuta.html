@@ -6,6 +6,14 @@
     <title>UniRide - Conductor</title>
     <link rel="stylesheet" href="../../../styles.css" />
     <link rel="stylesheet" href="../css/rutas.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRKX4T1V9D"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DRKX4T1V9D');
+    </script>
 </head>
 
 <body>
@@ -32,6 +40,11 @@
                     <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
                     <span>Viajes</span>
                 </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionConductorHorarioManual.html'">
+                    <img src="../../../assets/icons/horarios_icon_deactive_sidebar.svg" alt="Horarios">
+                    <span>Horarios</span>
+                </div>
                 
                 <div class="nav-item-sidebar active" onclick="window.location.href='./rutas.html'">
                     <img src="../../../assets/icons/gestion_de_rutas_activado_sidebar.svg" alt="Routes">
@@ -43,7 +56,7 @@
                     <span>Compensaciones y Pagos</span>
                 </div>
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionConductorOpciones.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionConductorDatosPersonales.html'">
                     <img src="../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
                     <span>Configuración</span>
                 </div>
@@ -88,8 +101,13 @@
 
                 <!-- Read-Only Fields -->
                 <div class="form-group">
-                    <label for="direction" class="form-label">Dirección</label>
+                    <label for="direction" class="form-label">Origen</label>
                     <input type="text" id="direction" class="form-input" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="direction" class="form-label">Destino</label>
+                    <h3 type="text" id="universidad" class="form-input">  .</h3>
                 </div>
 
                 <div class="form-group">
@@ -102,8 +120,7 @@
                     <input type="text" id="description" class="form-input" readonly>
                 </div>
 
-                <!-- Volver Button -->
-                <button type="button" class="submit-btn" onclick="window.location.href='./rutas.html'">Volver</button>
+                
             </div>
         </div>
     </div>
@@ -111,6 +128,7 @@
     <!-- Custom Delete Confirmation Modal -->
     <div class="modal-overlay" id="deleteModal">
         <div class="modal-content">
+            <img src="../../../assets/imgs/cancelar_viaje_image.png" alt="">
             <h2 class="modal-title">Desea eliminar la ruta registrada?</h2>
             <div class="modal-buttons">
                 <button class="modal-btn modal-btn-yes" id="confirmDeleteBtn">Si</button>

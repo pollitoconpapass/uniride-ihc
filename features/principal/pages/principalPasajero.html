@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="../../../styles.css" />
     <link rel="stylesheet" href="../css/principal.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRKX4T1V9D"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DRKX4T1V9D');
+    </script>
 </head>
 
 <body>
@@ -24,7 +32,7 @@
             <div class="menu-title">MENU</div>
             
             <div class="sidebar-nav">
-                <div class="nav-item-sidebar active" onclick="window.location.href='./principalConductor.html'">
+                <div class="nav-item-sidebar active" onclick="window.location.href='./principalPasajero.html'">
                     <img src="../../../assets/icons/principal_icon_active_sidebar.svg" alt="Home">
                     <span>Principal</span>
                 </div>
@@ -33,14 +41,19 @@
                     <img src="../../../assets/icons/viajes_icon_deactive_sidebar.svg" alt="Travel">
                     <span>Viajes</span>
                 </div>
+
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionPasajeroHorarioManual.html'">
+                    <img src="../../../assets/icons/horarios_icon_deactive_sidebar.svg" alt="Horarios">
+                    <span>Horarios</span>
+                </div>
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../compensaciones/pages/compensaciones.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../compensaciones/pages/compensacionesPasajeros.html'">
                     <img src="../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
                     <span>Compensaciones y Pagos</span>
                 </div>
                 
                 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionPasajeroOpciones.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../configuracion/pages/configuracionPasajeroDatosPersonales.html'">
                     <img src="../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
                     <span>Configuración</span>
                 </div>
@@ -81,9 +94,9 @@
         <table>
             <thead>
             <tr>
-                <th>Fecha y Hora</th>
+                <th>Fecha</th>
+                <th>Hora</th>
                 <th>Conductores</th>
-                <th>Info del Carro</th>
                 <th>Punto de Encuentro</th>
                 <th>Estado</th>
             </tr>

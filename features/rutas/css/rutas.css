@@ -37,6 +37,80 @@
     background-color: #5a54d8;
 }
 
+/* Filters and search bar */
+.search-filter-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    align-items: center;
+}
+
+.search-box {
+    flex: 1;
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+
+.search-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 18px;
+}
+
+.filter-dropdown {
+    position: relative;
+}
+
+.filter-btn {
+    padding: 12px 20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.filter-btn:hover {
+    background: #f5f5f5;
+    border-color: #4a90e2;
+}
+
+.filter-icon {
+    font-size: 16px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 18px;
+}
+
+.no-results-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
 /* Route Cards Container */
 .routes-container {
     display: grid;
@@ -45,9 +119,18 @@
     margin-bottom: 30px;
 }
 
+.routes-container.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+
+
 /* Route Card */
 .route-card {
-    background-color: #3366FF33;
+    background-color: #bebbfa;
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -257,7 +340,7 @@
 .map-preview {
     flex: 0 0 400px; 
     height: 400px;
-    background-color: #3366FF33;
+    background-color: #bebbfa;
     border-radius: 12px;
     padding: 20px;
     display: flex;
@@ -339,13 +422,14 @@
 /* Action Buttons */
 .action-buttons {
     display: flex;
+    justify-content: center;
     gap: 10px;
     margin-bottom: 20px;
 }
 
 .edit-btn {
-    background-color: #3366FF33;
-    color: #3366FF;
+    background-color: #bebbfa;
+    color: #6333ff;
     border: 1px solid #ccc;
     padding: 10px 20px;
     border-radius: 8px;
@@ -397,6 +481,11 @@
     background-color: #5a54d8;
 }
 
+.agregar-button-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
 
 /* Custom Delete Confirmation Modal */
 .modal-overlay {

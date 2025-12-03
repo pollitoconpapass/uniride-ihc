@@ -1,3 +1,23 @@
+// Google Analytics
+document.addEventListener('DOMContentLoaded', function() {
+    const buttonClasses = [
+        { class: '.edit-btn', label: 'edit_route' },
+        { class: '.delete-btn', label: 'delete_route' },
+    ];
+
+    buttonClasses.forEach(function(btn) {
+        document.querySelectorAll(btn.class).forEach(function(button) {
+            button.addEventListener('click', function() {
+                gtag('event', 'button_click', {
+                    'event_category': 'engagement',
+                    'event_label': btn.label
+                });
+            });
+        });
+    });
+});
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
     if (!usuarioActivo) {
@@ -14,8 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const dp = usuario.datosPersonales;
+    const universidad = dp.universidad;
+    
     document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
-
+    document.getElementById("universidad").textContent = universidad || "No especificada";
 })
 
 

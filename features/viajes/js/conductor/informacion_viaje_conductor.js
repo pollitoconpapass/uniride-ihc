@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("JS de información del viaje cargado");
 
+    // Cargar sidebar (nombre del conductor)
     const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
     if (!usuarioActivo) {
         console.warn("No hay usuario activo...");
@@ -18,34 +19,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const dp = usuario.datosPersonales;
     document.getElementById("sidebarNombre").innerText = dp.nombres.split(" ")[0] || "";
 
-    let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
-    const index = parseInt(localStorage.getItem("viajeIndex"));
-    let viaje = viajes[index];
-
-    // Cargar información general
-    if (viaje) {
-        document.querySelector("#infoGeneral p:nth-of-type(1)").innerHTML =
-            `<strong>Fecha:</strong> ${viaje.fecha}`;
-
-        document.querySelector("#infoGeneral p:nth-of-type(2)").innerHTML =
-            `<strong>Hora de inicio:</strong> ${viaje.hora}`;
-
-        const puntosRecogida = Array.isArray(viaje.puntosRecogida)
-            ? viaje.puntosRecogida.join(", ")
-            : viaje.puntosRecogida || "No especificado";
-
-        document.querySelector("#infoGeneral p:nth-of-type(3)").innerHTML =
-            `<strong>Puntos de recogida:</strong> ${puntosRecogida}`;
-
-        document.querySelector("#infoGeneral p:nth-of-type(4)").innerHTML =
-            `<strong>Ruta:</strong> ${viaje.ruta}`;
+    // Cargar el viaje directamente desde localStorage
+    const viaje = JSON.parse(localStorage.getItem("viajeGuardado"));
+    if (!viaje) {
+        alert("No se pudo cargar la información del viaje.");
+        window.location.href = "viajes_conductor.html";
+        return;
     }
+
+    // === Mostrar información general ===
+    document.querySelector("#infoGeneral p:nth-of-type(1)").innerHTML =
+        `<strong>Fecha:</strong> ${viaje.fecha}`;
+
+    document.querySelector("#infoGeneral p:nth-of-type(2)").innerHTML =
+        `<strong>Hora de inicio:</strong> ${viaje.hora}`;
+
+    const puntosRecogida = Array.isArray(viaje.puntosRecogida)
+        ? viaje.puntosRecogida.join(", ")
+        : viaje.puntosRecogida || "No especificado";
+
+    document.querySelector("#infoGeneral p:nth-of-type(3)").innerHTML =
+        `<strong>Puntos de recogida:</strong> ${puntosRecogida}`;
+
+    document.querySelector("#infoGeneral p:nth-of-type(4)").innerHTML =
+        `<strong>Ruta:</strong> ${viaje.ruta}`;
 
     // === Modal de contacto: CERRAR ===
     const modalInfo = document.getElementById("modalInfoPasajero");
     if (modalInfo) {
         const btnCerrarInfo = document.getElementById("btnCerrarInfo");
-        const cerrarX = document.querySelector("#modalInfoPasajero .close");
+        const cerrarX = document.querySelector("#modalInfoPasajero .close-button");
 
         if (btnCerrarInfo) {
             btnCerrarInfo.addEventListener("click", () => {
@@ -58,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // Opcional: cerrar al hacer clic fuera del contenido
         window.addEventListener("click", (e) => {
             if (e.target === modalInfo) {
                 modalInfo.style.display = "none";
@@ -88,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     actualizarBotones();
 
+    // === Cancelar viaje ===
     const modalCancelarViaje = document.getElementById("modalCancelarViaje");
     const btnCerrarCancelarViaje = document.getElementById("btnCerrarCancelarViaje");
     const formCancelarViaje = document.getElementById("formCancelarViaje");
@@ -105,47 +108,57 @@ document.addEventListener("DOMContentLoaded", () => {
         const motivo = document.getElementById("motivoCancelacion").value.trim();
         if (motivo === "") return alert("Ingrese un motivo");
 
-        viajes.splice(index, 1);
-        localStorage.setItem("viajesGuardados", JSON.stringify(viajes));
+        let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
+        const index = viajes.findIndex(v => v.id === viaje.id);
+        if (index !== -1) {
+            viajes.splice(index, 1);
+            localStorage.setItem("viajesGuardados", JSON.stringify(viajes));
+        }
         localStorage.setItem("actualizarTablaViajes", "true");
         window.location.href = "viajes_conductor.html";
     });
 
+    // === Comenzar viaje ===
     btnComenzar?.addEventListener("click", () => {
         viaje.estado = "En curso";
-        viajes[index] = viaje;
-        localStorage.setItem("viajesGuardados", JSON.stringify(viajes));
-        localStorage.setItem("actualizarTablaViajes", "true");
 
-        // Inicializar estadoViaje de pasajeros si es necesario
+        // Guardar en localStorage
+        let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
+        const index = viajes.findIndex(v => v.id === viaje.id);
+        if (index !== -1) {
+            viajes[index] = viaje;
+            localStorage.setItem("viajesGuardados", JSON.stringify(viajes));
+        }
+
+        // Actualizar estadoViaje de pasajeros
         const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
         reservas.forEach(r => {
-         if (
-        String(r.idConductor) === String(viaje.idConductor) &&
-        r.fecha === viaje.fecha &&
-        r.hora === viaje.hora &&
-        r.ruta === viaje.ruta &&
-        r.estado === "Aceptado"
-         ) {
-        r.estadoViaje = "Recogido";
+            if (
+                String(r.idConductor) === String(viaje.idConductor) &&
+                r.fecha === viaje.fecha &&
+                r.hora === viaje.hora &&
+                r.ruta === viaje.ruta &&
+                r.estado === "Aceptado"
+            ) {
+                r.estadoViaje = "Recogido";
             }
         });
-
         localStorage.setItem("reservas", JSON.stringify(reservas));
 
         actualizarBotones();
         cargarPasajerosConfirmados();
-        alert("El viaje comenzo, puede modificar el estado de cada pasajero.");
+        alert("El viaje ha comenzado. Puede modificar el estado de cada pasajero.");
     });
 
+    // === Finalizar viaje ===
     btnFinalizar?.addEventListener("click", () => {
         const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
         const pasajerosAceptados = reservas.filter(r =>
-        String(r.idConductor) === String(viaje.idConductor) &&
-        r.fecha === viaje.fecha &&
-        r.hora === viaje.hora &&
-        r.ruta === viaje.ruta &&
-        r.estado === "Aceptado"
+            String(r.idConductor) === String(viaje.idConductor) &&
+            r.fecha === viaje.fecha &&
+            r.hora === viaje.hora &&
+            r.ruta === viaje.ruta &&
+            r.estado === "Aceptado"
         );
 
         if (pasajerosAceptados.length > 0) {
@@ -159,14 +172,28 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // Mover a viajes pasados
+             // Contar pasajeros RECIBIDOS (no solo aceptados)
+        const pasajerosRecogidos = pasajerosAceptados.filter(p => p.estadoViaje === "Recogido").length;
+
+
+        viaje.pasajerosActuales = pasajerosRecogidos;
+
+
         let pasados = JSON.parse(localStorage.getItem("viajesPasados")) || [];
         pasados.push(viaje);
         localStorage.setItem("viajesPasados", JSON.stringify(pasados));
 
-        viajes.splice(index, 1);
-        localStorage.setItem("viajesGuardados", JSON.stringify(viajes));
+        // Eliminar de viajes guardados
+        let viajes = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
+        const index = viajes.findIndex(v => v.id === viaje.id);
+        if (index !== -1) {
+            viajes.splice(index, 1);
+            localStorage.setItem("viajesGuardados", JSON.stringify(viajes));
+        }
+
         localStorage.setItem("actualizarTablaViajes", "true");
+
+        
 
         // Mostrar modal de agradecimiento
         const modalBienvenida = document.getElementById("modalBienvenida");
@@ -178,8 +205,11 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             window.location.href = "viajes_conductor.html";
         }
+
+
     });
 
+    // === Cargar pasajeros confirmados ===
     function cargarPasajerosConfirmados() {
         const tbody = document.getElementById("pasajeros-confirmados");
         const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
@@ -221,19 +251,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 celdaEstado = p.estadoViaje || "—";
             }
 
-            tbody.innerHTML += `
-                <tr>
-                    <td>${p.nombrePasajero}</td>
-                    <td>${p.puntoRecogida}</td>
-                    <td>${p.metodo}</td>
-                    <td>${celdaEstado}</td>
-                    <td>
-                        <button class="table-btn btn-info-pasajero" data-id-pasajero="${p.idPasajero}">
-                            Información
-                        </button>
-                    </td>
-                </tr>
-            `;
+                    tbody.innerHTML += `
+            <tr>
+        <td>${p.nombrePasajero}</td>
+        <td>${p.puntoRecogida}</td>
+        <td>${p.metodo}</td>
+        <td>${p.monto || "—"}</td>  
+        <td>${celdaEstado}</td>
+        <td>
+            <button class="table-btn btn-info-pasajero" data-id-pasajero="${p.idPasajero}">
+                Información
+            </button>
+        </td>
+         </tr>
+        `;
         });
 
         // Listeners para estado (solo en curso)
@@ -253,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // === Listeners para botón "Información" ===
+        // Listeners para botón "Información"
         document.querySelectorAll(".btn-info-pasajero").forEach(btn => {
             btn.addEventListener("click", () => {
                 const idPasajero = btn.dataset.idPasajero;

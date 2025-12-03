@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="../../../../styles.css">
     <link rel="stylesheet" href="../../css/pasajero/encontrar_viajes.css">
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRKX4T1V9D"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DRKX4T1V9D');
+    </script>
 </head>
 <body>
     <!-- Menú lateral -->
@@ -34,12 +41,17 @@
                     <span>Viajes</span>
                 </div>
 
+                <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroHorarioManual.html'">
+                    <img src="../../../../assets/icons/horarios_icon_deactive_sidebar.svg" alt="Horarios">
+                    <span>Horarios</span>
+                </div>
+
                 <div class="nav-item-sidebar" onclick="window.location.href='../../../compensaciones/pages/compensacionesPasajeros.html'">
                     <img src="../../../../assets/icons/compensaciones_icon_deactive_sidebar.svg" alt="Money">
                     <span>Compensaciones y Pagos</span>
                 </div>
 
-                <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroOpciones.html'">
+                <div class="nav-item-sidebar" onclick="window.location.href='../../../configuracion/pages/configuracionPasajeroDatosPersonales.html'">
                     <img src="../../../../assets/icons/configuracion_icon_deactive_sidebar.svg" alt="Settings">
                     <span>Configuración</span>
                 </div>
@@ -56,34 +68,19 @@
     <!-- CONTENIDO PRINCIPAL -->
     <main class="main-content">
     <div class="page-header-informacion">
-            <div class="back-icon" onclick="window.location.href='viajes_usuario.html'">←</div>
+            <div class="back-icon" onclick="window.location.href='viajes_usuario.html'"><img src="../../../../assets/icons/retroceder_icon.svg" alt="Volver"></div>
             <h1 class="page-title">Viajes / Encontrar viajes</h1>
         </div>    
     <!-- PASAJEROS -->
-        <section class="section drivers-card">
+        <section class="section">
             <h3>Viajes de los conductores</h3>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombres</th>
-                        <th>Lugar de recojo</th>
-                        <th>Fecha de inicio</th>
-                        <th>Hora</th>
-                        <th>Reservar</th>
-                        <th>Ver detalles</th>
-                    </tr>
-                </thead>
-
-                <tbody id="pasajeros-confirmados">
-                    <tr>
-                        <td colspan="6" class="empty-table-message">
-                            No hay viajes publicados por el conductor
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
+            
+            <div id="viajes-container" class="cards-grid">
+                <!-- Aquí se inyectan las tarjetas desde JS -->
+                <div class="empty-state-message">
+                    Cargando viajes disponibles...
+                </div>
+            </div>
         </section>
 
 <!-- MODAL DE RESERVA -->
