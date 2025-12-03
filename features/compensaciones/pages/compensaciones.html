@@ -182,6 +182,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
         
+        /* Cambios específicos para los controles de ordenamiento */
         .filters {
             display: flex;
             justify-content: space-between;
@@ -189,6 +190,55 @@
             margin-bottom: 25px;
             flex-wrap: wrap;
             gap: 15px;
+        }
+        
+        .order-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-right: 20px;
+        }
+        
+        .order-label {
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 14px;
+        }
+        
+        .order-buttons {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .order-btn {
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 140px;
+            text-align: left;
+        }
+        
+        .order-btn.active {
+            background: #4F46E5;
+            color: white;
+            border-color: #4F46E5;
+        }
+        
+        .order-btn:hover:not(.active) {
+            border-color: #4F46E5;
+            color: #4F46E5;
+        }
+        
+        .order-separator {
+            color: #a0aec0;
+            font-weight: 500;
         }
         
         .filter-buttons {
@@ -254,9 +304,9 @@
         }
         
         th {
-            background-color: #f8f9fa;
+            background-color: #4F46E5;
             font-weight: 600;
-            color: #2c3e50;
+            color: white;
         }
         
         tr:hover {
@@ -311,6 +361,18 @@
             border: 1px solid #bee5eb;
         }
         
+        .compensation-tropias {
+            background-color: #e9d8fd;
+            color: #44337a;
+            border: 1px solid #d6bcfa;
+        }
+        
+        .compensation-misto {
+            background-color: #fefcbf;
+            color: #744210;
+            border: 1px solid #faf089;
+        }
+        
         @media (max-width: 1024px) {
             .main-content {
                 flex-direction: column;
@@ -355,6 +417,20 @@
             .filters {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+            
+            .order-controls {
+                width: 100%;
+                justify-content: space-between;
+                margin-bottom: 15px;
+            }
+            
+            .order-btn {
+                flex: 1;
+                justify-content: center;
+                font-size: 12px;
+                padding: 8px 10px;
+                min-width: auto;
             }
             
             .filter-buttons {
@@ -409,9 +485,24 @@
         
         .empty-message {
             text-align: center;
-            padding: 20px;
-            color: #7f8c8d;
-            font-style: italic;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .empty-message img {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+        
+        .empty-message p {
+            margin: 0;
+            font-size: 16px;
+        }
+        
+        .empty-message .subtext {
+            font-size: 14px;
+            margin-top: 10px;
+            color: #888;
         }
     </style>
 </head>
@@ -476,16 +567,15 @@
 
         <div class="main-content">
             <div class="table-section">
+                <!-- Controles de ordenamiento actualizados -->
                 <div class="filters">
-                    <div class="filter-buttons">
-                        <button class="filter-btn" id="sort-asc">
-                            <i class="fas fa-sort-amount-up-alt"></i> Ascendente
-                            <span class="sort-indicator">$</span>
-                        </button>
-                        <button class="filter-btn" id="sort-desc">
-                            <i class="fas fa-sort-amount-down"></i> Descendente
-                            <span class="sort-indicator">$</span>
-                        </button>
+                    <div class="order-controls">
+                        <span class="order-label">Ordenar por:</span>
+                        <div class="order-buttons">
+                            <button id="sortAsc" class="order-btn active">1a. Ascendente $</button>
+                            <span class="order-separator">-</span>
+                            <button id="sortDesc" class="order-btn">IF Descendente $</button>
+                        </div>
                     </div>
                     <div class="date-filter">
                         <span>Filtrar por Mes:</span>
@@ -520,62 +610,11 @@
     </div>
 
     <script>
-        // Initialize localStorage data if it doesn't exist
-        function initializeLocalStorage() {
-            // Check and initialize viajesGuardados
-            if (!localStorage.getItem("viajesGuardados")) {
-                localStorage.setItem("viajesGuardados", JSON.stringify([]));
-            }
-            
-            // Check and initialize viajesPasados
-            if (!localStorage.getItem("viajesPasados")) {
-                localStorage.setItem("viajesPasados", JSON.stringify([]));
-            }
-            
-            
-            // Check and initialize actualizarTablaViajes
-            if (!localStorage.getItem("actualizarTablaViajes")) {
-                localStorage.setItem("actualizarTablaViajes", "false");
-            }
-            
-            // Check and initialize compensacionesData
-            if (!localStorage.getItem("compensacionesData")) {
-                // Updated data with requested changes
-                const compensacionesData = [
-                    { date: '08/09/2025', passenger: 'Necker Composi', compensation: 'Pago de combustible', amount: 8.00 },
-                    { date: '10/10/2025', passenger: 'Santa Yin', compensation: 'Pago de combustible', amount: 8.00 },
-                    { date: '30/10/2025', passenger: 'Nadia Fernandez', compensation: 'Pago en soles', amount: 8.00 },
-                    { date: '15/10/2025', passenger: 'Montino Montinos', compensation: 'Pago de combustible', amount: 8.00 }
-                ];
-                localStorage.setItem("compensacionesData", JSON.stringify(compensacionesData));
-            }
-        }
-
-        // Get data from localStorage
-        function getPaymentsData() {
-            try {
-                const data = JSON.parse(localStorage.getItem("compensacionesData"));
-                if (data && data.length > 0) {
-                    return data;
-                }
-            } catch (error) {
-                console.error("Error getting payments data from localStorage:", error);
-            }
-            
-            // Fallback to updated data if localStorage is empty
-            return [
-                { date: '08/09/2025', passenger: 'Necker Composi', compensation: 'Pago de combustible', amount: 8.00 },
-                { date: '10/10/2025', passenger: 'Santa Yin', compensation: 'Pago de combustible', amount: 8.00 },
-                { date: '30/10/2025', passenger: 'Nadia Fernandez', compensation: 'Pago en soles', amount: 8.00 },
-                { date: '15/10/2025', passenger: 'Montino Montinos', compensation: 'Pago de combustible', amount: 8.00 }
-            ];
-        }
-
         // DOM elements
         const tableBody = document.getElementById('table-body');
         const totalAmountElement = document.getElementById('total-amount');
-        const sortAscBtn = document.getElementById('sort-asc');
-        const sortDescBtn = document.getElementById('sort-desc');
+        const sortAscBtn = document.getElementById('sortAsc');
+        const sortDescBtn = document.getElementById('sortDesc');
         const monthFilter = document.getElementById('month-filter');
 
         // Current state
@@ -584,49 +623,246 @@
 
         // Initialize the table when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize localStorage
-            initializeLocalStorage();
-            
-            // Load data from localStorage
-            currentData = getPaymentsData();
-            
-            populateMonthFilter();
-            initializeTable();
-            
-            // Add event listeners
-            sortAscBtn.addEventListener('click', () => applySort('asc'));
-            sortDescBtn.addEventListener('click', () => applySort('desc'));
-            monthFilter.addEventListener('change', filterByMonth);
-            
-            // Add visual feedback for sorting buttons
-            addSortingVisualFeedback();
-            
-            // Check if we need to update the table
-            if (localStorage.getItem("actualizarTablaViajes") === "true") {
-                // Refresh data if needed
-                currentData = getPaymentsData();
-                renderTable(currentData);
-                updateStatistics(currentData);
-                localStorage.removeItem("actualizarTablaViajes");
+            // Obtener usuario activo para el sidebar
+            const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+            if (usuarioActivo) {
+                const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+                const usuario = usuarios.find(u => u.id === usuarioActivo.id_usuario);
+                if (usuario && usuario.datosPersonales) {
+                    document.getElementById("sidebarNombre").textContent = 
+                        usuario.datosPersonales.nombres ? usuario.datosPersonales.nombres.split(" ")[0] : "";
+                }
             }
+            
+            // Cargar compensaciones reales basadas en viajes
+            loadRealCompensations();
+            
+            // Configurar eventos
+            setupSorting();
+            setupMonthFilter();
         });
 
-        // Populate month filter with all months of the year
-        function populateMonthFilter() {
+        // Cargar compensaciones basadas en viajes reales
+        function loadRealCompensations() {
+            const usuarioActivo = JSON.parse(localStorage.getItem("usuario-activo"));
+            if (!usuarioActivo) {
+                showEmptyState();
+                return;
+            }
+            
+            const idConductor = usuarioActivo.id_usuario;
+            const viajesPasados = JSON.parse(localStorage.getItem("viajesPasados")) || [];
+            const viajesGuardados = JSON.parse(localStorage.getItem("viajesGuardados")) || [];
+            const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+            
+            // Filtrar viajes pasados del conductor actual
+            const viajesConductor = viajesPasados.filter(viaje => 
+                viaje.id_conductor === idConductor
+            );
+
+            // Si no hay viajes pasados, mostrar estado vacío
+            if (viajesConductor.length === 0) {
+                showEmptyState();
+                return;
+            }
+
+            // Combinar datos para mostrar en tabla
+            currentData = viajesConductor.map(viaje => {
+                // Buscar información del viaje en viajesGuardados
+                const viajeInfo = viajesGuardados.find(v => v.id === viaje.id_viaje) || {};
+                
+                // Buscar pasajeros
+                let nombresPasajeros = [];
+                if (viaje.pasajeros && Array.isArray(viaje.pasajeros)) {
+                    viaje.pasajeros.forEach(pasajeroId => {
+                        const pasajeroUsuario = usuarios.find(u => u.id === pasajeroId) || {};
+                        const datosPasajero = pasajeroUsuario.datosPersonales || {};
+                        const nombreCompleto = `${datosPasajero.nombres || ""} ${datosPasajero.apellidoPaterno || ""}`.trim();
+                        if (nombreCompleto) {
+                            nombresPasajeros.push(nombreCompleto);
+                        }
+                    });
+                }
+                
+                // Si no hay nombres de pasajeros, usar datos del viaje
+                let pasajeroDisplay = nombresPasajeros.length > 0 
+                    ? nombresPasajeros.join(", ") 
+                    : viaje.pasajero_nombre || "Pasajero no registrado";
+                
+                // Determinar el tipo de pago basado en la ruta u otros factores
+                let tipoPago = determinarTipoPago(viajeInfo.ruta, viaje.fecha);
+                
+                // Calcular monto basado en cantidad de pasajeros
+                const monto = calcularMonto(viaje.pasajeros ? viaje.pasajeros.length : 0);
+                
+                return {
+                    fecha_viaje: viaje.fecha || viajeInfo.fecha || viaje.fecha_salida,
+                    ruta: viajeInfo.ruta || viaje.ruta || "Ruta no especificada",
+                    pasajeros: viaje.pasajeros ? viaje.pasajeros.length : 0,
+                    pasajero: pasajeroDisplay,
+                    compensacion: tipoPago,
+                    monto: monto,
+                    fecha_original: viaje.fecha
+                };
+            });
+
+            // Ordenar por fecha (más reciente primero por defecto)
+            currentData.sort((a, b) => {
+                const dateA = new Date(a.fecha_original || a.fecha_viaje);
+                const dateB = new Date(b.fecha_original || b.fecha_viaje);
+                return dateB - dateA;
+            });
+
+            // Renderizar tabla
+            renderTable(currentData);
+            
+            // Actualizar total
+            updateTotal(currentData);
+        }
+
+        function determinarTipoPago(ruta, fecha) {
+            // Lógica para determinar el tipo de pago basado en la ruta, fecha, etc.
+            if (!ruta) return "Pago en soles";
+            
+            // Convertir a minúsculas para comparación
+            ruta = ruta.toLowerCase();
+            
+            if (ruta.includes("tropias")) {
+                return "Copia con Tropias";
+            } else if (ruta.includes("gestión") || ruta.includes("gestion")) {
+                return "Misto de Gestión";
+            } else if (ruta.includes("universitario") || ruta.includes("universidad")) {
+                return "Pago universitario";
+            } else {
+                return "Pago en soles";
+            }
+        }
+
+        function calcularMonto(numPasajeros) {
+            // Lógica para calcular el monto basado en cantidad de pasajeros
+            const tarifaBase = 8.00; // S/. 8.00 por pasajero
+            return tarifaBase * (numPasajeros || 1);
+        }
+
+        function renderTable(data) {
+            tableBody.innerHTML = '';
+            
+            if (data.length === 0) {
+                showEmptyState();
+                return;
+            }
+            
+            data.forEach(payment => {
+                const row = document.createElement('tr');
+                
+                // Determine the badge class based on compensation type
+                let badgeClass = '';
+                if (payment.compensacion === 'Copia con Tropias') {
+                    badgeClass = 'compensation-badge compensation-tropias';
+                } else if (payment.compensacion === 'Misto de Gestión') {
+                    badgeClass = 'compensation-badge compensation-misto';
+                } else {
+                    badgeClass = 'compensation-badge compensation-cash';
+                }
+                
+                row.innerHTML = `
+                    <td>${formatDate(payment.fecha_viaje)}</td>
+                    <td class="passenger-name">${payment.pasajero || "N/A"}</td>
+                    <td class="compensation-type">
+                        <span class="${badgeClass}">${payment.compensacion}</span>
+                    </td>
+                    <td class="amount">S/. ${parseFloat(payment.monto).toFixed(2)}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function showEmptyState() {
+            tableBody.innerHTML = '';
+            
+            // Crear estado vacío
+            const emptyDiv = document.createElement('div');
+            emptyDiv.className = 'empty-message';
+            emptyDiv.innerHTML = `
+                <img src="../../../assets/imgs/vacio.png" alt="Sin compensaciones">
+                <p>Aún no tienes compensaciones registradas.</p>
+                <p class="subtext">Tus compensaciones aparecerán aquí después de completar viajes.</p>
+            `;
+            
+            // Insertar después de la tabla
+            const tableSection = document.querySelector('.table-section');
+            const table = document.getElementById('payments-table');
+            if (table && tableSection) {
+                table.style.display = 'none';
+                tableSection.appendChild(emptyDiv);
+            }
+            
+            // Actualizar total a 0
+            updateTotal([]);
+        }
+
+        function updateTotal(data) {
+            const total = data.reduce((sum, item) => sum + parseFloat(item.monto || 0), 0);
+            totalAmountElement.textContent = `S/. ${total.toFixed(2)}`;
+        }
+
+        function setupSorting() {
+            if (!sortAscBtn || !sortDescBtn) {
+                console.warn("Botones de ordenamiento no encontrados");
+                return;
+            }
+            
+            // Establecer Ascendente como activo por defecto
+            sortAscBtn.classList.add('active');
+            
+            sortAscBtn.addEventListener('click', function() {
+                sortAscBtn.classList.add('active');
+                sortDescBtn.classList.remove('active');
+                sortCompensations('asc');
+            });
+            
+            sortDescBtn.addEventListener('click', function() {
+                sortDescBtn.classList.add('active');
+                sortAscBtn.classList.remove('active');
+                sortCompensations('desc');
+            });
+        }
+
+        function sortCompensations(order) {
+            if (currentData.length === 0) return;
+            
+            // Crear copia de los datos para ordenar
+            const sortedData = [...currentData];
+            
+            if (order === 'asc') {
+                sortedData.sort((a, b) => a.monto - b.monto);
+                currentSort = 'asc';
+            } else {
+                sortedData.sort((a, b) => b.monto - a.monto);
+                currentSort = 'desc';
+            }
+            
+            renderTable(sortedData);
+        }
+
+        function setupMonthFilter() {
+            if (!monthFilter) return;
+            
+            // Poblar el filtro de meses
             const months = [
                 { value: 'all', name: 'Todos los meses' },
-                { value: '01', name: 'Enero 2025' },
-                { value: '02', name: 'Febrero 2025' },
-                { value: '03', name: 'Marzo 2025' },
-                { value: '04', name: 'Abril 2025' },
-                { value: '05', name: 'Mayo 2025' },
-                { value: '06', name: 'Junio 2025' },
-                { value: '07', name: 'Julio 2025' },
-                { value: '08', name: 'Agosto 2025' },
-                { value: '09', name: 'Septiembre 2025' },
-                { value: '10', name: 'Octubre 2025' },
-                { value: '11', name: 'Noviembre 2025' },
-                { value: '12', name: 'Diciembre 2025' }
+                { value: '01', name: 'Enero' },
+                { value: '02', name: 'Febrero' },
+                { value: '03', name: 'Marzo' },
+                { value: '04', name: 'Abril' },
+                { value: '05', name: 'Mayo' },
+                { value: '06', name: 'Junio' },
+                { value: '07', name: 'Julio' },
+                { value: '08', name: 'Agosto' },
+                { value: '09', name: 'Septiembre' },
+                { value: '10', name: 'Octubre' },
+                { value: '11', name: 'Noviembre' },
+                { value: '12', name: 'Diciembre' }
             ];
             
             monthFilter.innerHTML = '';
@@ -638,177 +874,81 @@
                 monthFilter.appendChild(option);
             });
             
-            // Set current month as default selection
-            const currentMonth = new Date().getMonth() + 1;
-            const currentMonthString = currentMonth.toString().padStart(2, '0');
-            monthFilter.value = currentMonthString;
+            // Establecer "Todos los meses" como seleccionado por defecto
+            monthFilter.value = 'all';
+            
+            // Agregar event listener para filtrar
+            monthFilter.addEventListener('change', filterByMonth);
         }
 
-        // Add visual feedback to show sorting functionality
-        function addSortingVisualFeedback() {
-            const buttons = [sortAscBtn, sortDescBtn];
-            
-            buttons.forEach(button => {
-                // Add pulse animation on page load
-                button.classList.add('pulse');
-                
-                // Add hover effects
-                button.addEventListener('mouseenter', function() {
-                    if (!this.classList.contains('active')) {
-                        this.style.transform = 'translateY(-2px) scale(1.02)';
-                    }
-                });
-                
-                button.addEventListener('mouseleave', function() {
-                    if (!this.classList.contains('active')) {
-                        this.style.transform = 'translateY(0) scale(1)';
-                    }
-                });
-            });
-        }
-
-        // Initialize the table
-        function initializeTable() {
-            renderTable(currentData);
-            updateStatistics(currentData);
-        }
-
-        // Render table with data
-        function renderTable(data) {
-            tableBody.innerHTML = '';
-            
-            if (data.length === 0) {
-                const emptyRow = document.createElement('tr');
-                emptyRow.innerHTML = '<td colspan="4" class="empty-message">No se encontraron pagos</td>';
-                tableBody.appendChild(emptyRow);
-                return;
-            }
-            
-            data.forEach(payment => {
-                const row = document.createElement('tr');
-                
-                // Determine the badge class based on compensation type
-                let badgeClass = '';
-                if (payment.compensation === 'Pago de combustible') {
-                    badgeClass = 'compensation-badge compensation-fuel';
-                } else if (payment.compensation === 'Pago en soles') {
-                    badgeClass = 'compensation-badge compensation-cash';
-                }
-                
-                row.innerHTML = `
-                    <td>${payment.date}</td>
-                    <td class="passenger-name">${payment.passenger}</td>
-                    <td class="compensation-type">
-                        <span class="${badgeClass}">${payment.compensation}</span>
-                    </td>
-                    <td class="amount">S/. ${payment.amount.toFixed(2)}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
-
-        // Update statistics display
-        function updateStatistics(data) {
-            const total = data.reduce((sum, payment) => sum + payment.amount, 0);
-            totalAmountElement.textContent = `S/. ${total.toFixed(2)}`;
-            
-            // Save total to localStorage if needed
-            localStorage.setItem("totalCompensaciones", total.toFixed(2));
-        }
-
-        // Apply sorting based on selected filter
-        function applySort(sortType) {
-            // Remove active class from all buttons
-            [sortAscBtn, sortDescBtn].forEach(btn => {
-                btn.classList.remove('active');
-                btn.classList.remove('pulse');
-                btn.style.transform = 'translateY(0)';
-            });
-            
-            // Apply the selected sort
-            switch(sortType) {
-                case 'asc':
-                    currentData.sort((a, b) => a.amount - b.amount);
-                    sortAscBtn.classList.add('active');
-                    sortAscBtn.style.transform = 'translateY(-1px)';
-                    currentSort = 'asc';
-                    break;
-                case 'desc':
-                    currentData.sort((a, b) => b.amount - a.amount);
-                    sortDescBtn.classList.add('active');
-                    sortDescBtn.style.transform = 'translateY(-1px)';
-                    currentSort = 'desc';
-                    break;
-            }
-            
-            renderTable(currentData);
-            
-            // Add confirmation animation
-            const activeButton = document.querySelector('.filter-btn.active');
-            activeButton.classList.add('success-pulse');
-            setTimeout(() => {
-                activeButton.classList.remove('success-pulse');
-            }, 500);
-        }
-
-        // Filter data by month
         function filterByMonth() {
             const selectedMonth = monthFilter.value;
             
             if (selectedMonth === 'all') {
-                currentData = getPaymentsData();
-            } else {
-                const allData = getPaymentsData();
-                currentData = allData.filter(payment => {
-                    // Extract month from date (format: DD/MM/YYYY)
-                    const month = payment.date.split('/')[1];
-                    return month === selectedMonth;
-                });
+                // Recargar todos los datos
+                loadRealCompensations();
+                return;
             }
             
-            // Reapply current sort if exists
-            if (currentSort === 'asc') {
-                currentData.sort((a, b) => a.amount - b.amount);
-            } else if (currentSort === 'desc') {
-                currentData.sort((a, b) => b.amount - a.amount);
-            }
-            
-            renderTable(currentData);
-            updateStatistics(currentData);
-        }
-
-        // Function to add a new payment/compensation (for future use)
-        function addNewPayment(payment) {
-            try {
-                const currentData = getPaymentsData();
-                currentData.push(payment);
-                localStorage.setItem("compensacionesData", JSON.stringify(currentData));
-                
-                // Update UI
-                renderTable(currentData);
-                updateStatistics(currentData);
-                
-                return true;
-            } catch (error) {
-                console.error("Error adding new payment:", error);
+            // Filtrar datos actuales por mes
+            const filteredData = currentData.filter(payment => {
+                const fecha = formatDate(payment.fecha_viaje);
+                // Extraer mes de la fecha formateada (DD/MM/YYYY)
+                const partes = fecha.split('/');
+                if (partes.length === 3) {
+                    return partes[1] === selectedMonth;
+                }
                 return false;
+            });
+            
+            if (filteredData.length === 0) {
+                tableBody.innerHTML = '';
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = '<td colspan="4" class="empty-message">No hay compensaciones para este mes</td>';
+                tableBody.appendChild(emptyRow);
+                updateTotal([]);
+            } else {
+                renderTable(filteredData);
+                updateTotal(filteredData);
             }
         }
 
-        // Function to get compensation statistics
-        function getCompensationStats() {
-            const data = getPaymentsData();
-            const stats = {
-                totalPagos: data.length,
-                totalSoles: data.filter(p => p.compensation === 'Pago en soles').length,
-                totalCombustible: data.filter(p => p.compensation === 'Pago de combustible').length,
-                totalAmount: data.reduce((sum, p) => sum + p.amount, 0)
-            };
-            return stats;
+        function formatDate(dateString) {
+            if (!dateString) return "N/A";
+            
+            let date;
+            if (typeof dateString === 'string' && dateString.includes('/')) {
+                // Formato DD/MM/YYYY
+                const parts = dateString.split('/');
+                if (parts.length === 3) {
+                    date = new Date(parts[2], parts[1] - 1, parts[0]);
+                }
+            } else if (typeof dateString === 'string' && dateString.includes('-')) {
+                // Formato YYYY-MM-DD
+                date = new Date(dateString);
+            } else {
+                date = new Date(dateString);
+            }
+            
+            if (isNaN(date.getTime())) return dateString;
+            
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            
+            return `${day}/${month}/${year}`;
         }
 
-        // Example: Display compensation statistics in console
-        console.log("Estadísticas de compensaciones:", getCompensationStats());
+        // Función para limpiar datos de ejemplo si existen
+        function limpiarDatosEjemplo() {
+            if (localStorage.getItem("compensacionesData")) {
+                localStorage.removeItem("compensacionesData");
+                console.log("✅ Datos de ejemplo eliminados");
+            }
+        }
+
+        // Limpiar datos de ejemplo al cargar
+        limpiarDatosEjemplo();
     </script>
 </body>
 </html>
